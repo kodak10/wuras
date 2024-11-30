@@ -381,7 +381,7 @@
 
   </form>
 
-  @forelse ($demos as $article) 
+  {{-- @forelse ($demos as $article) 
   <p>Image de couverture</p>
   <img src="{{ asset('storage/' . $article->couverture) }}" alt="Couverture">
 
@@ -396,7 +396,7 @@
   @endif
 @empty
   <p>Rien à afficher</p>
-@endforelse
+@endforelse --}}
 
 
 

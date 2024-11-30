@@ -14,7 +14,7 @@ class WebsiteController extends Controller
         $articles = Article::where('status', 'published')->get();
         $categories = Category::with('articles.tags')->take(11)->get();
         $tags = Tag::get();
-        $article_ordinateurs = Category::with('articles.tags')->where('name', 'Ordinateur') ->get();
+        $article_ordinateurs = Category::with('articles.tags')->where('name', 'Ordinateurs') ->get();
         $article_fournitures = Category::with('articles.tags')->where('name', 'Fourniture de bureau') ->get();
         $article_smartphones = Category::with('articles.tags')->where('name', 'Fourniture de bureau') ->get();
 

@@ -1,6 +1,12 @@
 @extends('frontend.layouts.master')
 
 @section('content')
+
+<style>
+    banner-fixed img{
+        height: 200px !important;;
+    }
+</style>
 <section class="intro-section">
     <div class="swiper-container swiper-theme nav-inner pg-inner swiper-nav-lg animation-slider pg-xxl-hide nav-xxl-show nav-hide"
         data-swiper-options="{
@@ -15,9 +21,9 @@
                 style="background-image: url(assets/images/demos/demo1/sliders/slide-1.jpg); background-color: #ebeef2;">
                 <div class="container">
                     <figure class="slide-image skrollable slide-animate">
-                        <img src="assets/images/demos/demo1/sliders/shoes.png" alt="Banner"
+                        <img src="{{asset('assets/images/slides-bg/1.png')}}" alt="Banner"
                             data-bottom-top="transform: translateY(10vh);"
-                            data-top-bottom="transform: translateY(-10vh);" width="474" height="397">
+                            data-top-bottom="transform: translateY(-10vh);" width="500" height="450">
                     </figure>
                     <div class="banner-content y-50 text-right">
                         <h5 class="banner-subtitle font-weight-normal text-default ls-50 lh-1 mb-2 slide-animate"
@@ -67,7 +73,7 @@
                         'name': 'fadeInUpShorter',
                         'duration': '1s'
                     }">
-                        <img src="assets/images/demos/demo1/sliders/men.png" alt="Banner"
+                        <img src="{{asset('assets/images/slides-bg/2.png')}}" alt="Banner"
                             data-bottom-top="transform: translateX(10vh);"
                             data-top-bottom="transform: translateX(-10vh);" width="480" height="633">
                     </figure>
@@ -118,7 +124,7 @@
                         'name': 'fadeInDownShorter',
                         'duration': '1s'
                     }">
-                        <img src="assets/images/demos/demo1/sliders/skate.png" alt="Banner"
+                        <img src="{{asset('assets/images/slides-bg/3.png')}}" alt="Banner"
                             data-bottom-top="transform: translateY(10vh);"
                             data-top-bottom="transform: translateY(-10vh);" width="310" height="444">
                     </figure>
@@ -169,7 +175,7 @@
                         'name': 'fadeInDownShorter',
                         'duration': '1s'
                     }">
-                        <img src="assets/images/demos/demo1/sliders/skate.png" alt="Banner"
+                        <img src="{{asset('assets/images/slides-bg/4.png')}}" alt="Banner"
                             data-bottom-top="transform: translateY(10vh);"
                             data-top-bottom="transform: translateY(-10vh);" width="310" height="444">
                     </figure>
@@ -214,22 +220,20 @@
 
         
 
-        <div class="row d-flex ">
-            <div class="custom-dots swiper-img-dots appear-animate">
-                <a href="#" class="active">
-                    <img src="assets/images/demos/demo1/slides/dot-1.png" alt="Dot" width="70" height="70" />
-                </a>
-                <a href="#">
-                    <img src="assets/images/demos/demo1/slides/dot-2.png" alt="Dot" width="70" height="70" />
-                </a>
-                <a href="#">
-                    <img src="assets/images/demos/demo1/slides/dot-3.png" alt="Dot" width="70" height="70" />
-                </a>
-                <a href="#">
-                    <img src="assets/images/demos/demo1/slides/dot-1.png" alt="Dot" width="70" height="70" />
-                </a>
-                
-            </div>
+        <div class="custom-dots swiper-img-dots appear-animate">
+            <a href="#" class="active">
+                <img src="{{asset('assets/images/slides-bg/1.png')}}" alt="Dot" width="70" height="70" />
+            </a>
+            <a href="#">
+                <img src="{{asset('assets/images/slides-bg/2.png')}}" alt="Dot" width="70" height="70" />
+            </a>
+            <a href="#">
+                <img src="{{asset('assets/images/slides-bg/3.png')}}" alt="Dot" width="70" height="70" />
+            </a>
+            <a href="#">
+                <img src="{{asset('assets/images/slides-bg/4.png')}}" alt="Dot" width="70" height="70" />
+            </a>
+            
         </div>
 
         <!-- <div class="swiper-pagination"></div>
@@ -247,11 +251,11 @@
         <div class="col-md-6 mb-4">
             <div class="banner banner-fixed br-xs">
                 <figure>
-                    <img src="assets/images/demos/demo1/categories/1-1.jpg" alt="Category Banner"
+                    <img src="{{asset('assets/images/slides-bg/5.jpg')}}" alt="Category Banner"
                         width="610" height="160" style="background-color: #ecedec;" />
                 </figure>
-                <div class="banner-content y-50 mt-0">
-                    <h5 class="banner-subtitle font-weight-normal text-dark">Get up to <span
+                <div class="banner-content y-50 mt-0 text-white">
+                    <h5 class="banner-subtitle font-weight-normal text-white">Get up to <span
                             class="text-secondary font-weight-bolder text-uppercase ls-25">20% Off</span>
                     </h5>
                     <h3 class="banner-title text-uppercase">Sports Outfits<br><span
@@ -266,7 +270,7 @@
         <div class="col-md-6 mb-4">
             <div class="banner banner-fixed br-xs">
                 <figure>
-                    <img src="assets/images/demos/demo1/categories/1-2.jpg" alt="Category Banner"
+                    <img src="{{asset('assets/images/slides-bg/5.jpg')}}" alt="Category Banner"
                         width="610" height="160" style="background-color: #636363;" />
                 </figure>
                 <div class="banner-content y-50 mt-0">
@@ -2616,17 +2620,16 @@
         </div>
         <div class="row">
             <div class="col-lg-3 col-sm-4 mb-4">
-                <div class="banner h-100 br-sm" style="background-image: url(assets/images/demos/demo1/banners/2.jpg); 
+                <div class="banner h-100 br-sm" style="background-image: url({{asset('assets/images/sections-bg/ordinateurs.jpg')}}); 
                     background-color: #ebeced;">
                     <div class="banner-content content-top">
-                        <h5 class="banner-subtitle font-weight-normal mb-2">Weekend Sale</h5>
                         <hr class="banner-divider bg-dark mb-2">
                         <h3 class="banner-title font-weight-bolder ls-25 text-uppercase">
-                            New Arrivals<br> <span
-                                class="font-weight-normal text-capitalize">Collection</span>
+                            Collection <br><span
+                                class="font-weight-normal text-capitalize">Ordinateurs</span>
                         </h3>
                         <a href="shop-banner-sidebar.html"
-                            class="btn btn-dark btn-outline btn-rounded btn-sm">shop Now</a>
+                            class="btn btn-dark btn-outline btn-rounded btn-sm">Commander</a>
                     </div>
                 </div>
             </div>
@@ -2644,8 +2647,9 @@
                         }
                     }
                 }">
+                {{-- @foreach ($article_ordinateurs as $article_ordinateur)
                     <div class="swiper-wrapper row cols-xl-4 cols-lg-3 cols-2">
-                        @foreach ($article_ordinateurs as $article_ordinateur)
+                        
                         <div class="swiper-slide product-col">
                             <div class="product-wrap product text-center">
                                 <figure class="product-media">
@@ -2665,8 +2669,7 @@
                                     </div>
                                 </figure>
                                 <div class="product-details">
-                                    <h4 class="product-name"><a href="#">Men’s
-                                            Clothing</a>
+                                    <h4 class="product-name"><a href="#">{{$article_ordinateur->articles->first()->name}}</a>
                                     </h4>
                                     <div class="ratings-container">
                                         <div class="ratings-full">
@@ -2682,48 +2685,51 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="product-wrap product text-center">
-                                <figure class="product-media">
-                                    <a href="#">
-                                        <img src="assets/images/demos/demo1/products/4-5-1.jpg"
-                                            alt="Product" width="216" height="243" />
-                                        <img src="assets/images/demos/demo1/products/4-5-2.jpg"
-                                            alt="Product" width="216" height="243" />
-                                    </a>
-                                    <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                            title="Ajouter au Panier"></a>
-                                        <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                            title="Add to wishlist"></a>
-                                        <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                            title="Quickview"></a>
-                                        <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                            title="Add to Compare"></a>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <h4 class="product-name"><a href="#">Best Travel
-                                            Bag</a>
-                                    </h4>
-                                    <div class="ratings-container">
-                                        <div class="ratings-full">
-                                            <span class="ratings" style="width: 60%;"></span>
-                                            <span class="tooltiptext tooltip-top"></span>
-                                        </div>
-                                        <a href="#" class="rating-reviews">(3
-                                            reviews)</a>
-                                    </div>
-                                    <div class="product-price">
-                                        <ins class="new-price">$25.68</ins><del
-                                            class="old-price">$28.99</del>
-                                    </div>
-                                </div>
-                            </div>
+                           
                         </div>
-                        @endforeach
+                        
                         
                        
                     </div>
+                    @endforeach --}}
+
+                    @foreach ($article_ordinateurs as $article_ordinateur)
+                        <div class="swiper-wrapper row cols-xl-4 cols-lg-3 cols-2">
+                            @foreach ($article_ordinateur->articles as $article)
+                                <div class="swiper-slide product-col">
+                                    <div class="product-wrap product text-center">
+                                        <figure class="product-media">
+                                            <a href="#">
+                                                <img class="img-fluid" src="{{ asset('storage/' . $article->couverture) }}" alt="Product" width="216" height="243" />
+                                            </a>
+                                            <div class="product-action-vertical">
+                                                <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier"></a>
+                                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart" title="Add to wishlist"></a>
+                                                <a href="#" class="btn-product-icon btn-quickview w-icon-search" title="Quickview"></a>
+                                                <a href="#" class="btn-product-icon btn-compare w-icon-compare" title="Add to Compare"></a>
+                                            </div>
+                                        </figure>
+                                        <div class="product-details">
+                                            <h4 class="product-name">
+                                                <a href="#">{{ $article->name }}</a>
+                                            </h4>
+                                            <div class="ratings-container">
+                                                <div class="ratings-full">
+                                                    <span class="ratings" style="width: 60%;"></span>
+                                                    <span class="tooltiptext tooltip-top"></span>
+                                                </div>
+                                                <a href="#" class="rating-reviews">(3 reviews)</a>
+                                            </div>
+                                            <div class="product-price">
+                                                <ins class="new-price">{{ $article->price }}</ins>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endforeach
+
                     <div class="swiper-pagination"></div>
                 </div>
             </div>

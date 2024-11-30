@@ -1,0 +1,128 @@
+ <div class="main-content">
+                <nav class="toolbox sticky-toolbox sticky-content fix-top">
+                    <div class="toolbox-left">
+                        <a href="#" class="btn btn-primary btn-outline btn-rounded left-sidebar-toggle 
+                            btn-icon-left d-block d-lg-none"><i
+                                class="w-icon-category"></i><span>Filters</span></a>
+                        <div class="toolbox-item toolbox-sort select-box text-dark">
+                            <label>Trier par :</label>
+                            <select name="orderby" class="form-control">
+                                <option value="default" selected="selected">Tri par défaut</option>
+                                <option value="popularity">Trier par popularité</option>
+                                <option value="rating">Trier par note moyenne</option>
+                                <option value="date">Trier par plus récent</option>
+                                <option value="price-low">Trier par prix : du plus bas au plus élevé</option>
+                                <option value="price-high">Trier par prix : du haut au bas</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="toolbox-right">
+                        <div class="toolbox-item toolbox-show select-box">
+                            <select name="count" class="form-control">
+                                <option value="9">Voir 9</option>
+                                <option value="12" selected="selected">Show 12</option>
+                                <option value="24">Show 24</option>
+                                <option value="36">Show 36</option>
+                            </select>
+                        </div>
+                        <div class="toolbox-item toolbox-layout">
+                            <a href="shop-banner-sidebar.html" class="icon-mode-grid btn-layout active">
+                                <i class="w-icon-grid"></i>
+                            </a>
+                            <a href="shop-list.html" class="icon-mode-list btn-layout">
+                                <i class="w-icon-list"></i>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+                <div class="product-wrapper row cols-md-3 cols-sm-2 cols-2">
+                    @forelse ($categories_shops as $categories_shop)
+                        <div class="product-wrap">
+                            <div class="product text-center">
+                                <figure class="product-media">
+                                    <a href="#">
+                                        <img src="{{$categories_shop->couverture}}" alt="Product" width="300" height="338" />
+                                        {{-- <img src="assets/images/shop/1.jpg" alt="Product" width="300" height="338" /> --}}
+
+                                    </a>
+                                    <div class="product-action-horizontal">
+                                        <a href="#" class="btn-product-icon btn-cart w-icon-cart"
+                                            title="Ajouter au Panier"></a>
+                                        <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
+                                            title="Wishlist"></a>
+                                        <a href="#" class="btn-product-icon btn-compare w-icon-compare"
+                                            title="Compare"></a>
+                                        <a href="#" class="btn-product-icon btn-quickview w-icon-search"
+                                            title="Quick View"></a>
+                                    </div>
+                                </figure>
+                                <div class="product-details">
+                                    {{-- <div class="product-cat">
+                                        <a href="shop-banner-sidebar.html">{{$categories_shop->categories->name}}</a>
+                                    </div> --}}
+                                    <div class="product-cat">
+                                        <!-- Affiche le nom de la première catégorie de l'article -->
+                                        @if ($categories_shop->categories->isNotEmpty())
+                                            <a href="shop-banner-sidebar.html">{{ $categories_shop->categories->first()->name }}</a>
+                                        @else
+                                            <p>Pas de catégorie</p>
+                                        @endif
+                                    </div>
+                                    <h3 class="product-name">
+                                        <a href="#">{{$categories_shop->name}}</a>
+                                    </h3>
+                                    <div class="ratings-container">
+                                        <div class="ratings-full">
+                                            <span class="ratings" style="width: 100%;"></span>
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div>
+                                        <a href="#" class="rating-reviews">(3 reviews)</a>
+                                    </div>
+                                    <div class="product-pa-wrapper">
+                                        <div class="product-price">
+                                            $220.00 - $230.00
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        Rien à afficher
+                    @endforelse
+                    
+                  
+                </div>
+
+                {{-- <div class="toolbox toolbox-pagination justify-content-between">
+                    <p class="showing-info mb-2 mb-sm-0">
+                        Showing<span>1-12 of 60</span>Products
+                    </p>
+                    <ul class="pagination">
+                        <li class="prev disabled">
+                            <a href="#" aria-label="Previous" tabindex="-1" aria-disabled="true">
+                                <i class="w-icon-long-arrow-left"></i>Prev
+                            </a>
+                        </li>
+                        <li class="page-item active">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">2</a>
+                        </li>
+                        <li class="next">
+                            <a href="#" aria-label="Next">
+                                Next<i class="w-icon-long-arrow-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div> --}}
+                <div class="toolbox toolbox-pagination justify-content-between">
+                    <p class="showing-info mb-2 mb-sm-0">
+                        Affichage de {{ $categories_shops->firstItem() }} à {{ $categories_shops->lastItem() }} sur {{ $categories_shops->total() }} articles.
+                    </p>
+                    <ul class="pagination">
+                        {{ $categories_shops->links('vendor.pagination.bootstrap-4') }}
+                    </ul>
+                </div>
+                
+            </div>

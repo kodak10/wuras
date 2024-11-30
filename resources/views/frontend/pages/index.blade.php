@@ -214,20 +214,22 @@
 
         
 
-        <div class="custom-dots swiper-img-dots appear-animate">
-            <a href="#" class="active">
-                <img src="assets/images/demos/demo1/slides/dot-1.png" alt="Dot" width="70" height="70" />
-            </a>
-            <a href="#">
-                <img src="assets/images/demos/demo1/slides/dot-2.png" alt="Dot" width="70" height="70" />
-            </a>
-            <a href="#">
-                <img src="assets/images/demos/demo1/slides/dot-3.png" alt="Dot" width="70" height="70" />
-            </a>
-            <a href="#">
-                <img src="assets/images/demos/demo1/slides/dot-1.png" alt="Dot" width="70" height="70" />
-            </a>
-            
+        <div class="row d-flex ">
+            <div class="custom-dots swiper-img-dots appear-animate">
+                <a href="#" class="active">
+                    <img src="assets/images/demos/demo1/slides/dot-1.png" alt="Dot" width="70" height="70" />
+                </a>
+                <a href="#">
+                    <img src="assets/images/demos/demo1/slides/dot-2.png" alt="Dot" width="70" height="70" />
+                </a>
+                <a href="#">
+                    <img src="assets/images/demos/demo1/slides/dot-3.png" alt="Dot" width="70" height="70" />
+                </a>
+                <a href="#">
+                    <img src="assets/images/demos/demo1/slides/dot-1.png" alt="Dot" width="70" height="70" />
+                </a>
+                
+            </div>
         </div>
 
         <!-- <div class="swiper-pagination"></div>

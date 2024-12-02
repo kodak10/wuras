@@ -34,4 +34,22 @@ class WebsiteController extends Controller
         return view('frontend.pages.shop', compact('categories', 'tags', 'categories_shops', 'articles'));
     }
 
+    public function show($slug)
+    {
+    $categories = Category::with('articles.tags')->get();
+
+    $article = Article::with('categories', 'tags', 'images')->where('slug', $slug)->firstOrFail();
+
+    // Vérifiez si des catégories existent
+    if ($article->categories->isEmpty()) {
+        // Vous pouvez gérer cette situation ou afficher un message dans la vue
+        return view('shop.article', compact('article'))->with('message', 'Aucune catégorie associée à cet article.');
+    }
+
+
+        //$article = Article::with('categories.articles.images')->findOrFail($slug); 
+        return view('frontend.pages.articles_details', compact('article', 'categories'));
+    }
+
+
 }

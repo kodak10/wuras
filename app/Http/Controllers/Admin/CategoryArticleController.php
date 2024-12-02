@@ -30,10 +30,11 @@ class CategoryArticleController extends Controller
         // Validation des données
         $validatedData = $request->validate([
             'name_categorie' => 'required|string|max:255|unique:categories,name',
-            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ], [
             'name_categorie.required' => 'Le nom de la catégorie est obligatoire.',
             'name_categorie.unique' => 'Cette catégorie existe déjà.',
+            'thumbnail.required' => 'L\'image de la catégorie est obligatoire.',
             'thumbnail.image' => 'Le fichier doit être une image.',
             'thumbnail.mimes' => 'Seules les extensions JPEG, PNG, et JPG sont autorisées.',
             'thumbnail.max' => 'La taille de l\'image ne doit pas dépasser 2 Mo.',

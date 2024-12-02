@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
             $table->string('tag_name');
-            $table->string('tag_thumbnail')->nullable();
+            $table->string('tag_thumbnail')->default('images/default.jpg'); 
             $table->timestamps();
         });
     }

@@ -7,6 +7,11 @@
         height: 200px !important;;
     }
 </style>
+<style>
+    .header-bottom:not(.fixed) .dropdown-box {
+        visibility:visible ;
+    }
+</style>
 <section class="intro-section">
     <div class="swiper-container swiper-theme nav-inner pg-inner swiper-nav-lg animation-slider pg-xxl-hide nav-xxl-show nav-hide"
         data-swiper-options="{

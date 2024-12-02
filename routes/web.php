@@ -11,6 +11,7 @@ use App\Http\Controllers\WebsiteController;
 
 Route::get('/', [WebsiteController::class, 'index']);
 Route::get('/shop', [WebsiteController::class, 'shop'])->name('shop');
+Route::get('/shop/{slug}', [WebsiteController::class, 'show'])->name('article.show');
 
 Route::get('/admin', function () {
     return view('backend.pages.index');

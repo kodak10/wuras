@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="fr">
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
 
     <meta charset="UTF-8">
@@ -12,7 +12,7 @@
     <meta name="author" content="">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/icons/favicon.png">
+    <link rel="icon" type="image/png" href="{{asset('assets/images/icons/favicon.png')}}">
 
     <!-- WebFont.js -->
     <script>
@@ -21,35 +21,36 @@
         };
         (function (d) {
             var wf = d.createElement('script'), s = d.scripts[0];
-            wf.src = 'assets/js/webfont.js';
+            wf.src = '{{asset('assets/js/webfont.js')}}';
             wf.async = true;
             s.parentNode.insertBefore(wf, s);
         })(document);
     </script>
 
-    <link rel="preload" href="assets/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" as="font" type="font/woff2"
+    <link rel="preload" href="{{asset('assets/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" as="font" type="font/woff2')}}"
         crossorigin="anonymous">
-    <link rel="preload" href="assets/vendor/fontawesome-free/webfonts/fa-solid-900.woff2" as="font" type="font/woff2"
+    <link rel="preload" href="{{asset('assets/vendor/fontawesome-free/webfonts/fa-solid-900.woff2" as="font" type="font/woff2')}}"
         crossorigin="anonymous">
-    <link rel="preload" href="assets/vendor/fontawesome-free/webfonts/fa-brands-400.woff2" as="font" type="font/woff2"
+    <link rel="preload" href="{{asset('assets/vendor/fontawesome-free/webfonts/fa-brands-400.woff2" as="font" type="font/woff2')}}"
         crossorigin="anonymous">
-    <link rel="preload" href="assets/fonts/wolmart87d5.woff?png09e" as="font" type="font/woff" crossorigin="anonymous">
+    <link rel="preload" href="{{asset('assets/fonts/wolmart87d5.woff?png09e" as="font" type="font/woff" crossorigin="anonymous')}}">
 
     <!-- Vendor CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/vendor/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/fontawesome-free/css/all.min.css')}}">
 
     <!-- Plugins CSS -->
-    <!-- <link rel="stylesheet" href="assets/vendor/swiper/swiper-bundle.min.css"> -->
-    <link rel="stylesheet" type="text/css" href="assets/vendor/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/magnific-popup/magnific-popup.min.css">
+    <!-- <link rel="stylesheet" href="asset('assets/vendor/swiper/swiper-bundle.min.css')}}"> -->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/animate/animate.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/magnific-popup/magnific-popup.min.css')}}">
     <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="assets/vendor/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="{{asset('assets/vendor/swiper/swiper-bundle.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/photoswipe/photoswipe.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/photoswipe/default-skin/default-skin.min.css')}}">
 
     <!-- Default CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/css/demo1.min.css">
-    {{-- <link rel="stylesheet" type="text/css" href="assets/css/style.min.css"> --}}
-    {{-- <link rel="stylesheet" type="text/css" href="assets/css/demo9.min.css"> --}}
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/demo1.min.css')}}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.min.css')}}"> --}}
+    {{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/demo9.min.css')}}"> --}}
 
 <style>
     .custom-dots {
@@ -86,20 +87,20 @@
 
     <!-- Start of Sticky Footer -->
     <div class="sticky-footer sticky-content fix-bottom">
-        <a href="demo1.html" class="sticky-link active">
+        <a href="/l" class="sticky-link active">
             <i class="w-icon-home"></i>
-            <p>Home</p>
+            <p>Accueil</p>
         </a>
         <a href="/shop" class="sticky-link">
             <i class="w-icon-category"></i>
             <p>Boutique</p>
         </a>
-        <a href="my-account.html" class="sticky-link">
+        <a href="#" class="sticky-link">
             <i class="w-icon-account"></i>
             <p>Mon Compte</p>
         </a>
         <div class="cart-dropdown dir-up">
-            <a href="cart.html" class="sticky-link">
+            <a href="#" class="sticky-link">
                 <i class="w-icon-cart"></i>
                 <p>Mon Panier</p>
             </a>
@@ -341,21 +342,23 @@
     
 
     <!-- Plugin JS File -->
-    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="assets/vendor/jquery.plugin/jquery.plugin.min.js"></script>
-    <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-    <script src="assets/vendor/zoom/jquery.zoom.js"></script>
-    <script src="assets/vendor/jquery.countdown/jquery.countdown.min.js"></script>
-    <script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script src="assets/vendor/skrollr/skrollr.min.js"></script>
+    <script src="{{asset('assets/vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/jquery.plugin/jquery.plugin.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/imagesloaded/imagesloaded.pkgd.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/zoom/jquery.zoom.js')}}"></script>
+    <script src="{{asset('assets/vendor/jquery.countdown/jquery.countdown.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/magnific-popup/jquery.magnific-popup.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/skrollr/skrollr.min.js')}}"></script>
+    
+    <script src="{{asset('assets/vendor/photoswipe/photoswipe.js')}}"></script>
+    <script src="{{asset('assets/vendor/photoswipe/photoswipe-ui-default.js')}}"></script>
 
     <!-- Swiper JS -->
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="{{asset('assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
 
     <!-- Main JS -->
-    <script src="assets/js/main.min.js"></script>
+    <script src="{{asset('assets/js/main.min.js')}}"></script>
 </body>
 
 
-<!-- Mirrored from portotheme.com/html/wolmart/demo1.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 26 Nov 2024 21:09:16 GMT -->
 </html>

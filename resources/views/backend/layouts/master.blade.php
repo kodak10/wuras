@@ -237,7 +237,7 @@
               <span class="text-dark fw-semibold fs-3">$6830</span>
             </div>
           </div>
-          <a href="main/eco-checkout.html" class="btn btn-outline-primary w-100">Go to shopping cart</a>
+          <a href="#" class="btn btn-outline-primary w-100">Go to shopping cart</a>
         </div>
       </div>
     </div>

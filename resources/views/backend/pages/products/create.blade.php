@@ -50,7 +50,7 @@
                     <div class="mb-4">
                       <label class="form-label">Nom de l'article <span class="text-danger">*</span>
                       </label>
-                      <input type="text" class="form-control @error('name') is-invalid @enderror"  id="validationCustom03" value="{{ old('name', 'Nom de larticle') }}" name="name" id="validationCustom03">
+                      <input type="text" class="form-control @error('name') is-invalid @enderror"  id="validationCustom03" value="{{ old('name') }}" name="name" id="validationCustom03" placeholder="Nom de l'article">
                         @error('name')
                           <div class="invalid-feedback">
                               {{ $message }}

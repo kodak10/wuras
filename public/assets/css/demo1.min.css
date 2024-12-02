@@ -15216,7 +15216,7 @@ aside .sp-sidebar-banner span {
 }
 .header-bottom:not(.fixed) .dropdown-box {
   opacity: 1;
-  visibility: visible;
+  /* visibility: visible; Kodak */
   -webkit-transform: none;
           transform: none;
 }

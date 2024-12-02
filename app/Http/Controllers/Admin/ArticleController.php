@@ -12,6 +12,8 @@ use App\Models\Tag;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 
 class ArticleController extends Controller
 {
@@ -95,6 +97,8 @@ class ArticleController extends Controller
         $article->quantite = $request->input('quantite');
 
         $article->status = $request->input('status');
+
+        $article->slug = Str::slug($article->name, '-');
 
         $article->save();
 

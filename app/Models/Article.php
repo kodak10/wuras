@@ -9,7 +9,7 @@ class Article extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'price', 'quantite', 'status', 'discount_type', 'discount_value', 'couverture'];
+    protected $fillable = ['name','slug', 'description', 'price', 'quantite', 'status', 'discount_type', 'discount_value', 'couverture'];
 
     public function categories()
     {

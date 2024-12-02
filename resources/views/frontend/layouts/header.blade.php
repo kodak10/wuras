@@ -125,13 +125,13 @@
                         </div>
 
                         <div class="cart-total">
-                            <label>Subtotal:</label>
-                            <span class="price">$58.67</span>
+                            <label>Total:</label>
+                            <span class="price">2000 FCFA</span>
                         </div>
 
                         <div class="cart-action">
                             <a href="#" class="btn btn-dark btn-outline btn-rounded">Voir le Panier</a>
-                            <a href="#" class="btn btn-primary  btn-rounded">Checkout</a>
+                            <a href="#" class="btn btn-primary  btn-rounded">Payer</a>
                         </div>
                     </div>
                     <!-- End of Dropdown Box -->
@@ -158,7 +158,7 @@
                                 @foreach ($categories as $categorie)
                                 <li>
                                     <a href="#">
-                                        <i class="w-icon-tshirt2"></i>{{$categorie->name}}
+                                        <i class="fa-solid fa-shirt"></i>{{$categorie->name}}
                                     </a>
                                     <ul class="megamenu">
                                         {{-- Récupérer tous les tags uniques associés aux articles de la catégorie --}}

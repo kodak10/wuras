@@ -39,7 +39,7 @@
                         </a>
                         <div class="widget-body">
                             <p class="widget-about-title">Vous avez des questions ? Appelez-nous 24h/24 et 7j/7</p>
-                            <a href="tel:18005707777" class="widget-about-call">+225 0101010101</a>
+                            <a href="tel:18005707777" class="widget-about-call">+225 0749667007</a>
                             <p class="widget-about-desc">Inscrivez-vous maintenant pour recevoir des mises à jour sur les icônes et les coupons maintenant.
                             </p>
 

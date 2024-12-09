@@ -59,13 +59,17 @@
     margin-top: -3.3rem;
     z-index: 1;
 }
+.grid .banner, .grid .category, .grid .category > a, .grid figure, .grid .banner img, .grid .category img {
+    height: 100%;
+}
+
 </style>
     
 </head>
 
 <body class="home">
     <div class="page-wrapper">
-        <h1 class="d-none">Wolmart - Responsive Marketplace HTML Template</h1>
+        <h1 class="d-none">Wuras - </h1>
         <!-- Start of Header -->
 
         @include('frontend.layouts.header')
@@ -91,9 +95,9 @@
             <i class="w-icon-home"></i>
             <p>Accueil</p>
         </a>
-        <a href="/shop" class="sticky-link">
+        <a href="/magasin" class="sticky-link">
             <i class="w-icon-category"></i>
-            <p>Boutique</p>
+            <p>Magasin</p>
         </a>
         <a href="#" class="sticky-link">
             <i class="w-icon-account"></i>
@@ -196,7 +200,7 @@
 
         <div class="mobile-menu-container scrollable">
             <form action="#" method="get" class="input-wrapper">
-                <input type="text" class="form-control" name="search" autocomplete="off" placeholder="Search"
+                <input type="text" class="form-control" name="search" autocomplete="off" placeholder="Rechercher"
                     required />
                 <button class="btn btn-search" type="submit">
                     <i class="w-icon-search"></i>
@@ -217,7 +221,7 @@
                 <div class="tab-pane active" id="main-menu">
                     <ul class="mobile-menu">
                         <li><a href="/">Accueil</a></li>
-                        <li><a href="/shop">Boutique</a></li>
+                        <li><a href="/magasin">Magasin</a></li>
                         
                        
                         
@@ -319,24 +323,8 @@
     <!-- End of Mobile Menu -->
 
     <!-- Start of Newsletter popup -->
-    <div class="newsletter-popup mfp-hide">
-        <div class="newsletter-content">
-            {{-- <h4 class="text-uppercase font-weight-normal ls-25">Get Up to<span class="text-primary">25% Off</span></h4>
-            <h2 class="ls-25">Sign up to Wolmart</h2>
-            <p class="text-light ls-10">Subscribe to the Wolmart market newsletter to
-                receive updates on special offers.</p>
-            <form action="#" method="get" class="input-wrapper input-wrapper-inline input-wrapper-round">
-                <input type="email" class="form-control email font-size-md" name="email" id="email2"
-                    placeholder="Your email address" required="">
-                <button class="btn btn-dark" type="submit">SUBMIT</button>
-            </form> --}}
-            <div class="form-checkbox d-flex align-items-center">
-                <input type="checkbox" class="custom-checkbox" id="hide-newsletter-popup" name="hide-newsletter-popup"
-                    required="">
-                <label for="hide-newsletter-popup" class="font-size-sm text-light">Ne plus affiché.</label>
-            </div>
-        </div>
-    </div>
+    
+    
     <!-- End of Newsletter popup -->
 
     

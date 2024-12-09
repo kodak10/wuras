@@ -14,12 +14,17 @@ class WebsiteController extends Controller
         $articles = Article::where('status', 'published')->get();
         $categories = Category::with('articles.tags')->take(11)->get();
         $tags = Tag::get();
-        $article_ordinateurs = Category::with('articles.tags')->where('name', 'Ordinateurs') ->get();
-        $article_fournitures = Category::with('articles.tags')->where('name', 'Fourniture de bureau') ->get();
-        $article_smartphones = Category::with('articles.tags')->where('name', 'Fourniture de bureau') ->get();
+        $article_ordinateurs = Category::with('articles.tags')->where('name', 'Ordinateurs')->get();
+        $ecrans = Category::with('articles.tags')->where('name', 'Moniteurs et écrans')->get();
+        $imprimantesEtScanners = Category::with('articles.tags')->where('name', 'Imprimantes et scanners')->get();
+        
 
+        $sourisEtClaviers = Category::with('articles.tags')->where('name', 'Souris et claviers')->get();
+        $disquesDurs = Category::with('articles.tags')->where('name', 'Disques durs et stockage externe')->get();
+        $cablesAdaptateurs = Category::with('articles.tags')->where('name', 'Câbles et adaptateurs')->get();
+        $batteriesChargeurs = Category::with('articles.tags')->where('name', 'Batteries et chargeurs')->get();
 
-        return view('frontend.pages.index', compact('categories', 'articles', 'tags', 'article_ordinateurs', 'article_fournitures', 'article_smartphones'));
+        return view('frontend.pages.index', compact('categories', 'articles', 'tags', 'article_ordinateurs', 'ecrans', 'imprimantesEtScanners', 'sourisEtClaviers', 'disquesDurs', 'cablesAdaptateurs', 'batteriesChargeurs'));
     }
 
     public function shop()

@@ -1179,6 +1179,14 @@ table {
   display: none !important;
 }
 
+/* banner .grid */
+.height-x1 {
+  height: 23.5rem;
+}
+
+.height-x2 {
+  height: 47rem;
+}
 /*----------------------------------------
     Typography
 -----------------------------------------*/
@@ -7641,7 +7649,7 @@ textarea {
   background-position: center;
   background-size: cover;
   border-radius: 1rem;
-  background-image: url(../images/newsletter-1.jpg);
+  /* background-image: url(../images/newsletter.jpg); */
 }
 .newsletter-popup .popup-media {
   margin-bottom: 1.7rem;
@@ -7880,7 +7888,7 @@ body .product-popup {
     max-width: 40rem;
     min-height: 40rem;
     padding: 0rem 2rem;
-    background-image: url(../images/newsletter-2.jpg);
+    background-image: url(../images/newsletter.jpg);
     text-align: center;
     -webkit-box-align: center;
         -ms-flex-align: center;
@@ -12903,7 +12911,7 @@ aside .sp-sidebar-banner span {
   width: 100%;
 }
 .header a:not(.btn) {
-  color: inherit;
+  color: #ffffff;
 }
 .header a:not(.btn):hover {
   color: #336699;
@@ -12948,7 +12956,7 @@ aside .sp-sidebar-banner span {
 }
 
 .header-top {
-  background: #f5f6f8;
+  background: #333;
   font-size: 1.1rem;
   letter-spacing: -0.027em;
   text-transform: capitalize;
@@ -13082,8 +13090,8 @@ aside .sp-sidebar-banner span {
 .header-middle {
   padding-top: 3.2rem;
   padding-bottom: 3.2rem;
-  color: #333;
-  background: #f5f6f8;
+  color: #e3e3e3;
+  background: #333;
   font-size: 1.2rem;
   border-bottom: 1px solid #eee;
 }
@@ -13431,7 +13439,7 @@ aside .sp-sidebar-banner span {
   line-height: 1.7;
 }
 .header-call .chat a {
-  color: #333;
+  color: #e5e5e5;
 }
 .header-call .chat a:hover {
   color: #336699;

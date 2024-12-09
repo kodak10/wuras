@@ -1,4 +1,4 @@
-<footer class="footer appear-animate" data-animation-options="{
+<footer class="footer footer-dark appear-animate" data-animation-options="{
     'name': 'fadeIn'
 }">
     <div class="footer-newsletter bg-primary">

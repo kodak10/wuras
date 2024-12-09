@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="page-content">
+<div class="page-content mt-5">
     <div class="container">
         <div class="row gutter-lg">
             <div class="main-content">
@@ -153,7 +153,7 @@
                                     <span class="tooltiptext tooltip-top"></span>
                                 </div>
                                 <a href="#product-tab-reviews" class="rating-reviews scroll-to">(3
-                                    Commentaires)</a>
+                                    avis)</a>
                             </div>
 
                             <div class="product-short-desc">

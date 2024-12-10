@@ -41,11 +41,14 @@
         .marge-gauche{
             margin-left: 0px !important;
         }
+        .intro-section{
+            margin-top: 0px !important;
+        }
     }
 </style>
 
 
-<section class="intro-section">
+<section class="intro-section mt-5">
     <div class="swiper-container swiper-theme animation-slider" data-swiper-options="{
         'slidesPerView': 1,
         'autoplay': {

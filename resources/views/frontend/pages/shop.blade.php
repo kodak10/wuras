@@ -418,7 +418,7 @@
                                                     <span class="ratings" style="width: 80%;"></span>
                                                     <span class="tooltiptext tooltip-top"></span>
                                                 </div>
-                                                <a href="#" class="rating-reviews">(3 avis)</a>
+                                                <a href="#" class="rating-reviews">(3 Avis)</a>
                                             </div>
 
                                             {{-- <div
@@ -570,7 +570,7 @@
                                             <div class="product-countdown-container flex-wrap">
                                                 <label class="mr-2 text-default">Offer Ends In:</label>
                                                 <div class="product-countdown countdown-compact"
-                                                    data-until="2022, 12, 31" data-compact="true">
+                                                    data-until="2024, 12, 16" data-compact="true">
                                                     629 days, 11: 59: 52</div>
                                             </div>
 
@@ -579,7 +579,7 @@
                                                     <span class="ratings" style="width: 80%;"></span>
                                                     <span class="tooltiptext tooltip-top"></span>
                                                 </div>
-                                                <a href="#" class="rating-reviews">(3 Reviews)</a>
+                                                <a href="#" class="rating-reviews">(3 Avis)</a>
                                             </div>
 
                                             <div

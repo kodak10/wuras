@@ -20,7 +20,7 @@ class WebsiteController extends Controller
         
 
         $sourisEtClaviers = Category::with('articles.tags')->where('name', 'Souris et claviers')->get();
-        $disquesDurs = Category::with('articles.tags')->where('name', 'Disques durs et stockage externe')->get();
+        $disquesDurs = Category::with('articles.tags')->where('name', 'Disques Durs et Stockage')->get();
         $cablesAdaptateurs = Category::with('articles.tags')->where('name', 'Câbles et adaptateurs')->get();
         $batteriesChargeurs = Category::with('articles.tags')->where('name', 'Batteries et chargeurs')->get();
 

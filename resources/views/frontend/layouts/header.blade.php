@@ -30,25 +30,23 @@
                 <a href="/" class="logo ml-lg-0">
                     <img src="{{asset('assets/images/logo.png')}}" alt="logo" width="144" height="45" />
                 </a>
-                <form method="get" action="#"
-                    class="input-wrapper header-search hs-expanded hs-round d-none d-md-flex">
+                <form method="get" action="{{ route('shop') }}" class="input-wrapper header-search hs-expanded hs-round d-none d-md-flex">
                     <div class="select-box">
                         <select id="category" name="category">
                             <option value="">Toutes les catégories</option>
-                            @forelse ( $categories as $categorie)
-                            <option value="{{$categorie->id}}">{{$categorie->name}}</option>
+                            @forelse($categories as $categorie)
+                                <option value="{{ $categorie->id }}" {{ request('category') == $categorie->id ? 'selected' : '' }}>
+                                    {{ $categorie->name }}
+                                </option>
                             @empty
-                                Rien à afficher
+                                <option>Aucune catégorie disponible</option>
                             @endforelse
-                           
-                            
                         </select>
                     </div>
-                    <input type="text" class="form-control" name="search" id="search" placeholder="Tapez ici..."
-                        required />
-                    <button class="btn btn-search" type="submit"><i class="w-icon-search"></i>
-                    </button>
+                    <input type="text" class="form-control" name="search" id="search" placeholder="Tapez ici..." value="{{ request('search') }}" required />
+                    <button class="btn btn-search" type="submit"><i class="w-icon-search"></i></button>
                 </form>
+                
             </div>
             <div class="header-right ml-4">
                 <div class="header-call d-xs-show d-lg-flex align-items-center">

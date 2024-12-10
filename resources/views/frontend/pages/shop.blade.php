@@ -22,92 +22,7 @@
 <!-- Start of Page Content -->
 <div class="page-content">
     <div class="container">
-        <!-- Start of Shop Banner -->
-        {{-- <div class="shop-default-banner banner d-flex align-items-center mb-5 br-xs"
-            style="background-image: url(assets/images/shop/banner3.png); background-color: #FFC74E;">
-            <div class="banner-content" style="
-                min-height: 250px; 
-                display: flex;
-                justify-content: center;
-                align-items: flex-end;
-                margin: 10px auto;">
-                <a href="#products" class="btn btn-dark btn-rounded btn-icon-right">Nos Articles
-                    <i class="w-icon-long-arrow-right"></i></a>
-            </div>
-        </div> --}}
-        <!-- End of Shop Banner -->
-
-        {{-- <div class="shop-default-brands mb-5">
-            <div class="brands-swiper swiper-container swiper-theme "
-                data-swiper-options="{
-                    'slidesPerView': 2,
-                    'breakpoints': {
-                        '576': {
-                            'slidesPerView': 3
-                        },
-                        '768': {
-                            'slidesPerView': 4
-                        },
-                        '992': {
-                            'slidesPerView': 6
-                        },
-                        '1200': {
-                            'slidesPerView': 7
-                        }
-                    },
-                    'autoplay': {
-                        'delay': 4000,
-                        'disableOnInteraction': false
-                    }
-                }">
-                <div class="swiper-wrapper row gutter-no cols-xl-7 cols-lg-6 cols-md-4 cols-sm-3 cols-2">
-                    <div class="swiper-slide">
-                        <figure>
-                            <img src="assets/images/brands/category/1.png" alt="Brand" width="160" height="90" />
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure>
-                            <img src="assets/images/brands/category/2.png" alt="Brand" width="160" height="90" />
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure>
-                            <img src="assets/images/brands/category/3.png" alt="Brand" width="160" height="90" />
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure>
-                            <img src="assets/images/brands/category/4.png" alt="Brand" width="160" height="90" />
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure>
-                            <img src="assets/images/brands/category/5.png" alt="Brand" width="160" height="90" />
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure>
-                            <img src="assets/images/brands/category/6.png" alt="Brand" width="160" height="90" />
-                        </figure>
-                    </div>
-                    <div class="swiper-slide">
-                        <figure>
-                            <img src="assets/images/brands/category/7.png" alt="Brand" width="160" height="90" />
-                        </figure>
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </div> --}}
-
-        <!-- End of Shop Brands-->
-
-        <!-- Start of Shop Category -->
-        
-        <!-- End of Shop Category -->
-
-        <!-- Start of Shop Content -->
+      
         <div class="shop-content row gutter-lg mb-10">
             <!-- Start of Sidebar, Shop Sidebar -->
             <aside class="sidebar shop-sidebar sticky-sidebar-wrapper sidebar-fixed">
@@ -420,19 +335,6 @@
                                                 </div>
                                                 <a href="#" class="rating-reviews">(3 Avis)</a>
                                             </div>
-
-                                            {{-- <div
-                                                class="product-form product-variation-form product-size-swatch mb-3">
-                                                <label class="mb-1">Size:</label>
-                                                <div
-                                                    class="flex-wrap d-flex align-items-center product-variations">
-                                                    <a href="#" class="size">Extra Large</a>
-                                                    <a href="#" class="size">Large</a>
-                                                    <a href="#" class="size">Medium</a>
-                                                    <a href="#" class="size">Small</a>
-                                                </div>
-                                                <a href="#" class="product-variation-clean">Clean All</a>
-                                            </div> --}}
 
                                             <div class="product-variation-price">
                                                 <span></span>

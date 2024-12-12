@@ -15,19 +15,22 @@
           </ol>
         </nav>
         <h2 class="mb-0 fw-bolder fs-8">Ajouter un article</h2>
+
+        
       </div>
-      <div class="col-lg-4 col-md-6 d-none d-md-flex align-items-center justify-content-end">
-        <select class="form-select w-auto bg-primary-subtle border-0" aria-label="Default select example">
-          <option selected="">Today 23 March</option>
-          <option value="1">Today 23 March</option>
-          <option value="2">Today 24 March</option>
-          <option value="3">Today 25 March</option>
-        </select>
-        <a href="javascript:void(0)" class="btn btn-primary d-flex align-items-center ms-2">
-          <i class="ti ti-plus me-1"></i>
-          Add New
-        </a>
-      </div>
+     
+    </div>
+    <div class="row">
+      @if(session('success'))
+        <div class="alert customize-alert alert-dismissible text-primary text-primary alert-light-primary bg-primary-subtle fade show remove-close-icon" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <div class="d-flex align-items-center me-3 me-md-0">
+                <i class="ti ti-info-circle fs-5 me-2 flex-shrink-0 text-primary"></i>
+                {{ session('success') }}
+            </div>
+        </div>
+      @endif
+
     </div>
   </div>
   <!-- start Basic Area Chart -->

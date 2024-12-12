@@ -163,7 +163,7 @@
                                 </ul>
                             </li>
                             <li class="" >
-                                <a href="{{route('admin.articles.create')}}" style="color: #000000 !important">Dashboard | Ajouter des Articles</a>
+                                <a href="{{route('admin.articles.index')}}" style="color: #000000 !important">Dashboard | Ajouter des Articles</a>
                             </li>
 
                         </ul>

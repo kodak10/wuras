@@ -18,11 +18,14 @@ use Illuminate\Support\Str;
 class ArticleController extends Controller
 {
 
-    // public function index()
-    // {
-    //     $products = Article::all();
-    //     return view('product.index', compact('products'));
-    // }
+    public function index()
+    {
+        $articles = Article::with('categories')
+        ->orderBy('created_at', 'desc')  // Trie les articles par la date de création, du plus récent au plus ancien
+        ->get();  // Limite à 10 articles par page
+
+        return view('backend.pages.products.index', compact('articles'));
+    }
 
 
     public function create()
@@ -150,12 +153,93 @@ class ArticleController extends Controller
             return redirect()->back()->with('error', 'Aucune image n\'a été envoyée.');
         }
 
-        return redirect()->route('admin.articles.create')->with('success', 'Article créé avec succès!');
-
+        return redirect()->route('admin.articles.create')
+        ->with('success', 'Article créé avec succès!');
     } catch (\Exception $e) {
         return response()->json(['error' => 'Une erreur est survenue : ' . $e->getMessage()], 500);
     }
 }
+
+public function destroy($id)
+{
+    // Trouver l'article par son ID
+    $article = Article::findOrFail($id);
+
+    // Supprimer l'article
+    $article->delete();
+    
+
+    // Rediriger avec un message de succès
+    return redirect()->route('admin.articles.index')->with('success', 'L\'article a été supprimé avec succès.');
+}
+
+public function edit($id)
+    {
+        // Récupérer l'article à modifier
+        $article = Article::with('categories')->findOrFail($id); // Utilisez 'with' pour charger les catégories associées si nécessaire
+        $categories = Category::all(); // Récupérer toutes les catégories
+
+        // Passer les données à la vue
+        return view('backend.pages.products.edit', compact('article', 'categories'));
+    }
+
+    // Mettre à jour un article
+    public function update(Request $request, $id)
+    {
+        // Validation des données du formulaire
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'discount_type' => 'nullable|string',
+            'discount_value' => 'nullable|numeric',
+            'quantite' => 'required|integer|min:1',
+            'categories' => 'required|array',
+            'categories.*' => 'exists:categories,id', // Validation des catégories
+            'variations' => 'nullable|array',
+            'variations.*.type' => 'nullable|string',
+            'variations.*.value' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validation de l'image
+        ]);
+
+        // Récupérer l'article à modifier
+        $article = Article::findOrFail($id);
+
+        // Mise à jour des données de l'article
+        $article->name = $request->name;
+        $article->description = $request->description;
+        $article->price = $request->price;
+        $article->discount_type = $request->discount_type;
+        $article->discount_value = $request->discount_value;
+        $article->quantite = $request->quantite;
+
+        // Si une nouvelle image est téléchargée
+        if ($request->hasFile('image')) {
+            // Supprimer l'ancienne image si elle existe
+            if ($article->image && Storage::exists($article->image)) {
+                Storage::delete($article->image);
+            }
+            // Télécharger la nouvelle image et enregistrer son chemin
+            $article->image = $request->file('image')->store('images/articles');
+        }
+
+        // Mettre à jour les catégories associées
+        $article->categories()->sync($request->categories);
+
+        // Mettre à jour les variations
+        // Vous pouvez adapter cette partie si les variations sont un modèle distinct
+        if ($request->has('variations')) {
+            foreach ($request->variations as $variation) {
+                // Logique pour mettre à jour ou créer des variations si nécessaire
+            }
+        }
+
+        // Enregistrer l'article mis à jour
+        $article->save();
+
+        // Retourner à la liste des articles avec un message de succès
+        return redirect()->route('admin.articles.index')->with('success', 'Article mis à jour avec succès!');
+    }
 
 
 

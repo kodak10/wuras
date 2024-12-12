@@ -5,8 +5,8 @@
       <!-- ---------------------------------- -->
       <div class="brand-logo d-flex align-items-center justify-content-between">
         <a href="/" class="text-nowrap logo-img">
-          <img src="assets/images/logos/dark-logo.svg" class="dark-logo" alt="Logo-Dark" />
-          <img src="assets/images/logos/light-logo.svg" class="light-logo" alt="Logo-light" />
+          <img src="{{asset('assets/images/logo.png')}}" class="dark-logo" alt="Logo-Dark" style="height: 100px; width:100%"/>
+          <img src="{{asset('assets/images/logo.png')}}" class="light-logo" alt="Logo-light" style="height: 100px; width:100%"/>
         </a>
         <a href="javascript:void(0)" class="sidebartoggler ms-auto text-decoration-none fs-5 d-block d-xl-none">
           <i class="ti ti-x"></i>
@@ -71,7 +71,7 @@
                 </a>
               </li> --}}
               <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="{{route('admin.articles.index')}}" class="sidebar-link">
                   <div class="round-16 d-flex align-items-center justify-content-center">
                     <i class="ti ti-circle"></i>
                   </div>

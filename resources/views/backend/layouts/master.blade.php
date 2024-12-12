@@ -16,8 +16,9 @@
   <!-- Core Css -->
   <link rel="stylesheet" href="{{asset('assets/backend/css/styles.css')}}" />
 
-  <title>Flexy Bootstrap Admin</title>
+  <title>Wuras | Admin Dashboard</title>
   <link rel="stylesheet" type="text/css" href="{{asset('assets/backend/vendor/fontawesome-free/css/all.min.css')}}">
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet">
 
   <!-- Owl Carousel  -->
   <link rel="stylesheet" href="{{asset('assets/backend/libs/owl.carousel/dist/assets/owl.carousel.min.css')}}" />

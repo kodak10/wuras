@@ -7,7 +7,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb align-items-center">
             <li class="breadcrumb-item">
-              <a class="text-muted text-decoration-none" href="index.html">
+              <a class="text-muted text-decoration-none" href="{{route('admin.articles.index')}}">
                 <i class="ti ti-home fs-5"></i>
               </a>
             </li>
@@ -59,12 +59,18 @@
                         <p class="fs-2">Un nom d'article est obligatoire et recommandé pour être unique.</p>
                     </div>
 
-                    <div>
+                    <div class="">
                         <label class="form-label">Description</label>
+                    
+                        <!-- Éditeur Quill -->
                         <div id="editor" name="description"></div>
+                    
+                        <!-- Champ caché qui contient la description pour soumettre avec le formulaire -->
                         <input type="hidden" name="description" id="description-field" value="{{ old('description', $article->description) }}">
+                    
                         <p class="fs-2 mb-0">Définissez une description de l'article pour une meilleure visibilité.</p>
                     </div>
+                    
                 </div>
             </div>
 
@@ -156,7 +162,7 @@
             <div class="card">
                 <div class="card-body">
                     <label class="form-label mb-2">Quantité (stock)</label>
-                    <input type="number" class="form-control @error('quantite') is-invalid @enderror" name="quantite" value="{{ old('quantite', $article->quantite) }}" min="1" max="100" step="1" required>
+                    <input type="number" class="form-control @error('quantite') is-invalid @enderror" name="quantite" value="{{ old('quantite', floor($article->quantite)) }}" min="1" max="100" step="1" required>
                 </div>
             </div>
         </div>
@@ -182,158 +188,141 @@
                         <p class="fs-2 mb-0">Ajouter l'article à une catégorie.</p>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100" id="addArticle">Mettre à jour l'article</button>
+
+                    <div class="mt-7">
+                        <label class="form-label">Tags</label>
+                        <select class="select2 form-control @error('tags') is-invalid @enderror" multiple="multiple" name="tags[]">
+                            @foreach ($tags as $tag)
+                                <option value="{{ $tag->id }}" 
+                                    @if(in_array($tag->id, old('tags', $article->tags->pluck('id')->toArray())))
+                                        selected
+                                    @endif
+                                >
+                                    {{ $tag->tag_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    
+                        @error('tags')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    
+                        <p class="fs-2 mb-0 mb-3">
+                            Ajouter des mots clés à l'article.
+                        </p>
+                    </div>
+                    
                 </div>
             </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <label class="form-label">Status</label>
+            
+                        <!-- Afficher une indication de l'état actuel de l'article -->
+                        <div class="p-2 h-100 
+                            @if ($article->status == 'published') bg-success
+                            @elseif ($article->status == 'draft') bg-warning
+                            @elseif ($article->status == 'inactive') bg-secondary
+                            @endif
+                            rounded-circle">
+                        </div>
+                    </div>
+            
+                    <div>
+                        <!-- Sélectionner le statut de l'article -->
+                        <select class="form-select mr-sm-2 mb-2" id="inlineFormCustomSelect" name="status">
+                            <option value="published" @selected($article->status == 'published')>Publié</option>
+                            <option value="draft" @selected($article->status == 'draft')>Brouillon</option>
+                            <option value="inactive" @selected($article->status == 'inactive')>Inactif</option>
+                        </select>
+                        <p class="fs-2 mb-0">
+                            Définissez l'état de l'article.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <label class="form-label mb-2">Vignette</label>
+            
+                    <input type="file" name="couverture" id="couverture" class="dropzone dz-clickable mb-2 w-100" >
+                    <!-- Afficher l'image de couverture existante, si elle existe -->
+                    @if($article->couverture)
+                        <div class="mt-2">
+                            <img src="{{ asset('storage/' . $article->couverture) }}" alt="Couverture" class="img-fluid" style="max-height: 100px; border-radius:20%">
+                        </div>
+                    @endif
+                    <p class="fs-2 text-center mb-0 mt-2">
+                        Remplacez l’image de couverture de l'article. Uniquement les fichiers image d'extensions *.png, *.jpg et *.jpeg sont acceptés.
+                    </p>
+                </div>
+            </div>
+            
+            
+           
+            
+            <div class="card">
+                <div class="card-body">
+                    <label class="form-label mb-2">Images</label>
+                    <input type="file" name="images[]" id="images" class="dropzone dz-clickable mb-2 w-100" multiple>
+                    <p class="fs-2 text-center mb-0 mt-2">
+                        Importez les images de l'article. Uniquement les fichiers image d'extensions *.png, *.jpg et *.jpeg sont acceptés.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Afficher les images existantes -->
+            @if($images->isNotEmpty())
+    <div class="card mt-4">
+        <div class="card-body">
+            <label class="form-label mb-2">Images existantes</label>
+            <div class="row">
+                @foreach($images as $image)
+                    <div class="col-md-4 mb-3">
+                        <div class="image-container" style="position: relative; display: inline-block;">
+
+                            <!-- Image -->
+                            <img src="{{ asset($image->image_path) }}" class="img-fluid custom-image" alt="Image" style="width: 100px; height: 100px; object-fit: cover;">
+
+                            <!-- Icône de suppression avec formulaire -->
+                            <form action="{{ route('admin.image.delete', ['article' => $article->id, 'id' => $image->id]) }}" method="POST" style="position: absolute; top: 0; left: 0; background-color: transparent; border: none; cursor: pointer;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="delete-btn" style="background-color: transparent; border: none; cursor: pointer;">
+                                    <i class="fas fa-trash-alt" style="color: red; font-size: 18px;"></i>
+                                </button>
+                            </form>
+                            
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
+    </div>
+@else
+    <div class="card mt-4">
+        <div class="card-body">
+            <p>Aucune image disponible pour cet article.</p>
+        </div>
+    </div>
+@endif
+
+            
+            
+
+        </div>
+        <button type="submit" class="btn btn-primary w-100" id="addArticle">Mettre à jour l'article</button>
+
     </div>
 </form>
 
 
-  {{-- @forelse ($demos as $article) 
-  <p>Image de couverture</p>
-  <img src="{{ asset('storage/' . $article->couverture) }}" alt="Couverture">
 
-  @if ($article->images && $article->images->isNotEmpty()) 
-      <p>Images de l'article</p>
-
-      @foreach ($article->images as $image) 
-          <img src="{{ asset('storage/' . $image->image_path) }}" alt="Image de l'article">
-      @endforeach
-  @else
-      <p>Aucune image disponible pour cet article.</p>
-  @endif
-@empty
-  <p>Rien à afficher</p>
-@endforelse --}}
-
-
-
-
-
-<!-- Modal création des categories d'article -->
-<div class="modal fade" id="modalAddCategorie" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg">
-    <div class="modal-content">
-      <div class="modal-header d-flex align-items-center">
-        <h4 class="modal-title" id="myLargeModalLabel">
-          Ajout de catégorie d'article
-        </h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="card">
-          
-          <div class="card-body">
-          
-
-          <form method="POST" action="{{ route('admin.categories.store') }}" enctype="multipart/form-data">
-              @csrf
-              <div class="row">
-                  <div class="col-md-6 mb-3">
-                      <label class="form-label" for="categoryName">Nom de la catégorie</label>
-                      <input type="text" 
-                             class="form-control @error('name_categorie') is-invalid @enderror" 
-                             id="categoryName" 
-                             name="name_categorie" 
-                             placeholder="Nom de la catégorie" 
-                             value="{{ old('name_categorie') }}" 
-                             required>
-                      @error('name_categorie')
-                          <div class="invalid-feedback">{{ $message }}</div>
-                      @enderror
-                  </div>
-
-                   <div class="col-md-6 mb-3">
-                  
-                  <input type="file" name="thumbnail" id="thumbnail" class="dropzone dz-clickable mb-2 w-100">
-                  <p class="fs-2 text-center mb-0">
-                    Définissez la couverture de la catégorie. Uniquement les fichiers image d'extensions *.png, *.jpg et *.jpeg sont acceptés.
-                  </p>
-                </div>
-          
-                  
-              </div>
-          
-              <button class="btn btn-primary mt-3" type="submit">Enregistrer</button>
-          </form>
-          
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn bg-danger-subtle text-danger  waves-effect text-start" data-bs-dismiss="modal">
-          Fermer
-        </button>
-      </div>
-    </div>
-  </div>
-
-  
-  
-</div>
-
-
-<!-- Modal création des tags d'article -->
-<div class="modal fade" id="modalAddTag" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg">
-    <div class="modal-content">
-      <div class="modal-header d-flex align-items-center">
-        <h4 class="modal-title" id="myLargeModalLabel">
-          Ajout de Tag d'article
-        </h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="card">
-          
-          <div class="card-body">
-          
-
-            <form method="POST" action="{{ route('admin.tags.store') }}" enctype="multipart/form-data">
-              @csrf
-              <div class="row">
-                  <div class="col-md-6 mb-3">
-                      <label class="form-label" for="tag_name">Nom du tag</label>
-                      <input type="text" 
-                             class="form-control @error('tag_name') is-invalid @enderror" 
-                             id="tag_name" 
-                             name="tag_name" 
-                             placeholder="Nom du tag" 
-                             value="{{ old('tag_name') }}" 
-                             required>
-                      @error('tag_name')
-                          <div class="invalid-feedback">{{ $message }}</div>
-                      @enderror
-                  </div>
-
-                  <div class="col-md-6 mb-3">
-                  
-                    <input type="file" name="tag_thumbnail" id="tag_thumbnail" class="dropzone dz-clickable mb-2 w-100">
-                    <p class="fs-2 text-center mb-0">
-                      Définissez la couverture de la catégorie. Uniquement les fichiers image d'extensions *.png, *.jpg et *.jpeg sont acceptés.
-                    </p>
-                  </div>
-
-              </div>
-          
-              <button class="btn btn-primary mt-3" type="submit">Enregistrer</button>
-          </form>
-          
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn bg-danger-subtle text-danger  waves-effect text-start" data-bs-dismiss="modal">
-          Fermer
-        </button>
-      </div>
-    </div>
-  </div>
-
-  
-  
-</div>
 
   @push('styles')
   <link rel="stylesheet" href="{{asset('assets/backend/libs/quill/dist/quill.snow.css')}}">
@@ -354,6 +343,7 @@
 <script src="{{asset('assets/backend/libs/jquery.repeater/jquery.repeater.min.js')}}"></script>
 <script src="{{asset('assets/backend/libs/jquery-validation/dist/jquery.validate.min.js')}}"></script>
 <script src="{{asset('assets/backend/js/forms/repeater-init.js')}}"></script>
+
 
 <script>
 
@@ -400,7 +390,7 @@
   });
 </script>
 
-<script>
+{{-- <script>
  
 
 
@@ -421,13 +411,36 @@
 //   }
 // });
 
+// Récupérer la description de l'article (si elle existe) et la remplir dans Quill
+var description = "{{ old('description', $article->description) }}";
+    quill.root.innerHTML = description;
+
 // Capture le contenu de Quill dans le champ caché lors de la soumission du formulaire
 document.querySelector('form').addEventListener('submit', function(e) {
     const description = quill.root.innerHTML; // Récupérer le contenu HTML de Quill
     document.getElementById('description-field').value = description; // Mettre le contenu dans le champ caché
 });
 
+</script> --}}
+
+<script>
+    // Initialisation de Quill après le chargement de la page
+    // var quill = new Quill('#editor', {
+    //     theme: 'snow',
+    //     placeholder: 'Écrivez la description de l\'article ici...',
+    // });
+
+    // Récupérer la description de l'article (si elle existe) et la remplir dans Quill
+    var description = {!! json_encode(old('description', $article->description)) !!};
+    quill.root.innerHTML = description;
+
+    // Capture le contenu de Quill dans le champ caché lors de la soumission du formulaire
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const description = quill.root.innerHTML; // Récupérer le contenu HTML de Quill
+        document.getElementById('description-field').value = description; // Mettre le contenu dans le champ caché
+    });
 </script>
+
 @endpush
 
 @endsection

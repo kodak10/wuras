@@ -22,5 +22,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('categories/store', [CategoryArticleController::class, 'store'])->name('categories.store');
     Route::post('tags', [TagController::class, 'store'])->name('tags.store');
     Route::resource('banners', BannerController::class);
+
+    Route::delete('articles/{article}/image/{id}', [ArticleController::class, 'destroyImage'])->name('image.delete');
+
+
 });
 

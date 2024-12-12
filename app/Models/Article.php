@@ -28,7 +28,7 @@ class Article extends Model
     
     public function images()
     {
-        return $this->hasMany(ProductImage::class, 'article_id');
+        return $this->hasMany(ProductImage::class, 'id', 'article_id');
     }
 
 

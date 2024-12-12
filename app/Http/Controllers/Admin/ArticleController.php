@@ -176,11 +176,14 @@ public function destroy($id)
 public function edit($id)
     {
         // Récupérer l'article à modifier
-        $article = Article::with('categories')->findOrFail($id); // Utilisez 'with' pour charger les catégories associées si nécessaire
+        $article = Article::with('categories','tags', 'images')->findOrFail($id); // Utilisez 'with' pour charger les catégories associées si nécessaire
         $categories = Category::all(); // Récupérer toutes les catégories
+        $tags = Tag::all(); // Récupérer tous les tags disponibles
+
+        $images = ProductImage::where('article_id', $id)->get();
 
         // Passer les données à la vue
-        return view('backend.pages.products.edit', compact('article', 'categories'));
+        return view('backend.pages.products.edit', compact('article', 'categories', 'tags', 'images'));
     }
 
     // Mettre à jour un article
@@ -191,14 +194,14 @@ public function edit($id)
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric',
+            'status' => 'required|in:published,draft,inactive', 
             'discount_type' => 'nullable|string',
             'discount_value' => 'nullable|numeric',
             'quantite' => 'required|integer|min:1',
             'categories' => 'required|array',
             'categories.*' => 'exists:categories,id', // Validation des catégories
-            'variations' => 'nullable|array',
-            'variations.*.type' => 'nullable|string',
-            'variations.*.value' => 'nullable|string',
+            'tags' => 'nullable|array',
+            'tags.*' => 'exists:tags,id', // Validation des tags
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validation de l'image
         ]);
 
@@ -212,27 +215,49 @@ public function edit($id)
         $article->discount_type = $request->discount_type;
         $article->discount_value = $request->discount_value;
         $article->quantite = $request->quantite;
+        $article->status = $request->status;
 
         // Si une nouvelle image est téléchargée
-        if ($request->hasFile('image')) {
-            // Supprimer l'ancienne image si elle existe
-            if ($article->image && Storage::exists($article->image)) {
-                Storage::delete($article->image);
+        if ($request->hasFile('couverture')) {
+            // Vérifiez si une image de couverture existe déjà et la supprimer si nécessaire
+            if ($article->couverture && Storage::exists('public/' . $article->couverture)) {
+                Storage::delete('public/' . $article->couverture);
             }
+        
+            // Générer un nom unique pour la nouvelle image de couverture
+            $imageName = uniqid() . '.' . $request->file('couverture')->getClientOriginalExtension();
+        
             // Télécharger la nouvelle image et enregistrer son chemin
-            $article->image = $request->file('image')->store('images/articles');
+            $imagePath = $request->file('couverture')->storeAs('images/articles', $imageName, 'public');
+        
+            // Mettre à jour l'attribut de l'article avec le nouveau chemin
+            $article->couverture = 'images/articles/' . $imageName;
         }
+
+        // Gestion des autres images supplémentaires
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                // Générer un nom unique pour chaque image
+                $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
+                // Stocker l'image
+                $imagePath = $image->storeAs('images/articles', $imageName, 'public');
+                
+                // Enregistrer l'image dans la table pivot 'product_image'
+                DB::table('product_image')->insert([
+                    'article_id' => $article->id,
+                    'image_path' => 'storage/images/articles/' . $imageName,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
+        
 
         // Mettre à jour les catégories associées
         $article->categories()->sync($request->categories);
 
-        // Mettre à jour les variations
-        // Vous pouvez adapter cette partie si les variations sont un modèle distinct
-        if ($request->has('variations')) {
-            foreach ($request->variations as $variation) {
-                // Logique pour mettre à jour ou créer des variations si nécessaire
-            }
-        }
+        // Mettre à jour les tags associés
+        $article->tags()->sync($request->tags); // Synchroniser les tags
 
         // Enregistrer l'article mis à jour
         $article->save();
@@ -241,6 +266,23 @@ public function edit($id)
         return redirect()->route('admin.articles.index')->with('success', 'Article mis à jour avec succès!');
     }
 
+    public function destroyImage($articleId, $id)
+    {
+        // Trouver l'image par son ID
+        $image = ProductImage::findOrFail($id);
+    
+        // Supprimer l'image du stockage
+        if (file_exists(public_path($image->image_path))) {
+            unlink(public_path($image->image_path)); // Supprimer l'image du répertoire
+        }
+    
+        // Supprimer l'image de la base de données
+        $image->delete();
+    
+        // Rediriger vers la page précédente avec un message de succès
+        return back()->with('success', 'Image supprimée avec succès.');
+    }
+    
 
 
  

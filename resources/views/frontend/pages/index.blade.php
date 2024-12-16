@@ -839,32 +839,32 @@
                                                     <div class="swiper-wrapper row cols-1 gutter-no">
                                                         <div class="swiper-slide">
                                                             <figure class="product-image">
-                                                                <img src="assets/images/demos/demo1/products/2-1-600x675.jpg"
-                                                                    data-zoom-image="assets/images/demos/demo1/products/2-1-800x900.jpg"
+                                                                <img src="{{asset('assets/images/default.jpg')}}"
+                                                                    data-zoom-image="{{asset('assets/images/default.jpg')}}"
                                                                     alt="Product Image" width="800"
                                                                     height="900">
                                                             </figure>
                                                         </div>
                                                         <div class="swiper-slide">
                                                             <figure class="product-image">
-                                                                <img src="assets/images/demos/demo1/products/2-2-600x675.jpg"
-                                                                    data-zoom-image="assets/images/demos/demo1/products/2-2-800x900.jpg"
+                                                                <img src="{{asset('assets/images/default.jpg')}}"
+                                                                    data-zoom-image="{{asset('assets/images/default.jpg')}}"
                                                                     alt="Product Image" width="800"
                                                                     height="900">
                                                             </figure>
                                                         </div>
                                                         <div class="swiper-slide">
                                                             <figure class="product-image">
-                                                                <img src="assets/images/demos/demo1/products/2-3-600x675.jpg"
-                                                                    data-zoom-image="assets/images/demos/demo1/products/2-3-800x900.jpg"
+                                                                <img src="{{asset('assets/images/default.jpg')}}"
+                                                                    data-zoom-image="{{asset('assets/images/default.jpg')}}"
                                                                     alt="Product Image" width="800"
                                                                     height="900">
                                                             </figure>
                                                         </div>
                                                         <div class="swiper-slide">
                                                             <figure class="product-image">
-                                                                <img src="assets/images/demos/demo1/products/2-4-600x675.jpg"
-                                                                    data-zoom-image="assets/images/demos/demo1/products/2-4-800x900.jpg"
+                                                                <img src="{{asset('assets/images/default.jpg')}}"
+                                                                    data-zoom-image="{{asset('assets/images/default.jpg')}}"
                                                                     alt="Product Image" width="800"
                                                                     height="900">
                                                             </figure>
@@ -889,19 +889,19 @@
                                                     <div
                                                         class="product-thumbs swiper-wrapper row cols-lg-1 cols-4 gutter-sm">
                                                         <div class="product-thumb swiper-slide">
-                                                            <img src="assets/images/demos/demo1/products/2-1-600x675.jpg"
+                                                            <img src="{{asset('assets/images/default.jpg')}}"
                                                                 alt="Product thumb" width="60" height="68" />
                                                         </div>
                                                         <div class="product-thumb swiper-slide">
-                                                            <img src="assets/images/demos/demo1/products/2-2-600x675.jpg"
+                                                            <img src="{{asset('assets/images/default.jpg')}}"
                                                                 alt="Product thumb" width="60" height="68" />
                                                         </div>
                                                         <div class="product-thumb swiper-slide">
-                                                            <img src="assets/images/demos/demo1/products/2-3-600x675.jpg"
+                                                            <img src="{{asset('assets/images/default.jpg')}}"
                                                                 alt="Product thumb" width="60" height="68" />
                                                         </div>
                                                         <div class="product-thumb swiper-slide">
-                                                            <img src="assets/images/demos/demo1/products/2-4-600x675.jpg"
+                                                            <img src="{{asset('assets/images/default.jpg')}}"
                                                                 alt="Product thumb" width="60" height="68" />
                                                         </div>
                                                     </div>

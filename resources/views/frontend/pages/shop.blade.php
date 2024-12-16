@@ -156,7 +156,7 @@
                                     </a>
                                     <div class="product-action-horizontal">
                                         <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                            title="Ajouter au Panier"></a>
+                                            title="Ajouter au Panier" data-product-id="{{ $categories_shop->id }}"></a>
                                         <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                                             title="Mes Souhaits"></a>
                                         <a href="#" class="btn-product-icon btn-compare w-icon-compare"
@@ -388,32 +388,32 @@
                                                 <div class="swiper-wrapper row cols-1 gutter-no">
                                                     <div class="swiper-slide">
                                                         <figure class="product-image">
-                                                            <img src="assets/images/demos/demo1/products/2-1-600x675.jpg"
-                                                                data-zoom-image="assets/images/demos/demo1/products/2-1-800x900.jpg"
+                                                            <img src="{{asset('assets/images/default.jpg')}}"
+                                                                data-zoom-image="{{asset('assets/images/default.jpg')}}"
                                                                 alt="Product Image" width="800"
                                                                 height="900">
                                                         </figure>
                                                     </div>
                                                     <div class="swiper-slide">
                                                         <figure class="product-image">
-                                                            <img src="assets/images/demos/demo1/products/2-2-600x675.jpg"
-                                                                data-zoom-image="assets/images/demos/demo1/products/2-2-800x900.jpg"
+                                                            <img src="{{asset('assets/images/default.jpg')}}"
+                                                                data-zoom-image="{{asset('assets/images/default.jpg')}}"
                                                                 alt="Product Image" width="800"
                                                                 height="900">
                                                         </figure>
                                                     </div>
                                                     <div class="swiper-slide">
                                                         <figure class="product-image">
-                                                            <img src="assets/images/demos/demo1/products/2-3-600x675.jpg"
-                                                                data-zoom-image="assets/images/demos/demo1/products/2-3-800x900.jpg"
+                                                            <img src="{{asset('assets/images/default.jpg')}}"
+                                                                data-zoom-image="{{asset('assets/images/default.jpg')}}"
                                                                 alt="Product Image" width="800"
                                                                 height="900">
                                                         </figure>
                                                     </div>
                                                     <div class="swiper-slide">
                                                         <figure class="product-image">
-                                                            <img src="assets/images/demos/demo1/products/2-4-600x675.jpg"
-                                                                data-zoom-image="assets/images/demos/demo1/products/2-4-800x900.jpg"
+                                                            <img src="{{asset('assets/images/default.jpg')}}"
+                                                                data-zoom-image="{{asset('assets/images/default.jpg')}}"
                                                                 alt="Product Image" width="800"
                                                                 height="900">
                                                         </figure>
@@ -438,19 +438,19 @@
                                                 <div
                                                     class="product-thumbs swiper-wrapper row cols-lg-1 cols-4 gutter-sm">
                                                     <div class="product-thumb swiper-slide">
-                                                        <img src="assets/images/demos/demo1/products/2-1-600x675.jpg"
+                                                        <img src="{{asset('assets/images/default.jpg')}}"
                                                             alt="Product thumb" width="60" height="68" />
                                                     </div>
                                                     <div class="product-thumb swiper-slide">
-                                                        <img src="assets/images/demos/demo1/products/2-2-600x675.jpg"
+                                                        <img src="{{asset('assets/images/default.jpg')}}"
                                                             alt="Product thumb" width="60" height="68" />
                                                     </div>
                                                     <div class="product-thumb swiper-slide">
-                                                        <img src="assets/images/demos/demo1/products/2-3-600x675.jpg"
+                                                        <img src="{{asset('assets/images/default.jpg')}}"
                                                             alt="Product thumb" width="60" height="68" />
                                                     </div>
                                                     <div class="product-thumb swiper-slide">
-                                                        <img src="assets/images/demos/demo1/products/2-4-600x675.jpg"
+                                                        <img src="{{asset('assets/images/default.jpg')}}"
                                                             alt="Product thumb" width="60" height="68" />
                                                     </div>
                                                 </div>
@@ -789,5 +789,54 @@
     </div>
 </div>
 
-<!-- End of Vue rapide -->
+
+
 @endsection
+
+@push('scripts') 
+<script>
+    $(document).ready(function() {
+        // Quand l'utilisateur clique sur un bouton "Ajouter au Panier"
+        $('.btn-cart').on('click', function(e) {
+            e.preventDefault(); // Empêcher le comportement par défaut du lien
+            
+            // Récupérer l'ID du produit à partir de l'attribut 'data-product-id'
+            var productId = $(this).data('product-id');
+
+            // Vérifier si l'ID du produit est valide
+            if (!productId) {
+                alert('Produit non trouvé.');
+                return;
+            }
+
+            // Faire une requête AJAX pour ajouter le produit au panier
+            $.ajax({
+                url: '{{ route('addToCart') }}', // Route pour ajouter au panier
+                method: 'POST', // Méthode POST
+                data: {
+                    _token: '{{ csrf_token() }}', // Token CSRF pour la sécurité
+                    product_id: productId // L'ID du produit à ajouter
+                },
+                success: function(response) {
+                    // Afficher un message de succès si l'ajout a réussi
+                    alert('Produit ajouté au panier !');
+                    // Vous pouvez aussi mettre à jour l'interface ici, comme le compteur du panier
+                },
+                error: function(xhr, status, error) {
+                    // Si une erreur se produit, afficher l'erreur détaillée
+                    var errorMessage = 'Une erreur s\'est produite. Veuillez réessayer.';
+
+                    // Vérifier si une réponse JSON est retournée et si elle contient une erreur
+                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                        errorMessage = xhr.responseJSON.error; // Utiliser l'erreur spécifique du serveur
+                    }
+
+                    // Afficher l'erreur
+                    alert(errorMessage);
+                }
+            });
+        });
+    });
+</script>
+
+@endpush

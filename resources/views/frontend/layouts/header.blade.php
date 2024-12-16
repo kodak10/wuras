@@ -13,10 +13,36 @@
               
                 <span class="divider d-lg-show"></span>
                 <a href="#" class="text-normal d-lg-show">FAQs</a>
-                <a href="#" class="d-lg-show login sign-in"><i
-                        class="w-icon-account"></i>Connexion</a>
+                {{-- <a href="#" class="d-lg-show login sign-in" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <i class="w-icon-account"></i>Connexion
+                </a>
                 <span class="delimiter d-lg-show">/</span>
-                <a href="#" class="ml-0 d-lg-show login register">Inscription</a>
+                <a href="#" class="ml-0 d-lg-show login register" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    Inscription
+                </a> --}}
+                
+                    @auth
+                                                <!-- Si l'utilisateur est connecté -->
+
+                        <a href="#" class="d-lg-show login sign-in">
+
+                            <i class="w-icon-account"></i> Mon compte
+                        {{-- <a href="{{ route('logout') }}" class="btn btn-primary">Se déconnecter</a> --}}
+                    @endauth
+                
+                    @guest
+                        <!-- Si l'utilisateur n'est pas connecté -->
+                        <a href="#" class="d-lg-show login sign-in" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="w-icon-account"></i>Connexion
+                        
+                            <span class="delimiter d-lg-show">/</span>
+                            Inscription
+                        </a>
+                    @endguest
+                </a>
+                
+                
+                
             </div>
         </div>
     </div>
@@ -92,7 +118,7 @@
                                 </div>
                                 <figure class="product-media">
                                     <a href="#">
-                                        <img src="assets/images/cart/product-1.jpg" alt="product" height="84"
+                                        <img src="" alt="product" height="84"
                                             width="94" />
                                     </a>
                                 </figure>
@@ -113,7 +139,7 @@
                                 </div>
                                 <figure class="product-media">
                                     <a href="#">
-                                        <img src="assets/images/cart/product-2.jpg" alt="product" width="84"
+                                        <img src="{{asset('assets/images/default.jpg')}}" alt="product" width="84"
                                             height="94" />
                                     </a>
                                 </figure>
@@ -129,7 +155,7 @@
                         </div>
 
                         <div class="cart-action">
-                            <a href="#" class="btn btn-dark btn-outline btn-rounded">Voir le Panier</a>
+                            <a href="{{route('panier')}}" class="btn btn-dark btn-outline btn-rounded">Voir le Panier</a>
                             <a href="#" class="btn btn-primary  btn-rounded">Payer</a>
                         </div>
                     </div>
@@ -198,4 +224,118 @@
             </ul>
         </div>
     </div>
+
+
+    
+
+    
 </header>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="login-popup">
+            <div class="tab tab-nav-boxed tab-nav-center tab-nav-underline">
+                <ul class="nav nav-tabs text-uppercase" role="tablist">
+                    <li class="nav-item">
+                        <a href="#sign-in" class="nav-link active">Connexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#sign-up" class="nav-link">Inscription</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="sign-in">
+                        <form action="{{route('login')}}" method="POST">
+                            @csrf
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            @if (session('status'))
+                                <div class="alert alert-success">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+                            <div class="form-group">
+                                <label>Nom d'utilisateur ou adresse e-mail *</label>
+                                <input type="text" class="form-control" name="email" id="email" required>
+                            </div>
+                            <div class="form-group mb-0">
+                                <label>Mot de passe *</label>
+                                <input type="password" class="form-control" name="password" id="password" required>
+                            </div>
+                            <div class="form-checkbox d-flex align-items-center justify-content-between">
+                                <input type="checkbox" class="custom-checkbox" id="remember" name="remember">
+                                <label for="remember">Souviens-toi de moi</label>
+                                <a href="#">Mot de passe oublié ?</a>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                Se connecter
+                            </button>
+                        </form>
+                    </div>
+                
+                    <div class="tab-pane" id="sign-up">
+                        <form action="{{ route('register') }}" method="POST">
+                            @csrf
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            @if (session('status'))
+                                <div class="alert alert-success">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+                            <div class="form-group">
+                                <label>Nom *</label>
+                                <input type="text" class="form-control" name="name" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Votre adresse e-mail *</label>
+                                <input type="email" class="form-control" name="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Votre numéro de téléphone *</label>
+                                <input type="text" class="form-control" name="phone" id="phone" required>
+                            </div>
+                            <div class="form-group mb-5">
+                                <label>Mot de passe *</label>
+                                <input type="password" class="form-control" name="password" id="password_1" required>
+                            </div>
+                            <div class="form-group mb-5">
+                                <label>Confirmer le mot de passe *</label>
+                                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" required>
+                            </div>
+                            <p>Vos données personnelles seront utilisées pour améliorer votre expérience sur ce site Web, pour gérer l'accès à votre compte et à d'autres fins décrites dans notre <a href="#" class="text-primary">politique de confidentialité</a>.</p>
+                            <div class="form-checkbox d-flex align-items-center justify-content-between mb-5">
+                                <input type="checkbox" class="custom-checkbox" id="agree" name="agree" required="">
+                                <label for="agree" class="font-size-md">J'accepte la <a href="#" class="text-primary font-size-md">politique de confidentialité</a></label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                S'inscrire
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                
+               
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>

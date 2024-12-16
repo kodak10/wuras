@@ -27,6 +27,9 @@
         })(document);
     </script>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
     <link rel="preload" href="{{asset('assets/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" as="font" type="font/woff2')}}"
         crossorigin="anonymous">
     <link rel="preload" href="{{asset('assets/vendor/fontawesome-free/webfonts/fa-solid-900.woff2" as="font" type="font/woff2')}}"
@@ -124,7 +127,7 @@
                         </div>
                         <figure class="product-media">
                             <a href="#">
-                                <img src="assets/images/cart/product-1.jpg" alt="product" height="84" width="94" />
+                                <img src="{{asset('assets/images/default.jpg')}}" alt="product" height="84" width="94" />
                             </a>
                         </figure>
                         <button class="btn btn-link btn-close" aria-label="button">
@@ -145,7 +148,7 @@
                         </div>
                         <figure class="product-media">
                             <a href="#">
-                                <img src="assets/images/cart/product-2.jpg" alt="product" width="84" height="94" />
+                                <img src="{{asset('assets/images/default.jpg')}}" alt="product" width="84" height="94" />
                             </a>
                         </figure>
                         <button class="btn btn-link btn-close" aria-label="button">
@@ -160,7 +163,7 @@
                 </div>
 
                 <div class="cart-action">
-                    <a href="#" class="btn btn-dark btn-outline btn-rounded">Voir le Panier</a>
+                    <a href="{{route('panier')}}" class="btn btn-dark btn-outline btn-rounded">Voir le Panier</a>
                     <a href="#" class="btn btn-primary  btn-rounded">Payer</a>
                 </div>
             </div>
@@ -330,6 +333,9 @@
 
     
 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+
     <!-- Plugin JS File -->
     <script src="{{asset('assets/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('assets/vendor/jquery.plugin/jquery.plugin.min.js')}}"></script>
@@ -347,6 +353,9 @@
 
     <!-- Main JS -->
     <script src="{{asset('assets/js/main.min.js')}}"></script>
+
+    @stack('scripts') <!-- Ici seront ajoutés les scripts des vues enfants -->
+
 </body>
 
 

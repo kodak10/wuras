@@ -96,6 +96,7 @@
                     <a href="#" class="cart-toggle label-down link">
                         <i class="w-icon-cart">
                             <span class="cart-count">2</span>
+                            
                         </i>
                         <span class="cart-label">Panier</span>
                     </a>

@@ -276,7 +276,9 @@
                                                 <img class="img-fluid" src="{{ asset('storage/' . $article->couverture) }}" alt="Product" width="216" height="243" style="height: 300px; object-fit:cover" />
                                             </a>
                                             <div class="product-action-vertical">
-                                                <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier"></a>
+                                                {{-- <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier"></a> --}}
+                                                <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier" data-product-id="{{ $article->id }}"></a>
+
                                                 <a href="#" class="btn-product-icon btn-wishlist w-icon-heart" title="Add to wishlist"></a>
                                                 <a href="#" class="btn-product-icon btn-quickview w-icon-search" title="Quickview"></a>
                                                 <a href="#" class="btn-product-icon btn-compare w-icon-compare" title="Add to Compare"></a>
@@ -350,9 +352,9 @@
         
     </div>
     <!-- End of Tab -->
-    <div class="tab-content product-wrapper ">
+    <div class="tab-content product-wrapper mt-5">
         <!-- Souris et claviers -->
-        <div class="tab-pane pt-4" id="tab1-1">
+        <div class="tab-pane pt-4 " id="tab1-1">
             <div class="row cols-xl-5 cols-md-4 cols-sm-3 cols-2">
                 @foreach ($sourisEtClaviers as $accessoire)
                     @foreach ($accessoire->articles as $article)
@@ -511,7 +513,9 @@
                                             <img class="img-fluid" src="{{ asset('storage/' . $article->couverture) }}" alt="Product" width="216" height="243" style="height: 300px; object-fit:cover" />
                                         </a>
                                         <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier"></a>
+                                            <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier" data-product-id="{{ $article->id }}"></a>
+
+                                            {{-- <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier"></a> --}}
                                             <a href="#" class="btn-product-icon btn-wishlist w-icon-heart" title="Add to wishlist"></a>
                                             <a href="#" class="btn-product-icon btn-quickview w-icon-search" title="Quickview"></a>
                                             <a href="#" class="btn-product-icon btn-compare w-icon-compare" title="Add to Compare"></a>
@@ -620,7 +624,7 @@
                                             <img class="img-fluid" src="{{ asset('storage/' . $article->couverture) }}" alt="Product" width="216" height="243" style="height: 300px; object-fit:cover" />
                                         </a>
                                         <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier"></a>
+                                            <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier" data-product-id="{{ $article->id }}"></a>
                                             <a href="#" class="btn-product-icon btn-wishlist w-icon-heart" title="Add to wishlist"></a>
                                             <a href="#" class="btn-product-icon btn-quickview w-icon-search" title="Quickview"></a>
                                             <a href="#" class="btn-product-icon btn-compare w-icon-compare" title="Add to Compare"></a>
@@ -962,6 +966,7 @@
                                                                 class="quantity-minus w-icon-minus"></button>
                                                         </div>
                                                     </div>
+                                                    
                                                     <button class="btn btn-primary btn-cart">
                                                         <i class="w-icon-cart"></i>
                                                         <span>Ajouter au Panier</span>
@@ -1326,3 +1331,52 @@
    
 </div>
 @endsection
+
+
+@push('scripts') 
+<script>
+    $(document).ready(function() {
+        // Quand l'utilisateur clique sur un bouton "Ajouter au Panier"
+        $('.btn-cart').on('click', function(e) {
+            e.preventDefault(); // Empêcher le comportement par défaut du lien
+            
+            // Récupérer l'ID du produit à partir de l'attribut 'data-product-id'
+            var productId = $(this).data('product-id');
+
+            // Vérifier si l'ID du produit est valide
+            if (!productId) {
+                alert('Produit non trouvé.');
+                return;
+            }
+
+            // Faire une requête AJAX pour ajouter le produit au panier
+            $.ajax({
+                url: '{{ route('addToCart') }}', // Route pour ajouter au panier
+                method: 'POST', // Méthode POST
+                data: {
+                    _token: '{{ csrf_token() }}', // Token CSRF pour la sécurité
+                    product_id: productId // L'ID du produit à ajouter
+                },
+                success: function(response) {
+                    // Afficher un message de succès si l'ajout a réussi
+                    //alert('Produit ajouté au panier !');
+                    // Vous pouvez aussi mettre à jour l'interface ici, comme le compteur du panier
+                },
+                error: function(xhr, status, error) {
+                    // Si une erreur se produit, afficher l'erreur détaillée
+                    var errorMessage = 'Une erreur s\'est produite. Veuillez réessayer.';
+
+                    // Vérifier si une réponse JSON est retournée et si elle contient une erreur
+                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                        errorMessage = xhr.responseJSON.error; // Utiliser l'erreur spécifique du serveur
+                    }
+
+                    // Afficher l'erreur
+                    alert(errorMessage);
+                }
+            });
+        });
+    });
+</script>
+
+@endpush

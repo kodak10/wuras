@@ -178,8 +178,10 @@
                                             <button class="quantity-minus w-icon-minus"></button>
                                         </div>
                                     </div>
-                                    <button class="btn btn-primary btn-cart">
+                                    <button class="btn btn-primary btn-cart" data-product-id="{{ $article->id }}">
                                         <i class="w-icon-cart"></i>
+                                        {{-- <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier" ></a> --}}
+
                                         <span>Ajouter au panier</span>
                                     </button>
                                 </div>
@@ -743,3 +745,51 @@
 </div>
 
 @endsection
+
+@push('scripts') 
+<script>
+    $(document).ready(function() {
+        // Quand l'utilisateur clique sur un bouton "Ajouter au Panier"
+        $('.btn-cart').on('click', function(e) {
+            e.preventDefault(); // Empêcher le comportement par défaut du lien
+            
+            // Récupérer l'ID du produit à partir de l'attribut 'data-product-id'
+            var productId = $(this).data('product-id');
+
+            // Vérifier si l'ID du produit est valide
+            if (!productId) {
+                alert('Produit non trouvé.');
+                return;
+            }
+
+            // Faire une requête AJAX pour ajouter le produit au panier
+            $.ajax({
+                url: '{{ route('addToCart') }}', // Route pour ajouter au panier
+                method: 'POST', // Méthode POST
+                data: {
+                    _token: '{{ csrf_token() }}', // Token CSRF pour la sécurité
+                    product_id: productId // L'ID du produit à ajouter
+                },
+                success: function(response) {
+                    // Afficher un message de succès si l'ajout a réussi
+                    //alert('Produit ajouté au panier !');
+                    // Vous pouvez aussi mettre à jour l'interface ici, comme le compteur du panier
+                },
+                error: function(xhr, status, error) {
+                    // Si une erreur se produit, afficher l'erreur détaillée
+                    var errorMessage = 'Une erreur s\'est produite. Veuillez réessayer.';
+
+                    // Vérifier si une réponse JSON est retournée et si elle contient une erreur
+                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                        errorMessage = xhr.responseJSON.error; // Utiliser l'erreur spécifique du serveur
+                    }
+
+                    // Afficher l'erreur
+                    alert(errorMessage);
+                }
+            });
+        });
+    });
+</script>
+
+@endpush

@@ -174,6 +174,24 @@ public function cart(){
     return view('frontend.pages.panier', compact('categories', 'cart', 'total'));
 }
 
+public function getCartCount()
+{
+    // Récupérer le panier de la session
+    $cart = session()->get('cart', []);
+
+    // Compter le nombre total d'éléments dans le panier
+    $cartCount = 0;
+    foreach ($cart as $product) {
+        $cartCount += $product['quantite'];
+    }
+
+    // Retourner le nombre d'éléments au format JSON
+    return response()->json([
+        'cartCount' => $cartCount
+    ]);
+}
+
+
 
 // Example of adding items to session
 public function addToCart(Request $request)

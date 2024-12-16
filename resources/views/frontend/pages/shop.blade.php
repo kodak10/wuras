@@ -819,7 +819,7 @@
                 },
                 success: function(response) {
                     // Afficher un message de succès si l'ajout a réussi
-                    alert('Produit ajouté au panier !');
+                    //alert('Produit ajouté au panier !');
                     // Vous pouvez aussi mettre à jour l'interface ici, comme le compteur du panier
                 },
                 error: function(xhr, status, error) {

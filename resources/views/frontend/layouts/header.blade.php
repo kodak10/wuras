@@ -5,7 +5,6 @@
    }
    /* Conteneur principal du dropdown */
 .dropdown-box {
-    position: relative;
     background-color: #fff;
     max-height: 100vh; /* Définir une hauteur maximale pour le dropdown */
     overflow: hidden; /* Empêcher les dépassements */

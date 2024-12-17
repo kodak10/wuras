@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryArticleController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\WebsiteController;
+use App\Http\Controllers\UserController;
 
 
 Route::get('/', [WebsiteController::class, 'index']);
@@ -37,6 +38,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
 });
+
+// Route::prefix('home')->name('home.')->group(function () {
+//     Route::get('/', [UserController::class, 'index'])->name('index');
+// });
 
 
 Auth::routes();

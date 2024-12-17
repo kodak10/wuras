@@ -1,5 +1,42 @@
 
+<style>
+    a.product-name:first-child{
+    color: #000000 !important;
+   }
+   /* Conteneur principal du dropdown */
+.dropdown-box {
+    position: relative;
+    background-color: #fff;
+    max-height: 100vh; /* Définir une hauteur maximale pour le dropdown */
+    overflow: hidden; /* Empêcher les dépassements */
+    display: flex;
+    flex-direction: column; /* Organiser les enfants verticalement */
+}
 
+/* Section des produits avec scroll */
+.products {
+    flex: 1; /* Prend tout l'espace disponible */
+    overflow-y: auto; /* Permettre le défilement vertical */
+    max-height: 300px; /* Ajuster selon vos besoins */
+    padding: 10px;
+}
+
+/* Section Total et Actions fixées en bas */
+.cart-total, .cart-action {
+    position: sticky;
+    bottom: 0; /* Fixer en bas */
+    background-color: #fff; /* Assurez-vous qu'elles restent visibles */
+    padding: 10px;
+    z-index: 10; /* Assurez-vous qu'elles restent au-dessus */
+}
+
+/* Espacement entre les boutons dans cart-action */
+.cart-action a {
+    margin: 5px;
+    text-align: center;
+}
+
+</style>
 
 
 <header class="header">
@@ -22,12 +59,10 @@
                 </a> --}}
                 
                     @auth
-                                                <!-- Si l'utilisateur est connecté -->
-
-                        <a href="#" class="d-lg-show login sign-in">
-
+                        <!-- Si l'utilisateur est connecté -->
+                        <a href="{{route('home')}}" class="d-lg-show login sign-in">
                             <i class="w-icon-account"></i> Mon compte
-                        {{-- <a href="{{ route('logout') }}" class="btn btn-primary">Se déconnecter</a> --}}
+                        </a>
                     @endauth
                 
                     @guest
@@ -39,7 +74,7 @@
                             Inscription
                         </a>
                     @endguest
-                </a>
+                
                 
                 
                 
@@ -103,57 +138,44 @@
                     <div class="dropdown-box">
                         <div class="cart-header">
                             <span>Panier</span>
-                            <a href="#" class="btn-close">Fermer<i class="w-icon-long-arrow-right"></i></a>
+                            <a href="#" class="btn-close"></a>
                         </div>
 
-                        <div class="products">
-                            <div class="product product-cart">
-                                <div class="product-detail">
-                                    <a href="#" class="product-name">Beige knitted
-                                        elas<br>tic
-                                        runner shoes</a>
-                                    <div class="price-box">
-                                        <span class="product-quantity">1</span>
-                                        <span class="product-price">$25.68</span>
-                                    </div>
-                                </div>
-                                <figure class="product-media">
-                                    <a href="#">
-                                        <img src="" alt="product" height="84"
-                                            width="94" />
-                                    </a>
-                                </figure>
-                                <button class="btn btn-link btn-close" aria-label="button">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
+                        
 
-                            <div class="product product-cart">
-                                <div class="product-detail">
-                                    <a href="#" class="product-name">Blue utility
-                                        pina<br>fore
-                                        denim dress</a>
-                                    <div class="price-box">
-                                        <span class="product-quantity">1</span>
-                                        <span class="product-price">$32.99</span>
+                        @php $total = 0; @endphp <!-- Initialisation de la variable total -->
+
+                        <div class="products mb-5">
+                            @foreach(session('cart', []) as $product_id => $details)
+                                @php $total += $details['price']; @endphp <!-- Ajout du prix au total -->
+                                <div class="product product-cart">
+                                    <div class="product-detail">
+                                        <a href="{{ route('article.show', ['slug' => $details['slug']]) }}" class="product-name">
+                                            {{ $details['name'] }}
+                                        </a>
+                                        <div class="price-box">
+                                            <span class="product-quantity">1</span>
+                                            <span class="product-price">{{ number_format($details['price'], 0, ',', ' ') }} FCFA</span>
+                                        </div>
                                     </div>
+                                    <figure class="product-media">
+                                        <a href="{{ route('article.show', ['slug' => $details['slug']]) }}">
+                                            <img src="{{ asset('storage/' . $details['couverture']) }}" alt="product" width="94" height="84">
+                                        </a>
+                                    </figure>
+                                    <button class="btn btn-link btn-close" aria-label="button">
+                                        <i class="fas fa-times"></i>
+                                    </button>
                                 </div>
-                                <figure class="product-media">
-                                    <a href="#">
-                                        <img src="{{asset('assets/images/default.jpg')}}" alt="product" width="84"
-                                            height="94" />
-                                    </a>
-                                </figure>
-                                <button class="btn btn-link btn-close" aria-label="button">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
+                            @endforeach
                         </div>
 
+                        <!-- Section Total Dynamique -->
                         <div class="cart-total">
-                            <label>Total:</label>
-                            <span class="price">2000 FCFA</span>
+                            <label>Total :</label>
+                            <span class="price">{{ number_format($total, 0, ',', ' ') }} FCFA</span>
                         </div>
+
 
                         <div class="cart-action">
                             <a href="{{route('panier')}}" class="btn btn-dark btn-outline btn-rounded">Voir le Panier</a>
@@ -192,6 +214,8 @@
                             <li class="" >
                                 <a href="{{route('admin.articles.index')}}" style="color: #000000 !important">Dashboard | Ajouter des Articles</a>
                             </li>
+
+                        
 
                         </ul>
                     </nav>
@@ -340,3 +364,55 @@
       </div>
     </div>
   </div>
+
+
+
+@push('scripts') 
+<script>
+ document.addEventListener('DOMContentLoaded', function () {
+    // Écouter tous les champs de quantité
+    document.querySelectorAll('.quantity').forEach(function (input) {
+        input.addEventListener('input', function () {
+            // Activer le bouton de mise à jour lorsqu'une quantité est modifiée
+            document.querySelector('.btn-update').classList.remove('disabled');
+        });
+    });
+
+    // Action lors du clic sur le bouton "Mettre à jour le panier"
+    document.querySelector('.btn-update').addEventListener('click', function () {
+        let cart = {};
+
+        // Récupérer les quantités modifiées
+        document.querySelectorAll('.quantity').forEach(function (input) {
+            let product_id = input.getAttribute('data-product-id'); // Récupérer l'ID du produit
+            let quantity = input.value; // Nouvelle quantité
+
+            // Ajouter l'ID du produit et la quantité dans l'objet cart
+            cart[product_id] = quantity;
+        });
+
+        // Envoi des nouvelles quantités au serveur via une requête AJAX
+        fetch('{{ route('updateCart') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ cart: cart })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload(); // Recharger la page pour afficher le panier mis à jour
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de la mise à jour du panier:', error);
+        });
+    });
+});
+
+
+</script>
+
+@endpush

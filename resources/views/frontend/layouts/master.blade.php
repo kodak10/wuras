@@ -51,8 +51,9 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/photoswipe/default-skin/default-skin.min.css')}}">
 
     <!-- Default CSS -->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.min.css')}}">
+
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/demo1.min.css')}}">
-    {{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.min.css')}}"> --}}
     {{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/demo9.min.css')}}"> --}}
     @stack('styles')
 
@@ -242,6 +243,15 @@
                         </li>
                         <li><a href="{{route('admin.articles.create')}}">Dashboard | Ajouter des Articles</a></li>
 
+                        @auth
+                            <!-- Si l'utilisateur est connecté -->
+                            <li class=""><a href="/home">Mon compte</a></li>
+                        @endauth
+                    
+                        @guest
+                            <!-- Si l'utilisateur n'est pas connecté -->
+                            <li class=""><a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Connexion / Inscription</a></li>
+                        @endguest
                     </ul>
                 </div>
                 <div class="tab-pane" id="categories">

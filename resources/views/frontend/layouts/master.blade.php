@@ -52,9 +52,13 @@
 
     <!-- Default CSS -->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/demo9.min.css')}}">
 
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/demo1.min.css')}}">
-    {{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/demo9.min.css')}}"> --}}
+
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
+
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
     @stack('styles')
 
 <style>
@@ -64,9 +68,9 @@
     margin-top: -3.3rem;
     z-index: 1;
 }
-.grid .banner, .grid .category, .grid .category > a, .grid figure, .grid .banner img, .grid .category img {
+/* .grid .banner, .grid .category, .grid .category > a, .grid figure, .grid .banner img, .grid .category img {
     height: 100%;
-}
+} */
 
 </style>
     
@@ -274,7 +278,7 @@
                                                 <hr class="divider">
                                                 <ul>
                                                     @forelse ($tag->articles->take(5) as $article)  {{-- Limiter à 5 articles par tag --}}
-                                                        <li><a href="#">{{ $article->name }}</a></li>
+                                                        <li><a href="{{ route('shop', ['category' => $article->categories->first()->id ?? null]) }}">{{ $article->name }}</a></li>
                                                     @empty
                                                         <li>Rien à afficher</li>
                                                     @endforelse
@@ -360,9 +364,11 @@
 
     <!-- Swiper JS -->
     <script src="{{asset('assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script> --}}
 
     <!-- Main JS -->
     <script src="{{asset('assets/js/main.min.js')}}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 
     @stack('scripts') <!-- Ici seront ajoutés les scripts des vues enfants -->
 

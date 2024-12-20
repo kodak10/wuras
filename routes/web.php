@@ -18,7 +18,7 @@ Route::get('/panier', [WebsiteController::class, 'cart'])->name('panier');
 
 Route::post('/add-to-cart', [WebsiteController::class, 'addToCart'])->name('addToCart');
 Route::post('/update-cart', [WebsiteController::class, 'updateCart'])->name('updateCart');
-Route::get('/remove-from-cart/{productId}', [WebsiteController::class, 'removeFromCart'])->name('removeFromCart');
+Route::delete('/remove-from-cart/{product_id}', [WebsiteController::class, 'removeFromCart'])->name('removeFromCart');
 // Route::get('/clear-cart', [WebsiteController::class, 'clearCart'])->name('clearCart');
 Route::post('/clear-cart', [WebsiteController::class, 'clearCart'])->name('clearCart');
 

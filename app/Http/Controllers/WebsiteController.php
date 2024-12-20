@@ -30,6 +30,13 @@ class WebsiteController extends Controller
             $query->where('status', 'published');
         }])->where('name', 'Ordinateurs')->get();
 
+        $articlesGrouped = Article::where('status', 'published')
+                          ->take(11)
+                          ->get()
+                          ->chunk(2);
+
+
+
         $ecrans = Category::with(['articles' => function ($query) {
             $query->where('status', 'published');
         }])->where('name', 'Moniteurs et écrans')->get();
@@ -54,7 +61,7 @@ class WebsiteController extends Controller
             $query->where('status', 'published');
         }])->where('name', 'Batteries et chargeurs')->get();
 
-        return view('frontend.pages.index', compact('categories', 'articles', 'tags', 'article_ordinateurs', 'ecrans', 'imprimantesEtScanners', 'sourisEtClaviers', 'disquesDurs', 'cablesAdaptateurs', 'batteriesChargeurs'));
+        return view('frontend.pages.index', compact('categories', 'articles', 'tags', 'article_ordinateurs', 'ecrans', 'imprimantesEtScanners', 'sourisEtClaviers', 'disquesDurs', 'cablesAdaptateurs', 'batteriesChargeurs', 'articlesGrouped'));
     }
 
     public function shop(Request $request)
@@ -70,6 +77,8 @@ class WebsiteController extends Controller
         $minPrice = $request->get('min_price');
         $maxPrice = $request->get('max_price');
         $categoryId = $request->get('category'); // ID de la catégorie sélectionnée
+        $search = $request->get('search');
+
 
         // Application des filtres
         $query = Article::where('status', 'published'); // Filtre les articles publiés
@@ -86,6 +95,11 @@ class WebsiteController extends Controller
             $query->whereHas('categories', function ($q) use ($categoryId) {
                 $q->where('categories.id', $categoryId); // Filtre par la catégorie sélectionnée
             });
+        }
+
+        if ($search) {
+            $query->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('description', 'like', '%' . $search . '%');
         }
 
         // Pagination des articles filtrés
@@ -290,16 +304,17 @@ public function updateCart(Request $request)
 }
 
 
-    public function removeFromCart($productId)
+    public function removeFromCart($product_id)
     {
-        // Supprimer un produit du panier
-        $cart = Session::get('cart', []);
-        unset($cart[$productId]);
+        // Retirer l'article du panier dans la session
+        $cart = session()->get('cart', []);
 
-        // Sauvegarder le panier mis à jour
-        Session::put('cart', $cart);
+        if(isset($cart[$product_id])) {
+            unset($cart[$product_id]);
+            session()->put('cart', $cart);
+        }
 
-        return redirect()->route('panier');
+        return redirect()->back()->with('success', 'Article supprimé du panier');
     }
 
     public function clearCart()

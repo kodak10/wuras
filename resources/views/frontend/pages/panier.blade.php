@@ -46,9 +46,16 @@
                                                     <img src="{{ asset('storage/' . $details['couverture']) }}" alt="product" width="100" height="100">
                                                 </figure>
                                             </a>
-                                            <button type="submit" class="btn btn-close">
+                                            {{-- <button type="submit" class="btn btn-close">
                                                 <i class="fas fa-times"></i>
-                                            </button>
+                                            </button> --}}
+                                            <form action="{{ route('removeFromCart', $product_id) }}" method="POST" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-link btn-close" aria-label="button">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                     <td class="product-name">

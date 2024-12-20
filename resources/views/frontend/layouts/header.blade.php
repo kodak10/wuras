@@ -104,7 +104,7 @@
                             @endforelse
                         </select>
                     </div>
-                    <input type="text" class="form-control" name="search" id="search" placeholder="Tapez ici..." value="{{ request('search') }}" required />
+                    <input type="text" class="form-control" name="search" id="search" placeholder="Tapez ici..." value="{{ request('search') }}" />
                     <button class="btn btn-search" type="submit"><i class="w-icon-search"></i></button>
                 </form>
                 
@@ -146,7 +146,7 @@
                         @php $total = 0; @endphp <!-- Initialisation de la variable total -->
 
                         <div class="products mb-5">
-                            @foreach(session('cart', []) as $product_id => $details)
+                            @forelse(session('cart', []) as $product_id => $details)
                                 @php $total += $details['price']; @endphp <!-- Ajout du prix au total -->
                                 <div class="product product-cart">
                                     <div class="product-detail">
@@ -163,11 +163,24 @@
                                             <img src="{{ asset('storage/' . $details['couverture']) }}" alt="product" width="94" height="84">
                                         </a>
                                     </figure>
-                                    <button class="btn btn-link btn-close" aria-label="button">
+                                    <form action="{{ route('removeFromCart', $product_id) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-link btn-close" aria-label="button">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </form>
+                                    {{-- <button class="btn btn-link btn-close" aria-label="button">
                                         <i class="fas fa-times"></i>
-                                    </button>
+                                    </button> --}}
                                 </div>
-                            @endforeach
+                            @empty
+
+                            <p>Votre panier est vide</p>
+                                
+                           
+                                
+                            @endforelse
                         </div>
 
                         <!-- Section Total Dynamique -->
@@ -233,7 +246,7 @@
             <ul class="menu horizontal-menu category-menu">
                 @forelse ($categories as $categorie)
                     <li>
-                        <a href="#">
+                        <a href="{{ route('shop', ['category' => $categorie->id ?? null]) }}">
                             <i class="w-icon-electronics"></i>{{ $categorie->name}}
                         </a>
                     </li>
@@ -241,7 +254,7 @@
                     Rien à afficher
                 @endforelse
                 <li>
-                    <a href="#">
+                    <a href="/magasin">
                         <i class="w-icon-dots-circle"></i>Voir tous
                     </a>
                 </li>

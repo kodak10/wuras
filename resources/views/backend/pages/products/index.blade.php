@@ -52,6 +52,7 @@
                                     </div>
                                 </th>
                                 <th>Catégories</th>
+                                <th>Tags</th>
                                 <th>Couverture</th>
                                 <th>Nom</th>
                                 <th>Prix</th>
@@ -74,6 +75,17 @@
                                                 <li>{{ $category->name }}</li>
                                             @endforeach
                                             @if($article->categories->count() > 3)
+                                                <li><a href="#">Voir plus...</a></li>
+                                            @endif
+                                        </ul>
+                                    </td>
+
+                                    <td>
+                                        <ul class="list-unstyled mb-0">
+                                            @foreach ($article->tags as $tag)
+                                                <li>{{ $tag->tag_name }}</li>
+                                            @endforeach
+                                            @if($article->tags->count() > 3)
                                                 <li><a href="#">Voir plus...</a></li>
                                             @endif
                                         </ul>

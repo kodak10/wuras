@@ -20,7 +20,7 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $articles = Article::with('categories')
+        $articles = Article::with(['categories', 'tags'])
         ->orderBy('created_at', 'desc')  // Trie les articles par la date de création, du plus récent au plus ancien
         ->get();  // Limite à 10 articles par page
 

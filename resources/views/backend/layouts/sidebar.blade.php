@@ -99,11 +99,11 @@
             </ul>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="{{route('admin.banners.create')}}" aria-expanded="false">
+            <a class="sidebar-link" href="#" aria-expanded="false">
               <span>
                 <i class="ti ti-calendar"></i>
               </span>
-              <span class="hide-menu">Banners</span>
+              <span class="hide-menu">Marketing et Promotions</span>
             </a>
           </li>
           

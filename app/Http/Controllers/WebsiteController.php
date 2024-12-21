@@ -26,20 +26,83 @@ class WebsiteController extends Controller
 
         $tags = Tag::get();
 
-        $article_ordinateurs = Category::with(['articles' => function ($query) {
-            $query->where('status', 'published');
-        }])->where('name', 'Ordinateurs')->get();
+        $article_imprimantesScanners = Article::where('status', 'published') // Articles publiés
+    ->whereHas('categories', function ($query) {
+        $query->where('name', 'Imprimantes et scanners'); // Vérifie que la catégorie est "Imprimantes et scanners"
+    })
+    ->with(['categories']) // Charge la relation categories
+    ->orderBy('created_at', 'desc') // Trie par date de création
+    ->take(12) // Limite à 12 articles
+    ->get() // Récupère les articles
+    ->chunk(2); // Regroupe les articles par 2
 
-        $articlesGrouped = Article::where('status', 'published')
-                          ->take(11)
-                          ->get()
-                          ->chunk(2);
+
+
+        
+        // $article_imprimantesScanners = Article::where('status', 'published') // Articles publiés
+        // ->whereHas('tags', function ($query) {
+        //     $query->where('tag_name', 'Ordinateur Portable'); // Vérifie que le tag est "Ordinateur portable"
+        // })
+        // ->with(['categories', 'tags']) // Charge les relations categories et tags
+        // ->orderBy('created_at', 'desc') // Trie les articles par date de création
+        // ->get()
+        // ->chunk(2);
+
+
+        // $articlesGrouped = Article::where('status', 'published')
+                        
+        //                         ->with(['categories', 'tags']) // Charge les relations categories et tags
+
+        //                   //->take(11)
+        //                   ->get()
+        //                   ->chunk(2);
+
+                          $articlesGroupedPortable = Article::where('status', 'published') // Articles publiés
+    ->whereHas('tags', function ($query) {
+        $query->where('tag_name', 'Ordinateur Portable'); // Vérifie que le tag est "Ordinateur portable"
+    })
+    ->with(['categories', 'tags']) // Charge les relations categories et tags
+    ->orderBy('created_at', 'desc') // Trie par date de création
+    ->take(12)
+    ->get()
+    ->chunk(2); // Regroupe les articles par 2
+
+
+    $articlesGroupedBureau = Article::where('status', 'published') // Articles publiés
+    ->whereHas('tags', function ($query) {
+        $query->where('tag_name', 'Ordinateur Bureau'); // Vérifie que le tag est "Ordinateur portable"
+    })
+    ->with(['categories', 'tags']) // Charge les relations categories et tags
+    ->orderBy('created_at', 'desc') // Trie par date de création
+    ->take(12)
+    ->get()
+    ->chunk(2); // Regroupe les articles par 2
+
+
+    $articlesGroupedComplet = Article::where('status', 'published') // Articles publiés
+    ->whereHas('tags', function ($query) {
+        $query->where('tag_name', 'Ordinateur Complet'); // Vérifie que le tag est "Ordinateur portable"
+    })
+    ->with(['categories', 'tags']) // Charge les relations categories et tags
+    ->orderBy('created_at', 'desc') // Trie par date de création
+    ->take(12)
+    ->get()
+    ->chunk(2); // Regroupe les articles par 2
+
+    $ecrans = Article::where('status', 'published') // Articles publiés
+    ->whereHas('categories', function ($query) {
+        $query->where('name', 'Moniteurs et écrans'); // Vérifie que la catégorie est "Imprimantes et scanners"
+    })
+    ->with(['categories', 'tags']) // Charge les relations categories et tags
+    ->orderBy('created_at', 'desc') // Trie par date de création
+    ->take(12)
+    ->get()
+    ->chunk(2); // Regroupe les articles par 2
 
 
 
-        $ecrans = Category::with(['articles' => function ($query) {
-            $query->where('status', 'published');
-        }])->where('name', 'Moniteurs et écrans')->get();
+
+        
 
         $imprimantesEtScanners = Category::with(['articles' => function ($query) {
             $query->where('status', 'published');
@@ -61,7 +124,7 @@ class WebsiteController extends Controller
             $query->where('status', 'published');
         }])->where('name', 'Batteries et chargeurs')->get();
 
-        return view('frontend.pages.index', compact('categories', 'articles', 'tags', 'article_ordinateurs', 'ecrans', 'imprimantesEtScanners', 'sourisEtClaviers', 'disquesDurs', 'cablesAdaptateurs', 'batteriesChargeurs', 'articlesGrouped'));
+        return view('frontend.pages.index', compact('categories', 'articles', 'tags', 'ecrans', 'imprimantesEtScanners', 'sourisEtClaviers', 'disquesDurs', 'cablesAdaptateurs', 'batteriesChargeurs', 'articlesGroupedPortable', 'articlesGroupedBureau', 'articlesGroupedComplet', 'article_imprimantesScanners'));
     }
 
     public function shop(Request $request)

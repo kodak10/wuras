@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
-    protected $fillable = ['tag_name', 'tag_thumbnail'];
+    protected $fillable = ['tag_name', 'tag_thumbnail', 'tag_name'];
 
     public function articles()
     {

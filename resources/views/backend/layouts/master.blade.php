@@ -22,6 +22,9 @@
 
   <!-- Owl Carousel  -->
   <link rel="stylesheet" href="{{asset('assets/backend/libs/owl.carousel/dist/assets/owl.carousel.min.css')}}" />
+
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.0/dist/sweetalert2.min.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -259,6 +262,9 @@
   <script src="{{asset('assets/backend/libs/apexcharts/dist/apexcharts.min.js')}}"></script>
   <script src="{{asset('assets/backend/js/dashboards/dashboard.js')}}"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.0/dist/sweetalert2.all.min.js"></script>
+  @include('sweetalert::alert') <!-- Affiche l'alerte de SweetAlert2 -->
+  
   @stack('scripts')
 
 </body>

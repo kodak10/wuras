@@ -350,7 +350,9 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                 </a>
                                                 <div class="product-label-group">
                                                     <label class="product-label label-discount">-25%</label>
+                                                    <label class="product-label label-new">New</label>
                                                 </div>
+                                                
                                                
                                             </figure>
                                             <div class="product-details">
@@ -368,7 +370,12 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                     <a href="product-default.html" class="rating-reviews">(3 avis)</a>
                                                 </div>
                                                 <div class="product-price">
-                                                    <ins class="new-price">{{ $article->price }} FCFA</ins><del class="old-price">250.000 FCFA</del>
+                                                    @if($article->discount_value)
+                                                        <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                                        <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                                    @else
+                                                        <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="product-hidden-details">
@@ -437,11 +444,14 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                     <img src="{{ asset('storage/' . $article->couverture) }}" alt="Product" width="216" height="243" style="height: 200px; object-fit:cover" />
     
                                                 </a>
+                                               
                                                 <div class="product-label-group">
                                                     <label class="product-label label-discount">-25%</label>
+                                                    <label class="product-label label-new">New</label>
                                                 </div>
                                                
                                             </figure>
+                                            
                                             <div class="product-details">
                                                 {{-- <div class="product-cat">
                                                     <a href="shop-banner-sidebar.html">Electronics</a>
@@ -457,7 +467,12 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                     <a href="product-default.html" class="rating-reviews">(3 avis)</a>
                                                 </div>
                                                 <div class="product-price">
-                                                    <ins class="new-price">{{ $article->price }} FCFA</ins><del class="old-price">250.000 FCFA</del>
+                                                    @if($article->discount_value)
+                                                        <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                                        <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                                    @else
+                                                        <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="product-hidden-details">
@@ -523,9 +538,19 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                     <img src="{{ asset('storage/' . $article->couverture) }}" alt="Product" width="216" height="243" style="height: 200px; object-fit:cover" />
     
                                                 </a>
+                                               
                                                 <div class="product-label-group">
-                                                    <label class="product-label label-discount">-25%</label>
+                                                    @if($article->discount_value && $article->discount_value < $article->price)
+                                                        @php
+                                                            $discountPercentage = (($article->price - $article->discount_value) / $article->price) * 100;
+                                                        @endphp
+                                                        <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
+                                                    @endif
+                                                    @if($article->created_at >= now()->subMonths(3))
+                                                        <label class="product-label label-new">New</label>
+                                                    @endif
                                                 </div>
+                                                
                                                
                                             </figure>
                                             <div class="product-details">
@@ -543,7 +568,12 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                     <a href="product-default.html" class="rating-reviews">(3 avis)</a>
                                                 </div>
                                                 <div class="product-price">
-                                                    <ins class="new-price">{{ $article->price }} FCFA</ins><del class="old-price">250.000 FCFA</del>
+                                                    @if($article->discount_value)
+                                                        <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                                        <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                                    @else
+                                                        <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="product-hidden-details">
@@ -638,8 +668,17 @@ a.btn-product-icon.btn-cart.w-icon-cart {
 
                                             </a>
                                             <div class="product-label-group">
-                                                <label class="product-label label-discount">-25%</label>
+                                                @if($article->discount_value && $article->discount_value < $article->price)
+                                                    @php
+                                                        $discountPercentage = (($article->price - $article->discount_value) / $article->price) * 100;
+                                                    @endphp
+                                                    <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
+                                                @endif
+                                                @if($article->created_at >= now()->subMonths(3))
+                                                    <label class="product-label label-new">New</label>
+                                                @endif
                                             </div>
+                                            
                                            
                                         </figure>
                                         <div class="product-details">
@@ -657,7 +696,12 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                 <a href="product-default.html" class="rating-reviews">(3 avis)</a>
                                             </div>
                                             <div class="product-price">
-                                                <ins class="new-price">{{ $article->price }} FCFA</ins><del class="old-price">250.000 FCFA</del>
+                                                @if($article->discount_value)
+                                                    <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                                    <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                                @else
+                                                    <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="product-hidden-details">
@@ -738,11 +782,27 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                         <img src="{{ asset('storage/' . $article->couverture) }}" alt="Product" width="300" height="338" />
                                         {{-- <img src="{{ asset('storage/' . $accessoire->image_2) }}" alt="Product" width="300" height="338" /> --}}
                                     </a>
+                                    <div class="product-label-group">
+                                        @if($article->discount_value && $article->discount_value < $article->price)
+                                            @php
+                                                $discountPercentage = (($article->price - $article->discount_value) / $article->price) * 100;
+                                            @endphp
+                                            <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
+                                        @endif
+                                        @if($article->created_at >= now()->subMonths(3))
+                                            <label class="product-label label-new">New</label>
+                                        @endif
+                                    </div>
                                 </figure>
                                 <div class="product-details">
                                     <h4 class="product-name"><a href="#">{{ $article->name }}</a></h4>
                                     <div class="product-price">
-                                        <ins class="new-price">{{ $article->price }} FCFA</ins>
+                                        @if($article->discount_value)
+                                            <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                            <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                        @else
+                                            <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -766,11 +826,27 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                         {{-- Si vous avez une deuxième image à afficher, vous pouvez la décommenter --}}
                                         {{-- <img src="{{ asset('storage/' . $article->image_2) }}" alt="Product" width="300" height="338" /> --}}
                                     </a>
+                                    <div class="product-label-group">
+                                        @if($article->discount_value && $article->discount_value < $article->price)
+                                            @php
+                                                $discountPercentage = (($article->price - $article->discount_value) / $article->price) * 100;
+                                            @endphp
+                                            <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
+                                        @endif
+                                        @if($article->created_at >= now()->subMonths(3))
+                                            <label class="product-label label-new">New</label>
+                                        @endif
+                                    </div>
                                 </figure>
                                 <div class="product-details">
                                     <h4 class="product-name"><a href="#">{{ $article->name }}</a></h4>
                                     <div class="product-price">
-                                        <ins class="new-price">{{ $article->price }} FCFA</ins>
+                                        @if($article->discount_value)
+                                            <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                            <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                        @else
+                                            <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -794,11 +870,27 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                         {{-- Si vous avez une deuxième image à afficher, vous pouvez la décommenter --}}
                                         {{-- <img src="{{ asset('storage/' . $article->image_2) }}" alt="Product" width="300" height="338" /> --}}
                                     </a>
+                                    <div class="product-label-group">
+                                        @if($article->discount_value && $article->discount_value < $article->price)
+                                            @php
+                                                $discountPercentage = (($article->price - $article->discount_value) / $article->price) * 100;
+                                            @endphp
+                                            <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
+                                        @endif
+                                        @if($article->created_at >= now()->subMonths(3))
+                                            <label class="product-label label-new">New</label>
+                                        @endif
+                                    </div>
                                 </figure>
                                 <div class="product-details">
                                     <h4 class="product-name"><a href="#">{{ $article->name }}</a></h4>
                                     <div class="product-price">
-                                        <ins class="new-price">{{ $article->price }} FCFA</ins>
+                                        @if($article->discount_value)
+                                            <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                            <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                        @else
+                                            <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -822,11 +914,28 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                         {{-- Si vous avez une deuxième image à afficher, vous pouvez la décommenter --}}
                                         {{-- <img src="{{ asset('storage/' . $article->image_2) }}" alt="Product" width="300" height="338" /> --}}
                                     </a>
+                                    <div class="product-label-group">
+                                        @if($article->discount_value && $article->discount_value < $article->price)
+                                            @php
+                                                $discountPercentage = (($article->price - $article->discount_value) / $article->price) * 100;
+                                            @endphp
+                                            <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
+                                        @endif
+                                        @if($article->created_at >= now()->subMonths(3))
+                                            <label class="product-label label-new">New</label>
+                                        @endif
+                                    </div>
                                 </figure>
+                                
                                 <div class="product-details">
                                     <h4 class="product-name"><a href="#">{{ $article->name }}</a></h4>
                                     <div class="product-price">
-                                        <ins class="new-price">{{ $article->price }} FCFA</ins>
+                                        @if($article->discount_value)
+                                            <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                            <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                        @else
+                                            <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -935,8 +1044,17 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                 <img src="{{ asset('storage/' . $article->couverture) }}" alt="Product" width="216" height="243" style="height: 200px; object-fit:cover" />
 
                                             </a>
+                                            
                                             <div class="product-label-group">
-                                                <label class="product-label label-discount">-25%</label>
+                                                @if($article->discount_value && $article->discount_value < $article->price)
+                                                    @php
+                                                        $discountPercentage = (($article->price - $article->discount_value) / $article->price) * 100;
+                                                    @endphp
+                                                    <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
+                                                @endif
+                                                @if($article->created_at >= now()->subMonths(3))
+                                                    <label class="product-label label-new">New</label>
+                                                @endif
                                             </div>
                                            
                                         </figure>
@@ -952,10 +1070,15 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                     <span class="ratings" style="width: 100%;"></span>
                                                     <span class="tooltiptext tooltip-top"></span>
                                                 </div>
-                                                <a href="product-default.html" class="rating-reviews">(3 avis)</a>
+                                                <a href="#" class="rating-reviews">(3 avis)</a>
                                             </div>
                                             <div class="product-price">
-                                                <ins class="new-price">{{ $article->price }} FCFA</ins><del class="old-price">250.000 FCFA</del>
+                                                @if($article->discount_value)
+                                                    <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                                    <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                                @else
+                                                    <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="product-hidden-details">

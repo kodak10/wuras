@@ -775,3 +775,45 @@
   </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+  // Initialisation du Toast de SweetAlert2
+  const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end', // Positionner en haut à droite
+      iconColor: 'white',
+      customClass: {
+          popup: 'colored-toast',
+      },
+      showConfirmButton: false,
+      timer: 3000,  // L'alerte restera pendant 3 secondes
+      timerProgressBar: true,
+      didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer);  // Arrêter le timer au survol
+          toast.addEventListener('mouseleave', Swal.resumeTimer);  // Reprendre le timer quand le survol est terminé
+      },
+  });
+
+  // Produits avec faible stock récupérés en JavaScript
+  const lowStockProducts = @json($lowStockProducts);
+
+  // Fonction pour afficher un Toast pour un produit spécifique avec un délai
+  function showToast(productName, delay) {
+      setTimeout(() => {
+          Toast.fire({
+              icon: 'warning',
+              title: 'Le produit ' + productName + ' est en faible stock!',
+          });
+      }, delay);
+  }
+
+  // Afficher les toasts pour chaque produit en faible stock avec un délai
+  lowStockProducts.forEach((product, index) => {
+      // Le délai augmente à chaque produit pour les espacer
+      const delay = index * 3500;  // Délai de 3,5 secondes entre chaque toast
+      showToast(product.name, delay);
+  });
+</script>
+
+@endpush

@@ -61,8 +61,10 @@ class CategoryArticleController extends Controller
      */
     public function show($id)
     {
+        $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
+
         $category = Category::findOrFail($id);
-        return view('categories.show', compact('category'));
+        return view('categories.show', compact('category', 'lowStockProducts'));
     }
 
     /**
@@ -70,8 +72,10 @@ class CategoryArticleController extends Controller
      */
     public function edit($id)
     {
+        $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
+
         $category = Category::findOrFail($id);
-        return view('categories.edit', compact('category'));
+        return view('categories.edit', compact('category', 'lowStockProducts'));
     }
 
     /**

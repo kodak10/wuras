@@ -20,23 +20,28 @@ class ArticleController extends Controller
 
     public function index()
     {
+        $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
+
+
         $articles = Article::with(['categories', 'tags'])
         ->orderBy('created_at', 'desc')  // Trie les articles par la date de création, du plus récent au plus ancien
         ->get();  // Limite à 10 articles par page
 
-        return view('backend.pages.products.index', compact('articles'));
+        return view('backend.pages.products.index', compact('articles', 'lowStockProducts'));
     }
 
 
     public function create()
     {
+        $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
+
         $demos = Article::with('images')->get(); // Récupère l'article avec ses images
 
         $categories = Category::all();
         $tags = Tag::all();
         $article = new Article(); 
 
-        return view('backend.pages.products.create', compact('categories', 'tags', 'article', 'demos'));
+        return view('backend.pages.products.create', compact('categories', 'tags', 'article', 'demos', 'lowStockProducts'));
     }
 
 
@@ -98,6 +103,7 @@ class ArticleController extends Controller
         $article->discount_type = $request->input('discount_type');
         $article->discount_value = $request->input('discount_value');
         $article->quantite = $request->input('quantite');
+        $article->limit_quantite = $request->input('limit_quantite');
 
         $article->status = $request->input('status');
 
@@ -175,6 +181,8 @@ public function destroy($id)
 
 public function edit($id)
     {
+        $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
+
         // Récupérer l'article à modifier
         $article = Article::with('categories','tags', 'images')->findOrFail($id); // Utilisez 'with' pour charger les catégories associées si nécessaire
         $categories = Category::all(); // Récupérer toutes les catégories
@@ -183,12 +191,14 @@ public function edit($id)
         $images = ProductImage::where('article_id', $id)->get();
 
         // Passer les données à la vue
-        return view('backend.pages.products.edit', compact('article', 'categories', 'tags', 'images'));
+        return view('backend.pages.products.edit', compact('article', 'categories', 'tags', 'images', 'lowStockProducts'));
     }
 
     // Mettre à jour un article
     public function update(Request $request, $id)
     {
+        $article = Article::findOrFail($id);
+
         // Validation des données du formulaire
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -198,6 +208,7 @@ public function edit($id)
             'discount_type' => 'nullable|string',
             'discount_value' => 'nullable|numeric',
             'quantite' => 'required|integer|min:1',
+            'limit_quantite' => 'required|integer|min:1',
             'categories' => 'required|array',
             'categories.*' => 'exists:categories,id', // Validation des catégories
             'tags' => 'nullable|array',
@@ -205,17 +216,25 @@ public function edit($id)
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validation de l'image
         ]);
 
-        // Récupérer l'article à modifier
-        $article = Article::findOrFail($id);
+        // Mettre à jour les données de l'article
+        $article->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'status' => $request->status,
+            'description' => $request->description,
+            'price' => $request->price,
+            'discount_type' => $request->discount_type,
+            'discount_value' => $request->discount_value,
+            'quantite' => $request->quantite,
+            'limit_quantite' => $request->limit_quantite,
+            'status' => $request->status,
+
+            // autres champs
+        ]);
+
 
         // Mise à jour des données de l'article
-        $article->name = $request->name;
-        $article->description = $request->description;
-        $article->price = $request->price;
-        $article->discount_type = $request->discount_type;
-        $article->discount_value = $request->discount_value;
-        $article->quantite = $request->quantite;
-        $article->status = $request->status;
+        
 
         // Si une nouvelle image est téléchargée
         if ($request->hasFile('couverture')) {

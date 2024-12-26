@@ -9,7 +9,7 @@ class Article extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','slug', 'description', 'price', 'quantite', 'status', 'discount_type', 'discount_value', 'couverture'];
+    protected $fillable = ['name','slug', 'description', 'price', 'quantite', 'status', 'discount_type', 'discount_value', 'couverture', 'limit_quantite'];
 
     public function categories()
     {
@@ -29,6 +29,11 @@ class Article extends Model
     public function images()
     {
         return $this->hasMany(ProductImage::class, 'id', 'article_id');
+    }
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class);
     }
 
 

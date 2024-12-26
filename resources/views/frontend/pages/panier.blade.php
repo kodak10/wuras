@@ -46,9 +46,6 @@
                                                     <img src="{{ asset('storage/' . $details['couverture']) }}" alt="product" width="100" height="100">
                                                 </figure>
                                             </a>
-                                            {{-- <button type="submit" class="btn btn-close">
-                                                <i class="fas fa-times"></i>
-                                            </button> --}}
                                             <form action="{{ route('removeFromCart', $product_id) }}" method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
@@ -69,21 +66,18 @@
                                     <td class="product-quantity">
                                         <div class="input-group">
                                             <input class="quantity form-control" type="number" min="1" max="100000" value="{{ $details['quantite'] }}" data-product-id="{{ $product_id }}">
-
-                                            {{-- <input class="quantity form-control" type="number" min="1" max="100000" value="{{ $details['quantite'] }}"> --}}
                                             <button class="quantity-plus w-icon-plus"></button>
                                             <button class="quantity-minus w-icon-minus"></button>
                                         </div>
                                     </td>
                                     <td class="product-subtotal">
-
                                         <span class="amount">{{ number_format($details['price'] * $details['quantite'], 2) }} FCFA</span>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    
+    
                     <div class="row">
                         <div class="cart-action mb-6 mt-5 d-flex">
                             <a href="/magasin" class="btn btn-dark btn-rounded btn-icon-left btn-shopping mr-auto">
@@ -93,7 +87,7 @@
                                 @csrf
                                 <button type="submit" class="btn btn-rounded btn-default btn-clear mr-3">Vider le panier</button>
                             </form>
-                            <button type="submit" class="btn btn-rounded btn-update disabled" name="update_cart" value="Update Cart">Mettre à jour le panier</button>
+                            <button type="submit" class="btn btn-rounded btn-update" name="update_cart" value="Update Cart" id="updateCartButton">Mettre à jour le panier</button>
                         </div>
                     </div>
                 </div>
@@ -114,22 +108,21 @@
                                     <label class="shipping-title text-dark font-weight-bold">Livraison</label>
                                 </li>
                             </ul>
-
+    
                             <div class="shipping-calculator">
-                                <p class="shipping-destination lh-1">Shipping to <strong>CA</strong>.</p>
-
-                                <form class="shipping-calculator-form">
-                                    <div class="form-group  mb-3">
+                                <form class="shipping-calculator-form" action="" method="POST">
+                                    @csrf
+                                    <div class="form-group mb-3">
                                         <div class="select-box">
                                             <select name="country" class="form-control form-control-md">
-                                                <option value="default" selected="selected">Côte D'Ivoire</option>
+                                                <option value="CI" selected="selected">Côte D'Ivoire</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group mb-3">
                                         <div class="select-box">
                                             <select name="state" class="form-control form-control-md">
-                                                <option value="defaut" selected="selected">Commune</option>
+                                                <option value="default" selected="selected">Commune</option>
                                                 <option value="Abobo">Abobo</option>
                                                 <option value="Adjame">Adjamé</option>
                                                 <option value="Attécoube">Attécoubé</option>
@@ -143,15 +136,12 @@
                                             </select>
                                         </div>
                                     </div>
-
-                                    <div class="form-group">
-                                        <input class="form-control form-control-md" type="text"
-                                            name="" placeholder="Précison du lieu">
+    
+                                    <div class="form-group mb-3">
+                                        <input class="form-control form-control-md" type="text" name="location_detail" placeholder="Précision du lieu">
                                     </div>
-                                   
-                                    
-                                    <button type="submit" class="btn btn-dark btn-outline btn-rounded mt-5">Mise à jour
-                                        Totaux</button>
+    
+                                    <button type="submit" class="btn btn-dark btn-outline btn-rounded mt-5">Mettre à jour Totaux</button>
                                 </form>
                             </div>
     
@@ -160,7 +150,7 @@
                                 <label>Total</label>
                                 <span class="ls-50">{{ number_format($total, 2) }} FCFA</span>
                             </div>
-                            <a href="" class="btn btn-block btn-dark btn-icon-right btn-rounded btn-checkout">
+                            <a href="{{ route('checkout') }}" class="btn btn-block btn-dark btn-icon-right btn-rounded btn-checkout">
                                 Passer à la caisse <i class="w-icon-long-arrow-right"></i>
                             </a>
                         </div>
@@ -219,6 +209,13 @@
 });
 
 
+</script>
+
+<script>
+    document.getElementById('updateCartButton').addEventListener('click', function() {
+        alert('Panier mis à jour !');
+        // Vous pouvez ajouter la logique pour actualiser le panier ici
+    });
 </script>
 
 @endpush

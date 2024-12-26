@@ -120,7 +120,10 @@
                                     </td>
                                     
                                     <td>
-                                        <h6 class="mb-0 fs-4">{{ $article->quantite }}</h6>
+                                        <h6 class="mb-0 fs-4 {{ $article->quantite <= $article->limit_quantite ? 'text-danger' : '' }}">
+                                            {{ $article->quantite }}
+                                        </h6>
+                                        
                                     </td>
                                     <td>
                                         <a class="fs-6 text-muted" href="{{ route('admin.articles.edit', $article->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Modifier">
@@ -139,8 +142,13 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th></th>
+                                <th>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    </div>
+                                </th>
                                 <th>Catégories</th>
+                                <th>Tags</th>
                                 <th>Couverture</th>
                                 <th>Nom</th>
                                 <th>Prix</th>

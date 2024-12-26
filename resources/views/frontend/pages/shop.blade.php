@@ -163,6 +163,17 @@
                                             title="Comparer"></a>
                                         
                                     </div>
+                                    <div class="product-label-group">
+                                        @if($categories_shop->discount_value && $categories_shop->discount_value < $categories_shop->price)
+                                            @php
+                                                $discountPercentage = (($categories_shop->price - $categories_shop->discount_value) / $categories_shop->price) * 100;
+                                            @endphp
+                                            <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
+                                        @endif
+                                        @if($categories_shop->created_at >= now()->subMonths(3))
+                                            <label class="product-label label-new">New</label>
+                                        @endif
+                                    </div>
                                 </figure>
                                 <div class="product-details">
                                     {{-- <div class="product-cat">
@@ -181,9 +192,16 @@
                                     </h3>
                                     
                                     <div class="product-pa-wrapper">
+                                       
                                         <div class="product-price">
-                                            {{ number_format($categories_shop->price, 0, '', '') }} FCFA
+                                            @if($categories_shop->discount_value)
+                                                <ins class="new-price">{{ number_format($categories_shop->discount_value, 0, '', '') }} FCFA</ins>
+                                                <del class="old-price">{{ number_format($categories_shop->price, 0, '', '') }} FCFA</del>
+                                            @else
+                                                <ins class="new-price">{{ number_format($categories_shop->price, 0, '', '') }} FCFA</ins>
+                                            @endif
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>

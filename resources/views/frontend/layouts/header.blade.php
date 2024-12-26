@@ -60,7 +60,7 @@
                 
                     @auth
                         <!-- Si l'utilisateur est connecté -->
-                        <a href="{{route('home')}}" class="d-lg-show login sign-in">
+                        <a href="/home" class="d-lg-show login sign-in">
                             <i class="w-icon-account"></i> Mon compte
                         </a>
                     @endauth

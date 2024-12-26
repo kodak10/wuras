@@ -7,6 +7,9 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\HomeController;
 
 
 Route::get('/', [WebsiteController::class, 'index']);
@@ -22,13 +25,14 @@ Route::delete('/remove-from-cart/{product_id}', [WebsiteController::class, 'remo
 // Route::get('/clear-cart', [WebsiteController::class, 'clearCart'])->name('clearCart');
 Route::post('/clear-cart', [WebsiteController::class, 'clearCart'])->name('clearCart');
 
+Route::get('/checkout', [OrderController::class, 'index'])->name('checkout');
+Route::post('/commander', [OrderController::class, 'store'])->name('order.store');
 
 
-Route::get('/admin', function () {
-    return view('backend.pages.index');
-});
 
 Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index']);
+
     Route::resource('articles', ArticleController::class);
     Route::post('categories/store', [CategoryArticleController::class, 'store'])->name('categories.store');
     Route::post('tags', [TagController::class, 'store'])->name('tags.store');
@@ -46,4 +50,20 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('home')->name('home.')->group(function () {
+    // Route pour la page d'accueil
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    
+    // Route pour afficher les commandes
+    // Route::get('/my-orders', [OrderController::class, 'myOrders'])->name('orders.index');
+    
+    // Route pour afficher les détails d'une commande
+    Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+
+    Route::post('/account', [UserController::class, 'updateAccount'])->name('account.update');
+
+});
+
+
+

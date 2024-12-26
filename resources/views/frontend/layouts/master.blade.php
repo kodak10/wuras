@@ -372,6 +372,20 @@
 
     @stack('scripts') <!-- Ici seront ajoutés les scripts des vues enfants -->
 
+    <script>
+        @if (session('success'))
+            Swal.fire({
+                toast: true,
+                icon: 'success',
+                title: "{{ session('success') }}",
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+            });
+        @endif
+    </script>
+    
 </body>
 
 

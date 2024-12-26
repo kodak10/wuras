@@ -35,7 +35,7 @@
               <!-- ------------------------------- -->
               <!-- start notification Dropdown -->
               <!-- ------------------------------- -->
-              <li class="nav-item nav-icon-hover-bg rounded-circle dropdown">
+              {{-- <li class="nav-item nav-icon-hover-bg rounded-circle dropdown">
                 <a class="nav-link position-relative" href="javascript:void(0)" id="drop2" aria-expanded="false">
                   <i class="ti ti-bell-ringing"></i>
                   <div class="notification bg-primary rounded-circle"></div>
@@ -105,7 +105,43 @@
                     <button class="btn btn-outline-primary w-100">See All Notifications</button>
                   </div>
                 </div>
-              </li>
+              </li> --}}
+              <li class="nav-item nav-icon-hover-bg rounded-circle dropdown">
+                <a class="nav-link position-relative" href="javascript:void(0)" id="drop2" aria-expanded="false">
+                    <i class="ti ti-bell-ringing"></i>
+                    @if($lowStockProducts->isNotEmpty())
+                        <div class="notification bg-primary rounded-circle"></div>
+                    @endif
+                </a>
+                <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                    <div class="d-flex align-items-center justify-content-between py-3 px-7">
+                        <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5>
+                        <span class="badge text-bg-primary rounded-2 px-3 py-1 lh-sm">{{ $lowStockProducts->count() }} new</span>
+                    </div>
+                    <div class="message-body" data-simplebar>
+                        @forelse($lowStockProducts as $product)
+                            <a href="{{ route('admin.articles.edit', $product->id) }}" class="py-6 px-7 d-flex align-items-center dropdown-item">
+                                <span class="me-3">
+                                  <img src="{{ asset('storage/' . $product->couverture) }}" alt="Couverture" class="rounded-circle"  width="48" height="48" >
+
+                                </span>
+                                <div class="w-100">
+                                    <h6 class="mb-0 fs-4 lh-base">{{ $product->name }}</h6>
+                                    <span class="fs-3 d-block text-body-secondary">Quantité restante : {{ floor($product->quantite) }}</span>
+                                </div>
+                            </a>
+                        @empty
+                            <div class="py-6 px-7 text-center">
+                                <span class="fs-4">Aucune alerte pour le moment</span>
+                            </div>
+                        @endforelse
+                    </div>
+                    <div class="py-6 px-7 mb-1">
+                        <a href="#" class="btn btn-outline-primary w-100">Voir tous les produits</a>
+                    </div>
+                </div>
+            </li>
+            
               <!-- ------------------------------- -->
               <!-- end notification Dropdown -->
               <!-- ------------------------------- -->
@@ -561,3 +597,5 @@
     </div>
   </header>
   <!--  Header End -->
+
+  

@@ -38,7 +38,62 @@
           <!-- ---------------------------------- -->
           <!-- Front Pages -->
           <!-- ---------------------------------- -->
-         
+          <li class="nav-small-cap">
+            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+            <span class="hide-menu">Commandes</span>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+              <span class="d-flex">
+                <i class="ti ti-basket"></i>
+              </span>
+              <span class="hide-menu">Les commandes</span>
+            </a>
+            <ul aria-expanded="false" class="collapse first-level">
+              {{-- <li class="sidebar-item">
+                <a href="main/eco-shop.html" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Shop</span>
+                </a>
+              </li> --}}
+              {{-- <li class="sidebar-item">
+                <a href="main/eco-shop-detail.html" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Details</span>
+                </a>
+              </li> --}}
+              <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Liste</span>
+                </a>
+              </li>
+              
+              <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Retour de commande</span>
+                </a>
+              </li>
+              
+              {{-- <li class="sidebar-item">
+                <a href="main/eco-edit-product.html" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Edit Product</span>
+                </a>
+              </li> --}}
+            </ul>
+          </li>
           <!-- ---------------------------------- -->
           <!-- Apps -->
           <!-- ---------------------------------- -->
@@ -85,6 +140,110 @@
                     <i class="ti ti-circle"></i>
                   </div>
                   <span class="hide-menu">Ajouter</span>
+                </a>
+              </li>
+              
+              {{-- <li class="sidebar-item">
+                <a href="main/eco-edit-product.html" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Edit Product</span>
+                </a>
+              </li> --}}
+            </ul>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+              <span class="d-flex">
+                <i class="ti ti-basket"></i>
+              </span>
+              <span class="hide-menu">Fournisseurs</span>
+            </a>
+            <ul aria-expanded="false" class="collapse first-level">
+              {{-- <li class="sidebar-item">
+                <a href="main/eco-shop.html" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Shop</span>
+                </a>
+              </li> --}}
+              {{-- <li class="sidebar-item">
+                <a href="main/eco-shop-detail.html" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Details</span>
+                </a>
+              </li> --}}
+              <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Liste</span>
+                </a>
+              </li>
+              
+              <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Ajouter</span>
+                </a>
+              </li>
+              
+              {{-- <li class="sidebar-item">
+                <a href="main/eco-edit-product.html" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Edit Product</span>
+                </a>
+              </li> --}}
+            </ul>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+              <span class="d-flex">
+                <i class="ti ti-basket"></i>
+              </span>
+              <span class="hide-menu">Utilisateurs / <br> Rôle et Permissions</span>
+            </a>
+            <ul aria-expanded="false" class="collapse first-level">
+              {{-- <li class="sidebar-item">
+                <a href="main/eco-shop.html" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Shop</span>
+                </a>
+              </li> --}}
+              {{-- <li class="sidebar-item">
+                <a href="main/eco-shop-detail.html" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Details</span>
+                </a>
+              </li> --}}
+              <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Utilisateurs</span>
+                </a>
+              </li>
+              
+              <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Rôle et Permissions</span>
                 </a>
               </li>
               
@@ -201,415 +360,8 @@
           <!-- ---------------------------------- -->
           <!-- PAGES -->
           <!-- ---------------------------------- -->
-          <li class="nav-small-cap">
-            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-            <span class="hide-menu">PAGES</span>
-          </li>
-          {{-- <li class="sidebar-item">
-            <a class="sidebar-link" href="main/page-pricing.html" aria-expanded="false">
-              <span>
-                <i class="ti ti-currency-dollar"></i>
-              </span>
-              <span class="hide-menu">Pricing</span>
-            </a>
-          </li>
-          <li class="sidebar-item">
-            <a class="sidebar-link" href="main/page-faq.html" aria-expanded="false">
-              <span>
-                <i class="ti ti-help"></i>
-              </span>
-              <span class="hide-menu">FAQ</span>
-            </a>
-          </li>
-          <li class="sidebar-item">
-            <a class="sidebar-link" href="main/page-account-settings.html" aria-expanded="false">
-              <span>
-                <i class="ti ti-user-circle"></i>
-              </span>
-              <span class="hide-menu">Account Setting</span>
-            </a>
-          </li>
-          <li class="sidebar-item">
-            <a class="sidebar-link" href="landingpage/index.html" aria-expanded="false">
-              <span>
-                <i class="ti ti-app-window"></i>
-              </span>
-              <span class="hide-menu">Landing Page</span>
-            </a>
-          </li>
-          <li class="sidebar-item">
-            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-              <span class="d-flex">
-                <i class="ti ti-layout"></i>
-              </span>
-              <span class="hide-menu">Widgets</span>
-            </a>
-            <ul aria-expanded="false" class="collapse first-level">
-              <li class="sidebar-item">
-                <a href="main/widgets-cards.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Cards</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/widgets-banners.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Banner</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/widgets-charts.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Charts</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/widgets-feeds.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Feed Widgets</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/widgets-apps.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Apps Widgets</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/widgets-data.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Data Widgets</span>
-                </a>
-              </li>
-            </ul>
-          </li> --}}
-          <!-- ---------------------------------- -->
-          <!-- UI -->
-          <!-- ---------------------------------- -->
-          {{-- <li class="nav-small-cap">
-            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-            <span class="hide-menu">UI</span>
-          </li> --}}
-          <!-- ---------------------------------- -->
-          <!-- UI Elements -->
-          <!-- ---------------------------------- -->
-          {{-- <li class="sidebar-item">
-            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-              <span class="d-flex">
-                <i class="ti ti-layout-grid"></i>
-              </span>
-              <span class="hide-menu">UI Elements</span>
-            </a>
-            <ul aria-expanded="false" class="collapse first-level">
-              <li class="sidebar-item">
-                <a href="main/ui-accordian.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Accordian</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-badge.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Badge</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-buttons.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Buttons</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-dropdowns.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Dropdowns</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-modals.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Modals</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-tab.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Tab</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-tooltip-popover.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Tooltip & Popover</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-notification.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Alerts</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-progressbar.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Progressbar</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-pagination.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Pagination</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-typography.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Typography</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-bootstrap-ui.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Bootstrap UI</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-breadcrumb.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Breadcrumb</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-offcanvas.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Offcanvas</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-lists.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Lists</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-grid.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Grid</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-carousel.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Carousel</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-scrollspy.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Scrollspy</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-spinner.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Spinner</span>
-                </a>
-              </li>
-              <li class="sidebar-item mb-3">
-                <a href="main/ui-link.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Link</span>
-                </a>
-              </li>
-            </ul>
-          </li> --}}
-
-          <!-- ---------------------------------- -->
-          <!-- Cards -->
-          <!-- ---------------------------------- -->
-          {{-- <li class="sidebar-item">
-            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-              <span class="d-flex">
-                <i class="ti ti-cards"></i>
-              </span>
-              <span class="hide-menu">Cards</span>
-            </a>
-            <ul aria-expanded="false" class="collapse first-level">
-              <li class="sidebar-item">
-                <a href="main/ui-cards.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Basic Cards</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-card-customs.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Custom Cards</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-card-weather.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Weather Cards</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/ui-card-draggable.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Draggable Cards</span>
-                </a>
-              </li>
-            </ul>
-          </li> --}}
-
-          <!-- ---------------------------------- -->
-          <!-- Component -->
-          <!-- ---------------------------------- -->
-          {{-- <li class="sidebar-item">
-            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-              <span class="d-flex">
-                <i class="ti ti-components"></i>
-              </span>
-              <span class="hide-menu">Component</span>
-            </a>
-            <ul aria-expanded="false" class="collapse first-level">
-              <li class="sidebar-item">
-                <a href="main/component-sweetalert.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Sweet Alert</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/component-nestable.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Nestable</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/component-noui-slider.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Noui slider</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/component-rating.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Rating</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/component-toastr.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Toastr</span>
-                </a>
-              </li>
-            </ul>
-          </li> --}}
-
-          <!-- ---------------------------------- -->
-          <!-- Forms -->
-          <!-- ---------------------------------- -->
-          {{-- <li class="nav-small-cap">
-            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-            <span class="hide-menu">Forms</span>
-          </li> --}}
-          <!-- ---------------------------------- -->
-          <!-- Form Elements -->
-          <!-- ---------------------------------- -->
-          <li class="sidebar-item">
-            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-              <span class="d-flex">
-                <i class="ti ti-file-text"></i>
-              </span>
-              <span class="hide-menu">MAGASIN</span>
-            </a>
-            <ul aria-expanded="false" class="collapse first-level">
-              <li class="sidebar-item">
-                <a href="main/form-inputs.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Rôle et Accès</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a href="main/form-input-groups.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Stocks</span>
-                </a>
-              </li>
+          
+          
               {{-- <li class="sidebar-item">
                 <a href="main/form-input-grid.html" class="sidebar-link">
                   <div class="round-16 d-flex align-items-center justify-content-center">

@@ -160,10 +160,24 @@
             </div>
 
             <div class="card">
-                <div class="card-body">
-                    <label class="form-label mb-2">Quantité (stock)</label>
-                    <input type="number" class="form-control @error('quantite') is-invalid @enderror" name="quantite" value="{{ old('quantite', floor($article->quantite)) }}" min="1" max="100" step="1" required>
+                <div class="row">
+                    <div class="col-lg-6">
+                      <div class="card-body">
+                        <label class="form-label mb-2">Quantité (stock)</label>
+                        <input type="number" class="form-control @error('quantite') is-invalid @enderror" name="quantite" value="{{ old('quantite', floor($article->quantite)) }}" min="1" max="100" step="1" required>
+      
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="card-body">
+                      <label class="form-label mb-2">LImite de stock</label>
+                      <input type="number" class="form-control @error('limit_quantite') is-invalid @enderror" name="limit_quantite" value="{{ old('limit_quantite', floor($article->limit_quantite)) }}" min="1" max="100" step="1" required>
+    
+                  </div>
+                  </div>
                 </div>
+
+                
             </div>
         </div>
 

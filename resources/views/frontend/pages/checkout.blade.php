@@ -5,9 +5,9 @@
      <nav class="breadcrumb-nav">
         <div class="container">
             <ul class="breadcrumb shop-breadcrumb bb-no">
-                <li class="passed"><a href="cart.html">Shopping Cart</a></li>
-                <li class="active"><a href="checkout.html">Checkout</a></li>
-                <li><a href="order.html">Order Complete</a></li>
+                <li class="passed"><a href="#">Panier</a></li>
+                <li class="active"><a href="#">Verifier</a></li>
+                <li><a href="#">Commande terminée</a></li>
             </ul>
         </div>
     </nav>
@@ -179,7 +179,7 @@
                     </div> --}}
                     <div class="col-lg-5 mb-4 sticky-sidebar-wrapper">
                         <div class="order-summary-wrapper sticky-sidebar">
-                            <h3 class="title text-uppercase ls-10">Your Order</h3>
+                            <h3 class="title text-uppercase ls-10">Panier</h3>
                             @php
                                 // Supposons que les produits du panier soient stockés dans la session sous 'cart'
                                 $cartItems = session('cart', []);
@@ -202,7 +202,7 @@
                                             @endphp
                                             <tr class="bb-no">
                                                 <td class="product-name">{{ $item['name'] }} <i class="fas fa-times"></i> <span class="product-quantity">{{ $item['quantite'] }}</span></td>
-                                                <td class="product-total">${{ number_format($item['price'] * $item['quantite'], 2) }}</td>
+                                                <td class="product-total">{{ number_format($item['price'] * $item['quantite'], 2) }} FCFA</td>
                                             </tr>
                                         @endforeach
 
@@ -211,7 +211,7 @@
                                                 <b>Sous-total</b>
                                             </td>
                                             <td>
-                                                <b>${{ number_format($subtotal, 2) }}</b>
+                                                <b>{{ number_format($subtotal, 2) }} FCFA</b>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -246,7 +246,7 @@
                                                 <b>Total</b>
                                             </th>
                                             <td>
-                                                <b>${{ number_format($subtotal + 5, 2) }}</b> <!-- Ajoutez le coût de l'expédition -->
+                                                <b>{{ number_format($subtotal + 5, 2) }} FCFA</b> <!-- Ajoutez le coût de l'expédition -->
                                             </td>
                                         </tr>
                                     </tfoot>
@@ -309,7 +309,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group pt-6">
+                <div class="form-group pt-6 mb-5">
                     <button type="submit" class="btn btn-dark btn-block btn-rounded">Passer la commande</button>
                 </div>
             </form>

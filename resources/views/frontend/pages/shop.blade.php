@@ -116,24 +116,24 @@
                             btn-icon-left d-block d-lg-none"><i
                                 class="w-icon-category"></i><span>Filters</span></a>
                         <div class="toolbox-item toolbox-sort select-box text-dark">
-                            <label>Sort By :</label>
+                            <label>Trier par:</label>
                             <select name="orderby" class="form-control">
-                                <option value="default" selected="selected">Default sorting</option>
-                                <option value="popularity">Sort by popularity</option>
-                                <option value="rating">Sort by average rating</option>
-                                <option value="date">Sort by latest</option>
-                                <option value="price-low">Sort by pric: low to high</option>
-                                <option value="price-high">Sort by price: high to low</option>
+                                <option value="default" selected="selected">Defaut</option>
+                                <option value="popularity">Popularité</option>
+                                <option value="rating">Evaluation</option>
+                                <option value="date">Récent</option>
+                                <option value="price-low">Trier par prix : du plus bas au plus élevé</option>
+                                <option value="price-high">Trier par prix : du plus élevé au plus bas</option>
                             </select>
                         </div>
                     </div>
                     <div class="toolbox-right">
                         <div class="toolbox-item toolbox-show select-box">
                             <select name="count" class="form-control">
-                                <option value="9">Show 9</option>
-                                <option value="12" selected="selected">Show 12</option>
-                                <option value="24">Show 24</option>
-                                <option value="36">Show 36</option>
+                                <option value="9">Affiché 9</option>
+                                <option value="12" selected="selected">Affiché 12</option>
+                                <option value="24">Affiché 24</option>
+                                <option value="36">Affiché 36</option>
                             </select>
                         </div>
                         <div class="toolbox-item toolbox-layout">

@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CategoryArticleController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\MarketingController;
+
 use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\AdminController;
@@ -34,11 +36,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index']);
 
     Route::resource('articles', ArticleController::class);
+    Route::get('articles/{id}/promotion', [ArticleController::class, 'promotion'])->name('articles.promotion');
+    Route::post('articles/{id}/toggle-promotion', [ArticleController::class, 'togglePromotion'])->name('articles.togglePromotion');
+
+
     Route::post('categories/store', [CategoryArticleController::class, 'store'])->name('categories.store');
     Route::post('tags', [TagController::class, 'store'])->name('tags.store');
     Route::resource('banners', BannerController::class);
 
     Route::delete('articles/{article}/image/{id}', [ArticleController::class, 'destroyImage'])->name('image.delete');
+
+    Route::resource('marketing', MarketingController::class);
 
 
 });

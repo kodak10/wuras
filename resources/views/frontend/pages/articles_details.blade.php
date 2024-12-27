@@ -145,7 +145,27 @@
 
                             <hr class="product-divider">
 
-                            <div class="product-price"><ins class="new-price">{{ $article->price }} FCFA</ins></div>
+                            {{-- <div class="product-price"><ins class="new-price">{{ $article->price }} FCFA</ins></div> --}}
+
+                            <div class="product-price">
+                                @if($article->promotion_type == 'percentage' && $article->promotion_value)
+                                    @php
+                                        // Calcul du prix après remise en pourcentage
+                                        $discountedPrice = $article->price - ($article->price * $article->promotion_value / 100);
+                                    @endphp
+                                    <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                    <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                    @php
+                                        // Calcul du prix après remise en montant fixe
+                                        $discountedPrice = $article->price - $article->promotion_value;
+                                    @endphp
+                                    <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                    <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                @else
+                                    <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
+                                @endif
+                            </div>
 
                             <div class="ratings-container">
                                 <div class="ratings-full">

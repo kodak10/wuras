@@ -16,12 +16,13 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
-            $table->enum('discount_type', ['none', 'percentage', 'fixed']);
-            $table->decimal('discount_value', 8, 2)->nullable();
             $table->enum('status', ['published', 'draft', 'inactive'])->default('published');
             $table->decimal('quantite', 8, 2)->default(1);
             $table->string('couverture')->default('images/default.jpg');
             $table->string('slug')->unique();
+
+
+           
 
             $table->timestamps();
         });

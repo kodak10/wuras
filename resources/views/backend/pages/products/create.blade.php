@@ -87,7 +87,53 @@
                         @enderror
                         <p class="fs-2">Fixez le prix de l'article.</p>
                       </div>
-                      <div class="mb-7">
+                      <div class="mb-4">
+                        <label class="form-label">Cet article est-il en promotion ?</label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" class="form-check-input" id="is_promotion" name="is_promotion" value="1" {{ old('is_promotion') ? 'checked' : '' }}>
+                            <label class="form-check-label" for="is_promotion">Oui</label>
+                        </div>
+                    </div>
+
+                    <!-- Détails de la promotion -->
+                    <div id="promotion-details" style="display: none;">
+                        <div class="mb-4">
+                            <label class="form-label">Type de remise</label>
+                            <select class="form-control" name="promotion_type">
+                                <option value="percentage" {{ old('promotion_type') === 'percentage' ? 'selected' : '' }}>Pourcentage</option>
+                                <option value="fixed" {{ old('promotion_type') === 'fixed' ? 'selected' : '' }}>Montant fixe</option>
+                            </select>
+                            @error('promotion_type')
+                              <div class="invalid-feedback">
+                                  {{ $message }}
+                              </div>
+                            @enderror
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Valeur de la remise</label>
+                            <input type="text" class="form-control" name="promotion_value" value="{{ old('promotion_value') }}">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Date de début de la promotion</label>
+                            <input type="date" class="form-control" name="promotion_start" value="{{ old('promotion_start') }}">
+                            @error('promotion_start')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Date de fin de la promotion</label>
+                            <input type="date" class="form-control" name="promotion_end" value="{{ old('promotion_end') }}">
+                        
+                            @error('promotion_end')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                          </div>
+                    </div>
+                      {{-- <div class="mb-7">
                         <label class="form-label">Type de remise</label>
                         <nav>
                           <div class="nav nav-tabs justify-content-between align-items-center gap-9" id="nav-tab" role="tablist">
@@ -128,7 +174,7 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> --}}
                       
                     
                   </div>
@@ -604,7 +650,13 @@
       });
   });
 </script>
-
+<script>
+  // Affiche/Masque les détails de la promotion selon l'état du toggle
+  document.getElementById('is_promotion').addEventListener('change', function () {
+      const promotionDetails = document.getElementById('promotion-details');
+      promotionDetails.style.display = this.checked ? 'block' : 'none';
+  });
+</script>
 <script>
  
 

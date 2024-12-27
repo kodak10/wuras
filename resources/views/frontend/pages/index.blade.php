@@ -349,8 +349,15 @@ a.btn-product-icon.btn-cart.w-icon-cart {
     
                                                 </a>
                                                 <div class="product-label-group">
-                                                    <label class="product-label label-discount">-25%</label>
-                                                    <label class="product-label label-new">New</label>
+                                                    @if($article->promotion_type == 'percentage' && $article->promotion_value && $article->promotion_value < $article->price)
+                                                        <label class="product-label label-discount">{{ number_format($article->promotion_value, 0) }}%</label>
+                                                    @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                                        <!-- Affichage de la remise en montant fixe -->
+                                                        <label class="product-label label-discount">-{{ number_format($article->promotion_value, 2) }} FCFA</label>
+                                                    @endif
+                                                    @if($article->created_at >= now()->subMonths(3))
+                                                        <label class="product-label label-new">New</label>
+                                                    @endif
                                                 </div>
                                                 
                                                
@@ -370,13 +377,25 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                     <a href="product-default.html" class="rating-reviews">(3 avis)</a>
                                                 </div>
                                                 <div class="product-price">
-                                                    @if($article->discount_value)
-                                                        <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                                    @if($article->promotion_type == 'percentage' && $article->promotion_value)
+                                                        @php
+                                                            // Calcul du prix après remise en pourcentage
+                                                            $discountedPrice = $article->price - ($article->price * $article->promotion_value / 100);
+                                                        @endphp
+                                                        <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                                        <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                                    @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                                        @php
+                                                            // Calcul du prix après remise en montant fixe
+                                                            $discountedPrice = $article->price - $article->promotion_value;
+                                                        @endphp
+                                                        <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
                                                         <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
                                                     @else
                                                         <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
                                                     @endif
                                                 </div>
+                                                
                                             </div>
                                             <div class="product-hidden-details">
                                                 <div class="product-action">
@@ -446,8 +465,15 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                 </a>
                                                
                                                 <div class="product-label-group">
-                                                    <label class="product-label label-discount">-25%</label>
-                                                    <label class="product-label label-new">New</label>
+                                                    @if($article->promotion_type == 'percentage' && $article->promotion_value && $article->promotion_value < $article->price)
+                                                        <label class="product-label label-discount">-{{ number_format($article->promotion_value, 0) }}%</label>
+                                                    @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                                        <!-- Affichage de la remise en montant fixe -->
+                                                        <label class="product-label label-discount">-{{ number_format($article->promotion_value, 2) }} FCFA</label>
+                                                    @endif
+                                                    @if($article->created_at >= now()->subMonths(3))
+                                                        <label class="product-label label-new">New</label>
+                                                    @endif
                                                 </div>
                                                
                                             </figure>
@@ -467,13 +493,25 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                     <a href="product-default.html" class="rating-reviews">(3 avis)</a>
                                                 </div>
                                                 <div class="product-price">
-                                                    @if($article->discount_value)
-                                                        <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                                    @if($article->promotion_type == 'percentage' && $article->promotion_value)
+                                                        @php
+                                                            // Calcul du prix après remise en pourcentage
+                                                            $discountedPrice = $article->price - ($article->price * $article->promotion_value / 100);
+                                                        @endphp
+                                                        <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                                        <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                                    @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                                        @php
+                                                            // Calcul du prix après remise en montant fixe
+                                                            $discountedPrice = $article->price - $article->promotion_value;
+                                                        @endphp
+                                                        <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
                                                         <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
                                                     @else
                                                         <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
                                                     @endif
                                                 </div>
+                                                
                                             </div>
                                             <div class="product-hidden-details">
                                                 <div class="product-action">
@@ -540,9 +578,10 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                 </a>
                                                
                                                 <div class="product-label-group">
-                                                    @if($article->discount_value && $article->discount_value < $article->price)
+                                                    @if($article->promotion_value && $article->promotion_value < $article->price)
                                                         @php
-                                                            $discountPercentage = (($article->price - $article->discount_value) / $article->price) * 100;
+                                                            // Calcul du pourcentage de la remise par rapport au prix de l'article
+                                                            $discountPercentage = (($article->price - $article->promotion_value) / $article->price) * 100;
                                                         @endphp
                                                         <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
                                                     @endif
@@ -568,13 +607,25 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                     <a href="product-default.html" class="rating-reviews">(3 avis)</a>
                                                 </div>
                                                 <div class="product-price">
-                                                    @if($article->discount_value)
-                                                        <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                                    @if($article->promotion_type == 'percentage' && $article->promotion_value)
+                                                        @php
+                                                            // Calcul du prix après remise en pourcentage
+                                                            $discountedPrice = $article->price - ($article->price * $article->promotion_value / 100);
+                                                        @endphp
+                                                        <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                                        <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                                    @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                                        @php
+                                                            // Calcul du prix après remise en montant fixe
+                                                            $discountedPrice = $article->price - $article->promotion_value;
+                                                        @endphp
+                                                        <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
                                                         <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
                                                     @else
                                                         <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
                                                     @endif
                                                 </div>
+                                                
                                             </div>
                                             <div class="product-hidden-details">
                                                 <div class="product-action">
@@ -668,12 +719,13 @@ a.btn-product-icon.btn-cart.w-icon-cart {
 
                                             </a>
                                             <div class="product-label-group">
-                                                @if($article->discount_value && $article->discount_value < $article->price)
-                                                    @php
-                                                        $discountPercentage = (($article->price - $article->discount_value) / $article->price) * 100;
-                                                    @endphp
-                                                    <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
-                                                @endif
+                                                @if($article->promotion_value && $article->promotion_value < $article->price)
+                                                        @php
+                                                            // Calcul du pourcentage de la remise par rapport au prix de l'article
+                                                            $discountPercentage = (($article->price - $article->promotion_value) / $article->price) * 100;
+                                                        @endphp
+                                                        <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
+                                                    @endif
                                                 @if($article->created_at >= now()->subMonths(3))
                                                     <label class="product-label label-new">New</label>
                                                 @endif
@@ -696,13 +748,25 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                 <a href="product-default.html" class="rating-reviews">(3 avis)</a>
                                             </div>
                                             <div class="product-price">
-                                                @if($article->discount_value)
-                                                    <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                                @if($article->promotion_type == 'percentage' && $article->promotion_value)
+                                                    @php
+                                                        // Calcul du prix après remise en pourcentage
+                                                        $discountedPrice = $article->price - ($article->price * $article->promotion_value / 100);
+                                                    @endphp
+                                                    <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                                    <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                                @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                                    @php
+                                                        // Calcul du prix après remise en montant fixe
+                                                        $discountedPrice = $article->price - $article->promotion_value;
+                                                    @endphp
+                                                    <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
                                                     <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
                                                 @else
                                                     <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
                                                 @endif
                                             </div>
+                                            
                                         </div>
                                         <div class="product-hidden-details">
                                             <div class="product-action">
@@ -783,12 +847,13 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                         {{-- <img src="{{ asset('storage/' . $accessoire->image_2) }}" alt="Product" width="300" height="338" /> --}}
                                     </a>
                                     <div class="product-label-group">
-                                        @if($article->discount_value && $article->discount_value < $article->price)
-                                            @php
-                                                $discountPercentage = (($article->price - $article->discount_value) / $article->price) * 100;
-                                            @endphp
-                                            <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
-                                        @endif
+                                        @if($article->promotion_value && $article->promotion_value < $article->price)
+                                                        @php
+                                                            // Calcul du pourcentage de la remise par rapport au prix de l'article
+                                                            $discountPercentage = (($article->price - $article->promotion_value) / $article->price) * 100;
+                                                        @endphp
+                                                        <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
+                                                    @endif
                                         @if($article->created_at >= now()->subMonths(3))
                                             <label class="product-label label-new">New</label>
                                         @endif
@@ -797,13 +862,25 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                 <div class="product-details">
                                     <h4 class="product-name"><a href="#">{{ $article->name }}</a></h4>
                                     <div class="product-price">
-                                        @if($article->discount_value)
-                                            <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                        @if($article->promotion_type == 'percentage' && $article->promotion_value)
+                                            @php
+                                                // Calcul du prix après remise en pourcentage
+                                                $discountedPrice = $article->price - ($article->price * $article->promotion_value / 100);
+                                            @endphp
+                                            <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                            <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                        @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                            @php
+                                                // Calcul du prix après remise en montant fixe
+                                                $discountedPrice = $article->price - $article->promotion_value;
+                                            @endphp
+                                            <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
                                             <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
                                         @else
                                             <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
                                         @endif
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -827,12 +904,13 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                         {{-- <img src="{{ asset('storage/' . $article->image_2) }}" alt="Product" width="300" height="338" /> --}}
                                     </a>
                                     <div class="product-label-group">
-                                        @if($article->discount_value && $article->discount_value < $article->price)
-                                            @php
-                                                $discountPercentage = (($article->price - $article->discount_value) / $article->price) * 100;
-                                            @endphp
-                                            <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
-                                        @endif
+                                        @if($article->promotion_value && $article->promotion_value < $article->price)
+                                                        @php
+                                                            // Calcul du pourcentage de la remise par rapport au prix de l'article
+                                                            $discountPercentage = (($article->price - $article->promotion_value) / $article->price) * 100;
+                                                        @endphp
+                                                        <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
+                                                    @endif
                                         @if($article->created_at >= now()->subMonths(3))
                                             <label class="product-label label-new">New</label>
                                         @endif
@@ -841,13 +919,25 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                 <div class="product-details">
                                     <h4 class="product-name"><a href="#">{{ $article->name }}</a></h4>
                                     <div class="product-price">
-                                        @if($article->discount_value)
-                                            <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                        @if($article->promotion_type == 'percentage' && $article->promotion_value)
+                                            @php
+                                                // Calcul du prix après remise en pourcentage
+                                                $discountedPrice = $article->price - ($article->price * $article->promotion_value / 100);
+                                            @endphp
+                                            <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                            <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                        @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                            @php
+                                                // Calcul du prix après remise en montant fixe
+                                                $discountedPrice = $article->price - $article->promotion_value;
+                                            @endphp
+                                            <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
                                             <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
                                         @else
                                             <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
                                         @endif
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -871,12 +961,13 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                         {{-- <img src="{{ asset('storage/' . $article->image_2) }}" alt="Product" width="300" height="338" /> --}}
                                     </a>
                                     <div class="product-label-group">
-                                        @if($article->discount_value && $article->discount_value < $article->price)
-                                            @php
-                                                $discountPercentage = (($article->price - $article->discount_value) / $article->price) * 100;
-                                            @endphp
-                                            <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
-                                        @endif
+                                        @if($article->promotion_value && $article->promotion_value < $article->price)
+                                                        @php
+                                                            // Calcul du pourcentage de la remise par rapport au prix de l'article
+                                                            $discountPercentage = (($article->price - $article->promotion_value) / $article->price) * 100;
+                                                        @endphp
+                                                        <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
+                                                    @endif
                                         @if($article->created_at >= now()->subMonths(3))
                                             <label class="product-label label-new">New</label>
                                         @endif
@@ -885,13 +976,25 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                 <div class="product-details">
                                     <h4 class="product-name"><a href="#">{{ $article->name }}</a></h4>
                                     <div class="product-price">
-                                        @if($article->discount_value)
-                                            <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                        @if($article->promotion_type == 'percentage' && $article->promotion_value)
+                                            @php
+                                                // Calcul du prix après remise en pourcentage
+                                                $discountedPrice = $article->price - ($article->price * $article->promotion_value / 100);
+                                            @endphp
+                                            <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                            <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                        @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                            @php
+                                                // Calcul du prix après remise en montant fixe
+                                                $discountedPrice = $article->price - $article->promotion_value;
+                                            @endphp
+                                            <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
                                             <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
                                         @else
                                             <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
                                         @endif
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -915,12 +1018,13 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                         {{-- <img src="{{ asset('storage/' . $article->image_2) }}" alt="Product" width="300" height="338" /> --}}
                                     </a>
                                     <div class="product-label-group">
-                                        @if($article->discount_value && $article->discount_value < $article->price)
-                                            @php
-                                                $discountPercentage = (($article->price - $article->discount_value) / $article->price) * 100;
-                                            @endphp
-                                            <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
-                                        @endif
+                                        @if($article->promotion_value && $article->promotion_value < $article->price)
+                                                        @php
+                                                            // Calcul du pourcentage de la remise par rapport au prix de l'article
+                                                            $discountPercentage = (($article->price - $article->promotion_value) / $article->price) * 100;
+                                                        @endphp
+                                                        <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
+                                                    @endif
                                         @if($article->created_at >= now()->subMonths(3))
                                             <label class="product-label label-new">New</label>
                                         @endif
@@ -930,13 +1034,25 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                 <div class="product-details">
                                     <h4 class="product-name"><a href="#">{{ $article->name }}</a></h4>
                                     <div class="product-price">
-                                        @if($article->discount_value)
-                                            <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                        @if($article->promotion_type == 'percentage' && $article->promotion_value)
+                                            @php
+                                                // Calcul du prix après remise en pourcentage
+                                                $discountedPrice = $article->price - ($article->price * $article->promotion_value / 100);
+                                            @endphp
+                                            <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                            <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                        @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                            @php
+                                                // Calcul du prix après remise en montant fixe
+                                                $discountedPrice = $article->price - $article->promotion_value;
+                                            @endphp
+                                            <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
                                             <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
                                         @else
                                             <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
                                         @endif
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -1046,12 +1162,13 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                             </a>
                                             
                                             <div class="product-label-group">
-                                                @if($article->discount_value && $article->discount_value < $article->price)
-                                                    @php
-                                                        $discountPercentage = (($article->price - $article->discount_value) / $article->price) * 100;
-                                                    @endphp
-                                                    <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
-                                                @endif
+                                                @if($article->promotion_value && $article->promotion_value < $article->price)
+                                                        @php
+                                                            // Calcul du pourcentage de la remise par rapport au prix de l'article
+                                                            $discountPercentage = (($article->price - $article->promotion_value) / $article->price) * 100;
+                                                        @endphp
+                                                        <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
+                                                    @endif
                                                 @if($article->created_at >= now()->subMonths(3))
                                                     <label class="product-label label-new">New</label>
                                                 @endif
@@ -1073,13 +1190,25 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                 <a href="#" class="rating-reviews">(3 avis)</a>
                                             </div>
                                             <div class="product-price">
-                                                @if($article->discount_value)
-                                                    <ins class="new-price">{{ number_format($article->discount_value, 0, '', '') }} FCFA</ins>
+                                                @if($article->promotion_type == 'percentage' && $article->promotion_value)
+                                                    @php
+                                                        // Calcul du prix après remise en pourcentage
+                                                        $discountedPrice = $article->price - ($article->price * $article->promotion_value / 100);
+                                                    @endphp
+                                                    <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                                    <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                                @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                                    @php
+                                                        // Calcul du prix après remise en montant fixe
+                                                        $discountedPrice = $article->price - $article->promotion_value;
+                                                    @endphp
+                                                    <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
                                                     <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
                                                 @else
                                                     <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
                                                 @endif
                                             </div>
+                                            
                                         </div>
                                         <div class="product-hidden-details">
                                             <div class="product-action">

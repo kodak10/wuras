@@ -87,40 +87,54 @@
                         <p class="fs-2">Fixez le prix de l'article.</p>
                     </div>
 
-                    <div class="mb-7">
-                        <label class="form-label">Type de remise</label>
-                        <nav>
-                            <div class="nav nav-tabs justify-content-between align-items-center gap-9" id="nav-tab" role="tablist">
-                                <label for="radio1" class="form-check-label form-check p-3 border gap-2 rounded-2 d-flex flex-fill justify-content-center cursor-pointer" id="customControlValidation2" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" aria-controls="nav-home">
-                                    <input type="radio" class="form-check-input" name="discount_type" value="none" {{ $article->discount_type == 'none' ? 'checked' : '' }}>
-                                    <span class="fs-4 text-dark">Pas de réduction</span>
-                                </label>
-                                <label for="radio2" class="form-check-label p-3 form-check border gap-2 rounded-2 d-flex flex-fill justify-content-center cursor-pointer" id="customControlValidation2" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" aria-controls="nav-profile">
-                                    <input type="radio" class="form-check-input" name="discount_type" value="percentage" {{ $article->discount_type == 'percentage' ? 'checked' : '' }}>
-                                    <span class="fs-4 text-dark">Pourcentage %</span>
-                                </label>
-                                <label for="radio3" class="form-check-label form-check p-3 border gap-2 rounded-2 d-flex flex-fill justify-content-center cursor-pointer" id="customControlValidation2" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" aria-controls="nav-contact">
-                                    <input type="radio" class="form-check-input" name="discount_type" value="fixed" {{ $article->discount_type == 'fixed' ? 'checked' : '' }}>
-                                    <span class="fs-4 text-dark">Prix fixe</span>
-                                </label>
-                            </div>
-                        </nav>
-                        <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade mt-7" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                                <div class="form-group">
-                                    <label class="form-label">Définir le pourcentage de remise <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Pourcentage de réduction" name="discount_value" value="{{ old('discount_value', $article->discount_value) }}">
-                                    <p class="fs-2">Définir un pourcentage de remise à appliquer sur cet article.</p>
-                                </div>
-                            </div>
+                    <div class="mb-4">
+                        <label class="form-label">Cet article est-il en promotion ?</label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" class="form-check-input" id="is_promotion" name="is_promotion" value="1" {{ old('is_promotion') ? 'checked' : '' }}>
+                            <label class="form-check-label" for="is_promotion">Oui</label>
+                        </div>
+                    </div>
 
-                            <div class="tab-pane fade mt-7" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
-                                <div class="mb-7">
-                                    <label class="form-label">Prix réduit fixe <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Prix réduit" name="discount_value" value="{{ old('discount_value', $article->discount_value) }}">
-                                    <p class="fs-2">Définissez le prix réduit du produit. Le produit sera réduit au prix fixe déterminé.</p>
+                    <!-- Détails de la promotion -->
+                    <div id="promotion-details" style="{{ $article->is_promotion ? 'display: block;' : 'display: none;' }}">
+                        <div class="mb-4">
+                            <label class="form-label">Type de remise</label>
+                            <select class="form-control" name="promotion_type">
+                                <option value="percentage" {{ old('promotion_type', $article->promotion_type) === 'percentage' ? 'selected' : '' }}>Pourcentage</option>
+                                <option value="fixed" {{ old('promotion_type', $article->promotion_type) === 'fixed' ? 'selected' : '' }}>Montant fixe</option>
+                            </select>
+                            @error('promotion_type')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
                                 </div>
-                            </div>
+                            @enderror
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Valeur de la remise</label>
+                            <input type="text" class="form-control" name="promotion_value" value="{{ old('promotion_value', $article->promotion_value) }}">
+                            @error('promotion_value')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Date de début de la promotion</label>
+                            <input type="date" class="form-control" name="promotion_start" value="{{ old('promotion_start', $article->promotion_start) }}">
+                            @error('promotion_start')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Date de fin de la promotion</label>
+                            <input type="date" class="form-control" name="promotion_end" value="{{ old('promotion_end', $article->promotion_end) }}">
+                            @error('promotion_end')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -404,46 +418,24 @@
   });
 </script>
 
-{{-- <script>
- 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // JavaScript pour afficher/masquer les détails de la promotion en fonction de l'état du checkbox
+        document.getElementById('is_promotion').addEventListener('change', function() {
+            var promotionDetails = document.getElementById('promotion-details');
+            if (this.checked) {
+                promotionDetails.style.display = 'block';
+            } else {
+                promotionDetails.style.display = 'none';
+            }
+        });
+    });
+</script>
 
 
-  // Initialiser Quill
-// var quill = new Quill('#editor', {
-//   theme: 'snow', // Vous pouvez aussi utiliser 'bubble' selon votre choix de thème
-//   modules: {
-//     toolbar: [
-//       [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
-//       [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-//       ['bold', 'italic', 'underline'],
-//       ['link'],
-//       [{ 'align': [] }],
-//       ['image'],
-//       ['blockquote'],
-//       ['code-block']
-//     ]
-//   }
-// });
-
-// Récupérer la description de l'article (si elle existe) et la remplir dans Quill
-var description = "{{ old('description', $article->description) }}";
-    quill.root.innerHTML = description;
-
-// Capture le contenu de Quill dans le champ caché lors de la soumission du formulaire
-document.querySelector('form').addEventListener('submit', function(e) {
-    const description = quill.root.innerHTML; // Récupérer le contenu HTML de Quill
-    document.getElementById('description-field').value = description; // Mettre le contenu dans le champ caché
-});
-
-</script> --}}
 
 <script>
-    // Initialisation de Quill après le chargement de la page
-    // var quill = new Quill('#editor', {
-    //     theme: 'snow',
-    //     placeholder: 'Écrivez la description de l\'article ici...',
-    // });
-
+   
     // Récupérer la description de l'article (si elle existe) et la remplir dans Quill
     var description = {!! json_encode(old('description', $article->description)) !!};
     quill.root.innerHTML = description;

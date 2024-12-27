@@ -164,11 +164,11 @@
                                         
                                     </div>
                                     <div class="product-label-group">
-                                        @if($categories_shop->discount_value && $categories_shop->discount_value < $categories_shop->price)
-                                            @php
-                                                $discountPercentage = (($categories_shop->price - $categories_shop->discount_value) / $categories_shop->price) * 100;
-                                            @endphp
-                                            <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
+                                        @if($categories_shop->promotion_type == 'percentage' && $categories_shop->promotion_value && $categories_shop->promotion_value < $categories_shop->price)
+                                            <label class="product-label label-discount">{{ number_format($categories_shop->promotion_value, 0) }}%</label>
+                                        @elseif($categories_shop->promotion_type == 'fixed' && $categories_shop->promotion_value)
+                                            <!-- Affichage de la remise en montant fixe -->
+                                            <label class="product-label label-discount">-{{ number_format($categories_shop->promotion_value, 2) }} FCFA</label>
                                         @endif
                                         @if($categories_shop->created_at >= now()->subMonths(3))
                                             <label class="product-label label-new">New</label>
@@ -194,13 +194,25 @@
                                     <div class="product-pa-wrapper">
                                        
                                         <div class="product-price">
-                                            @if($categories_shop->discount_value)
-                                                <ins class="new-price">{{ number_format($categories_shop->discount_value, 0, '', '') }} FCFA</ins>
+                                            @if($categories_shop->promotion_type == 'percentage' && $categories_shop->promotion_value)
+                                                @php
+                                                    // Calcul du prix après remise en pourcentage
+                                                    $discountedPrice = $categories_shop->price - ($categories_shop->price * $categories_shop->promotion_value / 100);
+                                                @endphp
+                                                <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                                <del class="old-price">{{ number_format($categories_shop->price, 0, '', '') }} FCFA</del>
+                                            @elseif($categories_shop->promotion_type == 'fixed' && $categories_shop->promotion_value)
+                                                @php
+                                                    // Calcul du prix après remise en montant fixe
+                                                    $discountedPrice = $categories_shop->price - $categories_shop->promotion_value;
+                                                @endphp
+                                                <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
                                                 <del class="old-price">{{ number_format($categories_shop->price, 0, '', '') }} FCFA</del>
                                             @else
                                                 <ins class="new-price">{{ number_format($categories_shop->price, 0, '', '') }} FCFA</ins>
                                             @endif
                                         </div>
+                                        
                                         
                                     </div>
                                 </div>

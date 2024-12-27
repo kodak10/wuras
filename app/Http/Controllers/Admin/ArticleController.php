@@ -52,9 +52,11 @@ class ArticleController extends Controller
         'name' => 'required|unique:articles|string|max:255',
         'description' => 'nullable|string',
         'price' => 'required|numeric',
-        'discount_type' => 'nullable|string',
-        // 'discount_value' => 'nullable|numeric',
-        'discount_value' => 'nullable|numeric|required_if:discount_type,percentage|required_if:discount_type,fixed',
+        'is_promotion' => 'nullable|boolean',  // Si la promotion est activée ou non
+        'promotion_type' => 'nullable|in:none,percentage,fixed',  // Types de promotion possibles
+        'promotion_value' => 'nullable|numeric|min:0',  // La valeur de la promotion
+        'promotion_start' => 'nullable|date|before_or_equal:promotion_end',  // Date de début, doit être avant ou égale à la date de fin
+        'promotion_end' => 'nullable|date|after_or_equal:promotion_start',  // Date de fin, doit être après ou égale à la date de début
 
         'status' => 'required|in:published,draft,inactive', 
         'images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
@@ -74,9 +76,6 @@ class ArticleController extends Controller
         'description.string' => 'La description doit être une chaîne de caractères.',
         'price.required' => 'Le prix est requis.',
         'price.numeric' => 'Le prix doit être un nombre.',
-        'discount_type.string' => 'Le type de réduction doit être une chaîne de caractères.',
-        'discount_value.numeric' => 'La valeur de la réduction doit être un nombre.',
-        'discount_value.required_if' => 'La valeur de réduction est requise pour ce type de remise.',
 
         'images.*.nullable' => 'Les images sont optionnelles.',
         'images.*.image' => 'Les fichiers doivent être des images (JPEG, PNG, JPG).',
@@ -92,7 +91,17 @@ class ArticleController extends Controller
         'categories.required' => 'Le catégorie de l\'article est requis.',
         'tags.required' => 'Le tags de l\'article est requis.',
 
+        'promotion_type.in' => 'Le type de promotion doit être "none", "percentage" ou "fixed".',
+        'promotion_value.numeric' => 'La valeur de la promotion doit être un nombre.',
+        'promotion_value.min' => 'La valeur de la promotion doit être positive.',
+        'promotion_start.date' => 'La date de début de la promotion doit être une date valide.',
+        'promotion_start.before_or_equal' => 'La date de début doit être antérieure ou égale à la date de fin.',
+        'promotion_end.date' => 'La date de fin de la promotion doit être une date valide.',
+        'promotion_end.after_or_equal' => 'La date de fin doit être postérieure ou égale à la date de début.',
+   
     ]);
+
+    // dd($validated);
 
     try {
         // Créer un nouvel article
@@ -100,12 +109,16 @@ class ArticleController extends Controller
         $article->name = $request->input('name');
         $article->description = $request->input('description');
         $article->price = $request->input('price');
-        $article->discount_type = $request->input('discount_type');
-        $article->discount_value = $request->input('discount_value');
         $article->quantite = $request->input('quantite');
         $article->limit_quantite = $request->input('limit_quantite');
 
         $article->status = $request->input('status');
+
+        $article->is_promotion = $request->input('is_promotion', false); // Valeur par défaut false si non fourni
+        $article->promotion_type = $request->input('promotion_type');
+        $article->promotion_value = $request->input('promotion_value', 0); // Valeur par défaut 0 si non fourni
+        $article->promotion_start = $request->input('promotion_start');
+        $article->promotion_end = $request->input('promotion_end');
 
         $article->slug = Str::slug($article->name, '-');
 
@@ -205,8 +218,6 @@ public function edit($id)
             'description' => 'nullable|string',
             'price' => 'required|numeric',
             'status' => 'required|in:published,draft,inactive', 
-            'discount_type' => 'nullable|string',
-            'discount_value' => 'nullable|numeric',
             'quantite' => 'required|integer|min:1',
             'limit_quantite' => 'required|integer|min:1',
             'categories' => 'required|array',
@@ -214,7 +225,47 @@ public function edit($id)
             'tags' => 'nullable|array',
             'tags.*' => 'exists:tags,id', // Validation des tags
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validation de l'image
+
+            'is_promotion' => 'boolean', // Promotion activée ou non
+            'promotion_type' => 'nullable|in:percentage,fixed', // Type de remise
+            'promotion_value' => 'nullable|numeric|min:0', // Valeur de la remise
+            'promotion_start' => 'nullable|date|after_or_equal:today', // Date de début de promotion
+            'promotion_end' => 'nullable|date|after:promotion_start', // Date de fin de promotion
+        ], [
+            'name.required' => 'Le nom de l\'article est requis.',
+            'name.unique' => 'Un article avec ce nom existe déjà.',
+            'name.string' => 'Le nom de l\'article doit être une chaîne de caractères.',
+            'name.max' => 'Le nom de l\'article ne peut pas dépasser 255 caractères.',
+            'description.string' => 'La description doit être une chaîne de caractères.',
+            'price.required' => 'Le prix est requis.',
+            'price.numeric' => 'Le prix doit être un nombre.',
+    
+            'images.*.nullable' => 'Les images sont optionnelles.',
+            'images.*.image' => 'Les fichiers doivent être des images (JPEG, PNG, JPG).',
+            'images.*.mimes' => 'Les images doivent être au format JPEG, PNG ou JPG.',
+            'images.*.max' => 'Les images ne peuvent pas dépasser 2 Mo.',
+            'couverture.nullable' => 'L\'image de couverture est optionnelle.',
+            'couverture.image' => 'L\'image de couverture doit être une image (JPEG, PNG, JPG).',
+            'couverture.mimes' => 'L\'image de couverture doit être au format JPEG, PNG ou JPG.',
+            'couverture.max' => 'L\'image de couverture ne peut pas dépasser 2 Mo.',
+            'status.required' => 'Le statut de l\'article est requis.',
+            'status.in' => 'Le statut doit être l\'un des suivants : publié, brouillon ou inactif.',
+    
+            'categories.required' => 'Le catégorie de l\'article est requis.',
+            'tags.required' => 'Le tags de l\'article est requis.',
+    
+            'promotion_type.in' => 'Le type de promotion doit être "none", "percentage" ou "fixed".',
+            'promotion_value.numeric' => 'La valeur de la promotion doit être un nombre.',
+            'promotion_value.min' => 'La valeur de la promotion doit être positive.',
+            'promotion_start.date' => 'La date de début de la promotion doit être une date valide.',
+            'promotion_start.before_or_equal' => 'La date de début doit être antérieure ou égale à la date de fin.',
+            'promotion_end.date' => 'La date de fin de la promotion doit être une date valide.',
+            'promotion_end.after_or_equal' => 'La date de fin doit être postérieure ou égale à la date de début.',
+       
+    
         ]);
+        $isPromotion = $request->has('is_promotion') ? 1 : 0;
+
 
         // Mettre à jour les données de l'article
         $article->update([
@@ -223,14 +274,18 @@ public function edit($id)
             'status' => $request->status,
             'description' => $request->description,
             'price' => $request->price,
-            'discount_type' => $request->discount_type,
-            'discount_value' => $request->discount_value,
             'quantite' => $request->quantite,
             'limit_quantite' => $request->limit_quantite,
             'status' => $request->status,
+            'is_promotion' => $isPromotion, // Gestion de la promotion
+            'promotion_type' => $request->promotion_type,
+            'promotion_value' => $request->promotion_value,
+            'promotion_start' => $request->promotion_start,
+            'promotion_end' => $request->promotion_end,
 
-            // autres champs
         ]);
+
+        dd($validated);
 
 
         // Mise à jour des données de l'article
@@ -304,20 +359,56 @@ public function edit($id)
     
 
 
- 
-// affiche des images
+    public function promotion($id)
+    {
+        // // Récupérer l'article
+        // $article = Article::find($id);
+    
+        // if (!$article) {
+        //     return redirect()->back()->with('error', 'Article introuvable.');
+        // }
+    
+        // // Marquer l'article comme en promotion ou gérer la logique de promotion
+        // $article->is_promotion = !$article->is_promotion; // Basculer le statut promotion
+        // $article->save();
+    
+        // return redirect()->back()->with('success', "L'article {$article->name} a été mis à jour pour la promotion.");
+    
+        $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
 
-// Pour l'image de couverture :
-// Si l'image de couverture est stockée avec le chemin storage/images/articles/couverture/1_couverture.jpg, vous pouvez l'afficher dans votre vue Blade comme suit :
+        // Récupérer l'article à modifier
+        $article = Article::with('categories','tags', 'images')->findOrFail($id); // Utilisez 'with' pour charger les catégories associées si nécessaire
 
-// <img src="{{ asset('storage/images/articles/couverture/' . $article->couverture) }}" alt="Image de couverture">
-// Cela génère une URL comme http://votre-site.com/storage/images/articles/couverture/1_couverture.jpg.
 
-// Pour les images multiples :
-// Si les images multiples sont stockées dans la table pivot avec un chemin relatif comme storage/images/articles/image_1.jpg, vous pouvez également les afficher de la même manière :
+        // Passer les données à la vue
+        return view('backend.pages.products.promotion', compact('article', 'lowStockProducts'));
+    
+    }
 
-// @foreach($article->images as $image)
-//     <img src="{{ asset($image->image_path) }}" alt="Image de l'article">
-// @endforeach
+    public function togglePromotion(Request $request, $articleId)
+    {
+        $article = Article::findOrFail($articleId);
+        $promotionId = $request->input('promotion_id'); // ID de la promotion
+
+        if (!$promotionId) {
+            return redirect()->back()->with('error', 'Veuillez sélectionner une promotion.');
+        }
+
+        $promotion = Promotion::findOrFail($promotionId);
+
+        if ($article->promotions()->where('promotion_id', $promotionId)->exists()) {
+            // Retirer la promotion
+            $article->promotions()->detach($promotionId);
+            $message = "La promotion a été retirée de l'article.";
+        } else {
+            // Assigner la promotion
+            $article->promotions()->attach($promotionId);
+            $message = "La promotion a été ajoutée à l'article.";
+        }
+
+        return redirect()->back()->with('success', $message);
+    }
+
+    
 
 }

@@ -212,63 +212,57 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                         'spaceBetween': 20
                     }">
                         <div class="swiper-wrapper row cols-1">
-                            <div class="swiper-slide product text-center">
-                                <figure class="product-media">
-                                    <a href="product-default.html">
-                                        <img src="{{asset('assets/images/default.jpg')}}" alt="Product"
-                                            width="800" height="900" />
-                                        <img src="{{asset('assets/images/default.jpg')}}" alt="Product"
-                                            width="800" height="900" />
-                                    </a>
-                                    <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                            title="Ajouter au Panier" data-product-id=""></a>
-                                            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                            title="Mes Souhaits"></a>
-                                        <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                            title="Comparer"></a>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <h3 class="product-name">
-                                        <a href="#">Name</a>
-                                    </h3>
-                                    <div class="product-price">
-                                        <ins class="new-price">00.00 FCFA</ins><del
-                                            class="old-price">00.00 FCFA</del>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End of Product -->
-                            <div class="swiper-slide product text-center">
-                                <figure class="product-media">
-                                    <a href="#">
-                                        <img src="{{asset('assets/images/default.jpg')}}" alt="Product"
-                                            width="800" height="900" />
-                                        <img src="{{asset('assets/images/default.jpg')}}" alt="Product"
-                                            width="800" height="900" />
-                                    </a>
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier" data-product-id="">
-                                            <i class="w-icon-cart"></i><span>Ajouter au panier</span></a>
-                                        </a>                                                    
-                                        <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                            title="Ajouter Au favori"></a>
-                                        <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                            title="Comparer"></a>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <h3 class="product-name">
-                                        <a href="#">Name 02</a>
-                                    </h3>
-                                    <div class="product-price">
-                                        <ins class="new-price">00.00 FCFA</ins><del
-                                            class="old-price">00.00 FCFA</del>
+                            @forelse ($ordinateursPromotion as $articles)
+                                @foreach ($articles->articles as $article)
+                                <div class="swiper-slide product text-center">
+                                    <figure class="product-media">
+                                        <a href="{{ route('article.show', ['slug' => $article->slug]) }}">
+                                            <img src="{{ asset('storage/' . $article->couverture) }}" alt="Product"
+                                                width="800" height="900" />
+                                            {{-- <img src="{{ asset('storage/' . $article->couverture) }}" alt="Product"
+                                                width="800" height="900" /> --}}
+                                        </a>
+                                        <div class="product-action-vertical">
+                                            
+
+                                            <a href="#" class="btn-product-icon btn-cart w-icon-cart"
+                                                title="Ajouter au Panier" data-product-id="{{ $article->id }}"></a>
+                                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
+                                                title="Mes Souhaits"></a>
+                                            <a href="#" class="btn-product-icon btn-compare w-icon-compare"
+                                                title="Comparer"></a>
+                                        </div>
+                                    </figure>
+                                    <div class="product-details">
+                                        <h3 class="product-name">
+                                            <a href="{{ route('article.show', ['slug' => $article->slug]) }}">{{$article->name}}</a>
+                                        </h3>
+                                        <div class="product-price">
+                                            @if($article->promotion_type == 'percentage' && $article->promotion_value)
+                                                @php
+                                                    // Calcul du prix après remise en pourcentage
+                                                    $discountedPrice = $article->price - ($article->price * $article->promotion_value / 100);
+                                                @endphp
+                                                <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                                <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                            @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                                @php
+                                                    // Calcul du prix après remise en montant fixe
+                                                    $discountedPrice = $article->price - $article->promotion_value;
+                                                @endphp
+                                                <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                                <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                            @else
+                                                <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- End of Product -->
+                                @endforeach
+                            @empty
+                                Aucun Ordinateur en promotion
+                            @endforelse
+                            
                         </div>
                         <button class="swiper-button-next"></button>
                         <button class="swiper-button-prev"></button>
@@ -374,7 +368,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                         <span class="ratings" style="width: 100%;"></span>
                                                         <span class="tooltiptext tooltip-top"></span>
                                                     </div>
-                                                    <a href="product-default.html" class="rating-reviews">(3 avis)</a>
+                                                    <a href="#" class="rating-reviews">(3 avis)</a>
                                                 </div>
                                                 <div class="product-price">
                                                     @if($article->promotion_type == 'percentage' && $article->promotion_value)
@@ -1358,19 +1352,6 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                     </div>
                                                     <a href="#" class="rating-reviews">(3 Avis)</a>
                                                 </div>
-    
-                                                {{-- <div
-                                                    class="product-form product-variation-form product-size-swatch mb-3">
-                                                    <label class="mb-1">Size:</label>
-                                                    <div
-                                                        class="flex-wrap d-flex align-items-center product-variations">
-                                                        <a href="#" class="size">Extra Large</a>
-                                                        <a href="#" class="size">Large</a>
-                                                        <a href="#" class="size">Medium</a>
-                                                        <a href="#" class="size">Small</a>
-                                                    </div>
-                                                    <a href="#" class="product-variation-clean">Clean All</a>
-                                                </div> --}}
     
                                                 <div class="product-variation-price">
                                                     <span></span>

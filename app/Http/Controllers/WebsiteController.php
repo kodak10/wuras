@@ -124,7 +124,23 @@ class WebsiteController extends Controller
             $query->where('status', 'published');
         }])->where('name', 'Batteries et chargeurs')->get();
 
-        return view('frontend.pages.index', compact('categories', 'articles', 'tags', 'ecrans', 'imprimantesEtScanners', 'sourisEtClaviers', 'disquesDurs', 'cablesAdaptateurs', 'batteriesChargeurs', 'articlesGroupedPortable', 'articlesGroupedBureau', 'articlesGroupedComplet', 'article_imprimantesScanners'));
+        $ordinateursPromotion = Category::with(['articles' => function ($query) {
+            $query->where('status', 'published')
+                  ->where('is_promotion', true); 
+        }])
+        ->where('name', 'Ordinateurs') 
+        ->get();
+
+        $articlePromotion = Category::with(['articles' => function ($query) {
+            $query->where('status', 'published')
+                  ->where('is_promotion', true); 
+        }])
+        ->get();
+        
+        // dd($ordinateursPromotion);
+
+
+        return view('frontend.pages.index', compact('articlePromotion','categories', 'articles', 'tags', 'ecrans', 'imprimantesEtScanners', 'sourisEtClaviers', 'disquesDurs', 'cablesAdaptateurs', 'batteriesChargeurs', 'articlesGroupedPortable', 'articlesGroupedBureau', 'articlesGroupedComplet', 'article_imprimantesScanners', 'ordinateursPromotion'));
     }
 
     public function shop(Request $request)

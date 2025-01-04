@@ -10,12 +10,12 @@
 
 @section('content')
     <!-- Start of Breadcrumb -->
-    <nav class="breadcrumb-nav mt-5">
+    <nav class="breadcrumb-nav">
         <div class="container">
             <ul class="breadcrumb shop-breadcrumb bb-no">
-                <li class="active"><a href="/panier">Shopping Cart</a></li>
-                <li><a href="#">Checkout</a></li>
-                <li><a href="#">Order Complete</a></li>
+                <li class="active"><a href="/panier">Panier d'achat</a></li>
+                <li><a href="#">Vérification</a></li>
+                <li><a href="#">Commande terminée</a></li>
             </ul>
         </div>
     </nav>
@@ -103,7 +103,7 @@
     
                             <hr class="divider">
     
-                            <ul class="shipping-methods mb-2">
+                            <ul class="shipping-methods mb-3">
                                 <li>
                                     <label class="shipping-title text-dark font-weight-bold">Livraison</label>
                                 </li>

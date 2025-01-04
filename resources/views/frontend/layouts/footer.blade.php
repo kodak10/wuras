@@ -45,10 +45,7 @@
 
                             <div class="social-icons social-icons-colored">
                                 <a href="#" class="social-icon social-facebook w-icon-facebook"></a>
-                                <a href="#" class="social-icon social-twitter w-icon-twitter"></a>
                                 <a href="#" class="social-icon social-instagram w-icon-instagram"></a>
-                                <a href="#" class="social-icon social-youtube w-icon-youtube"></a>
-                                <a href="#" class="social-icon social-pinterest w-icon-pinterest"></a>
                             </div>
                         </div>
                     </div>
@@ -69,10 +66,15 @@
                         <h4 class="widget-title">Mon Compte</h4>
                         <ul class="widget-body">
                             <li><a href="#">Suivre sa commande</a></li>
-                            <li><a href="#">Mon Panier</a></li>
+                            <li><a href="/panier">Mon Panier</a></li>
                             <li><a href="#">Mes souhaits</a></li>
-                            <li><a href="#">Se Connecté</a></li>
-                            <li><a href="#">S'inscrire</a></li>
+                            @if (Auth::check())
+                                {{-- Ne rien afficher si l'utilisateur est connecté --}}
+                            @else
+                                <li><a href="{{ route('login') }}">Se Connecter</a></li>
+                                <li><a href="{{ route('register') }}">S'inscrire</a></li>
+                            @endif
+
 
                         </ul>
                     </div>

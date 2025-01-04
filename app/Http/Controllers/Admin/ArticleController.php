@@ -179,25 +179,25 @@ class ArticleController extends Controller
     }
 }
 
-public function destroy($id)
-{
-    // Trouver l'article par son ID
-    $article = Article::findOrFail($id);
+// public function destroy($id)
+// {
+//     // Trouver l'article par son ID
+//     $article = Article::findOrFail($id);
 
-    // Supprimer l'article
-    $article->delete();
+//     // Supprimer l'article
+//     $article->delete();
     
 
-    // Rediriger avec un message de succès
-    return redirect()->route('admin.articles.index')->with('success', 'L\'article a été supprimé avec succès.');
-}
+//     // Rediriger avec un message de succès
+//     return redirect()->route('admin.articles.index')->with('success', 'L\'article a été supprimé avec succès.');
+// }
 
 public function edit($id)
     {
         $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
 
         // Récupérer l'article à modifier
-        $article = Article::with('categories','tags', 'images')->findOrFail($id); // Utilisez 'with' pour charger les catégories associées si nécessaire
+        $article = Article::with('categories','tags', 'images')->findOrFail($id);
         $categories = Category::all(); // Récupérer toutes les catégories
         $tags = Tag::all(); // Récupérer tous les tags disponibles
 
@@ -340,11 +340,14 @@ public function edit($id)
         return redirect()->route('admin.articles.index')->with('success', 'Article mis à jour avec succès!');
     }
 
-    public function destroyImage($articleId, $id)
+    public function destroyImage($id)
     {
+
         // Trouver l'image par son ID
         $image = ProductImage::findOrFail($id);
     
+        dd($image);
+
         // Supprimer l'image du stockage
         if (file_exists(public_path($image->image_path))) {
             unlink(public_path($image->image_path)); // Supprimer l'image du répertoire

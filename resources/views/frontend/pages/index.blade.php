@@ -34,6 +34,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
     }
 </style>
 
+@include(('frontend.layouts.header-Categorie'))
 
 <section class="intro-section mt-5">
     <div class="swiper-container swiper-theme animation-slider" data-swiper-options="{
@@ -621,6 +622,17 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                 </div>
                                                 
                                             </div>
+                                            {{-- <div class="product-hidden-details">
+                                                <div class="product-action">
+                                                    <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier" data-product-id="{{ $article->id }}">
+                                                        <i class="w-icon-cart"></i><span>Ajouter au panier</span></a>
+                                                    </a>                                                    
+                                                    <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
+                                                        title="Ajouter Au favori"></a>
+                                                    <a href="#" class="btn-product-icon btn-compare w-icon-compare"
+                                                        title="Comparer"></a>
+                                                </div>
+                                            </div> --}}
                                             <div class="product-hidden-details">
                                                 <div class="product-action">
                                                     <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier" data-product-id="{{ $article->id }}">
@@ -1237,7 +1249,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
             <div class="col-lg-9 mb-4">
                 <div class="single-product h-100 br-sm">
                     <h4 class="title-sm title-underline font-weight-bolder ls-normal">
-                        Article en promotion cette semaine
+                        Article en promotion
                     </h4>
                     <div class="swiper">
                         <div class="swiper-container swiper-theme nav-top swiper-nav-lg" data-swiper-options="{

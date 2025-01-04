@@ -21,6 +21,7 @@
 
 <!-- Start of Page Content -->
 <div class="page-content">
+
     <div class="container">
       
         <div class="shop-content row gutter-lg mb-10">
@@ -44,7 +45,9 @@
                             <ul class="widget-body filter-items search-ul">
                                 @forelse ($categories as $categorie)
                                 <li class="{{ isset($categoryId) && $categoryId == $categorie->id ? 'active' : '' }}">
-                                    <a href="{{ route('shop', ['category' => $categorie->id, 'min_price' => request('min_price'), 'max_price' => request('max_price')]) }}">{{$categorie->name}}</a>
+                                    {{-- <a href="{{ route('shop', ['category' => $categorie->name ?? null]) }}"> --}}
+
+                                    <a href="{{ route('shop', ['category' => $categorie->name, 'min_price' => request('min_price'), 'max_price' => request('max_price')]) }}">{{$categorie->name}}</a>
                                 </li>
                                 @empty
                                     Rien à afficher
@@ -90,14 +93,14 @@
                         <!-- End of Collapsible Widget -->
 
                         <!-- Start of Collapsible Widget -->
-                        <div class="widget widget-collapsible">
+                        {{-- <div class="widget widget-collapsible">
                             <h3 class="widget-title"><label>Marques</label></h3>
                             <ul class="widget-body filter-items item-check mt-1">
                                 <li><a href="#">HP</a></li>
                                 <li><a href="#">Dell</a></li>
                                 <li><a href="#">Lenovo</a></li>
                             </ul>
-                        </div>
+                        </div> --}}
                         <!-- End of Collapsible Widget -->
                        
                     </div>

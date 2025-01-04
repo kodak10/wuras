@@ -155,7 +155,7 @@ class WebsiteController extends Controller
         // Récupération des plages de prix et de la catégorie sélectionnée
         $minPrice = $request->get('min_price');
         $maxPrice = $request->get('max_price');
-        $categoryId = $request->get('category'); // ID de la catégorie sélectionnée
+        $categoryName = $request->get('category'); // ID de la catégorie sélectionnée
         $search = $request->get('search');
 
 
@@ -170,9 +170,9 @@ class WebsiteController extends Controller
             $query->where('price', '<=', $maxPrice);
         }
 
-        if ($categoryId) {
-            $query->whereHas('categories', function ($q) use ($categoryId) {
-                $q->where('categories.id', $categoryId); // Filtre par la catégorie sélectionnée
+        if ($categoryName) {
+            $query->whereHas('categories', function ($q) use ($categoryName) {
+                $q->where('categories.name', $categoryName); // Filtre par la catégorie sélectionnée
             });
         }
 
@@ -184,7 +184,7 @@ class WebsiteController extends Controller
         // Pagination des articles filtrés
         $categories_shops = $query->paginate(12);
 
-        return view('frontend.pages.shop', compact('categories', 'tags', 'categories_shops', 'categoryId'));
+        return view('frontend.pages.shop', compact('categories', 'tags', 'categories_shops', 'categoryName'));
     }
 
     public function show($slug)

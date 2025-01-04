@@ -192,7 +192,7 @@
 
                         <div class="cart-action">
                             <a href="{{route('panier')}}" class="btn btn-dark btn-outline btn-rounded">Voir le Panier</a>
-                            <a href="#" class="btn btn-primary  btn-rounded">Payer</a>
+                            <a href="{{route('checkout')}}" class="btn btn-primary  btn-rounded">Payer</a>
                         </div>
                     </div>
                     <!-- End of Dropdown Box -->
@@ -241,27 +241,8 @@
         </div>
     </div>
 
-    <div class="container d-lg-show">
-        <div class="inner-wrap">
-            <ul class="menu horizontal-menu category-menu">
-                @forelse ($categories as $categorie)
-                    <li>
-                        <a href="{{ route('shop', ['category' => $categorie->id ?? null]) }}">
-                            <i class="w-icon-electronics"></i>{{ $categorie->name}}
-                        </a>
-                    </li>
-                @empty
-                    Rien à afficher
-                @endforelse
-                <li>
-                    <a href="/magasin">
-                        <i class="w-icon-dots-circle"></i>Voir tous
-                    </a>
-                </li>
-                
-            </ul>
-        </div>
-    </div>
+
+   
 
 
     

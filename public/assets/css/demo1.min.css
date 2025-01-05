@@ -14624,7 +14624,9 @@ aside .sp-sidebar-banner span {
   font-weight: 500;
   line-height: 1.1;
   letter-spacing: -0.007em;
-  color: #666666;
+  /* color: #666666; */
+  color: #f1f1f1;
+
 }
 .category-menu > li > a::before {
   content: none;

@@ -34,8 +34,8 @@
                 <div class="col-lg-4 col-sm-6">
                     <div class="widget widget-about">
                         <a href="/" class="logo-footer">
-                            <img src="{{asset('assets/images/logo.png')}}" alt="logo-footer" width="144"
-                                height="45" />
+                            <img src="{{asset('assets/images/logo.png')}}" alt="logo-footer"style="
+                            width: 60vh;" />
                         </a>
                         <div class="widget-body">
                             <p class="widget-about-title">Vous avez des questions ? Appelez-nous 24h/24 et 7j/7</p>
@@ -55,7 +55,6 @@
                         <h3 class="widget-title">Title</h3>
                         <ul class="widget-body">
                             <li><a href="#">À propos de nous</a></li>
-                            <li><a href="#">Devenez vendeur</a></li>
                             <li><a href="#">Contactez-nous</a></li>
                             <li><a href="#">Faqs</a></li>
                         </ul>
@@ -65,10 +64,12 @@
                     <div class="widget">
                         <h4 class="widget-title">Mon Compte</h4>
                         <ul class="widget-body">
-                            <li><a href="#">Suivre sa commande</a></li>
                             <li><a href="/panier">Mon Panier</a></li>
-                            <li><a href="#">Mes souhaits</a></li>
                             @if (Auth::check())
+                                <li><a href="/home">Mon Compte</a></li>
+                                <li><a href="/home">Suivre sa commande</a></li>
+                                <li><a href="#">Mes souhaits</a></li>
+
                                 {{-- Ne rien afficher si l'utilisateur est connecté --}}
                             @else
                                 <li><a href="{{ route('login') }}">Se Connecter</a></li>

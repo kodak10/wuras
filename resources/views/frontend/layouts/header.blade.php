@@ -60,9 +60,10 @@
                 
                     @auth
                         <!-- Si l'utilisateur est connecté -->
-                        <a href="/home" class="d-lg-show login sign-in">
+                        <a href="/home" class="d-lg-show">
                             <i class="w-icon-account"></i> Mon compte
                         </a>
+                        {{-- <li><a href="/home">Suivre sa commande</a></li> --}}
                     @endauth
                 
                     @guest
@@ -218,7 +219,6 @@
                                 <ul>
 
                                     <li ><a href="#" style="color: #000000 !important">À propos de nous</a></li>
-                                    <li ><a href="#" style="color: #000000 !important">Devenez un vendeur</a></li>
                                     <li ><a href="#" style="color: #000000 !important">Contactez-nous</a></li>
                                     <li ><a href="#" style="color: #000000 !important">FAQs</a></li>
                                     

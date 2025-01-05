@@ -315,6 +315,10 @@ public function addToCart(Request $request)
             'quantite' => 1,
             'couverture' => $product->couverture,
             'slug' => $product->slug,
+            'promotion_type' => $product->promotion_type,
+            'promotion_value' => $product->promotion_value,
+
+
         ];
     }
 

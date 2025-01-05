@@ -55,12 +55,12 @@
                         
                         <div class="form-group mb-3">
                             <label>Pays/Région * <strong>Côte D'Ivoire</strong></label>
-                            
+                            <input type="hidden" name="pays" value="Côte D'Ivoire">
                         </div>
                         <div class="form-group mb-3">
                             <label>Ville *</label>
                             <div class="select-box">
-                                <select name="state" class="form-control form-control-md">
+                                <select name="" class="form-control form-control-md">
                                     <option value="default" selected="selected">Commune</option>
                                     <option value="Abobo">Abobo</option>
                                     <option value="Adjame">Adjamé</option>
@@ -200,6 +200,7 @@
                                             <tr class="bb-no">
                                                 <td class="product-name">{{ $item['name'] }} <i class="fas fa-times"></i> <span class="product-quantity">{{ $item['quantite'] }}</span></td>
                                                 <td class="product-total">{{ number_format($item['price'] * $item['quantite'], 2) }} FCFA</td>
+                                                <input type="hidden" value="{{$item ['id'] }}" name="product_id">
                                             </tr>
                                         @endforeach
 

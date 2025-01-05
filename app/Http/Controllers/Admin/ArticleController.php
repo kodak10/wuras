@@ -37,8 +37,9 @@ class ArticleController extends Controller
 
         $demos = Article::with('images')->get(); // Récupère l'article avec ses images
 
-        $categories = Category::all();
-        $tags = Tag::all();
+        $categories = Category::orderBy('name', 'asc')->get();
+        $tags = Tag::orderBy('tag_name', 'asc')->get();
+
         $article = new Article(); 
 
         return view('backend.pages.products.create', compact('categories', 'tags', 'article', 'demos', 'lowStockProducts'));

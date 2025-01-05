@@ -1,11 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Order; // Modèle de commande
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Category;
 
+use App\Models\Order;
+use App\Models\OrderDetail;
+// use \PDF;
+
+// use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
@@ -25,37 +32,61 @@ class OrderController extends Controller
             return redirect()->route('login')->with('error', 'Vous devez être connecté pour passer une commande.');
         }
 
-        // Récupérer les informations du panier
-        $cartItems = session('cart', []);
-        $total = session('total', 0);
-
-        // Crée une nouvelle commande pour l'utilisateur connecté
-        $order = Order::create([
-            'user_id' => Auth::id(),
-            'total' => $total,
-            'status' => 'En attente', // Statut initial de la commande
-            'shipping_address' => 'test',//$request->shipping_address, // Adresse de livraison
-            'shipping_method' => 'wave'//$request->shipping_method, // Méthode de livraison
-        ]);
-
-        // Ajouter les produits de la commande à une table de commande_details
-        foreach ($cartItems as $product_id => $details) {
-            $order->orderDetails()->create([
-                'article_id' => $product_id,
-                'quantity' => $details['quantite'],
-                'price' => $details['price'],
-                'subtotal' => $details['price'] * $details['quantite'],
+              
+       
+            $validatedData = $request->validate([
+                'firstname' => 'required|string|max:255',
+                'lastname' => 'required|string|max:255',
+                'pays' => 'required|string',
+                'phone01' => 'required|string',
+                'phone02' => 'nullable|string',
+                'email' => 'required|email',
+                'order_notes' => 'nullable|string',
             ]);
-        }
-
-        // Vider le panier
-        session()->forget('cart');
-        session()->forget('total');
-
-        // Rediriger l'utilisateur avec un message de succès
-        return redirect()->back()->with('success', 'Commande passée avec succès!');
         
+            $cartItems = session('cart', []);
+            $subtotal = collect($cartItems)->sum(fn($item) => $item['price'] * $item['quantite']);
+        
+            // Créer la commande
+            $order = Order::create([
+                ...$validatedData,
+                'total_price' => $subtotal,
+                'user_id' => Auth::user()->id,  // Associe l'utilisateur connecté à la commande
+                'order_number' => 'WURAS-' . strtoupper(Str::random(8)),  // Génère un numéro de commande aléatoire
+                'status' => 'pending',  // Statut initial de la commande
+
+            ]);
+        
+            // Ajouter les détails des articles
+            foreach ($cartItems as $item) {
+                OrderDetail::create([
+                    'order_id' => $order->id,
+                    'article_id' => $item['id'],
+                    'quantity' => $item['quantite'],
+                    'unit_price' => $item['price'],
+                    'subtotal' => $item['price'] * $item['quantite'],
+                ]);
+            }
+        
+            // Vider le panier après commande
+            session()->forget('cart');
+        
+            return redirect()->route('order.success', ['orderId' => $order->id])->with('success', 'Commande enregistrée avec succès !');
+    
     }
+
+    public function success($orderId)
+    {
+        // Charger les catégories avec les articles et tags associés
+        $categories = Category::with('articles.tags')->get();
+    
+        // Récupérer la commande et les informations nécessaires
+        $order = Order::with(['orderDetails.article', 'user',])->findOrFail($orderId);
+    
+        // Retourner la vue avec les données
+        return view('frontend.pages.order-success', compact('categories', 'order')); 
+    }
+    
 
     public function show($id)
     {
@@ -65,8 +96,41 @@ class OrderController extends Controller
         $order = Order::with('orderDetails')->findOrFail($id);
 
         // Retourner la vue avec les informations de la commande
-        return view('frontend.pages.account.orders-details', compact('order', 'categories'));
+        return view('frontend.pages.account.order-details2', compact('order', 'categories'));
     }
+
+    public function showReceipt($orderId)
+    {
+        // Récupérer la commande, les détails et les informations nécessaires
+        $order = Order::with(['orderDetails.article', 'user',])->findOrFail($orderId);
+
+        return view('frontend.receipt', compact('order'));
+    }
+
+    public function generateReceiptPDF($orderId)
+    {
+        $categories = Category::with('articles.tags')->get();
+
+        $order = Order::with(['orderDetails.article', 'user',])->findOrFail($orderId);
+
+        $pdf = PDF::loadView('frontend.pages.account.order-details', compact('order', 'categories'));
+        return $pdf->download('receipt-' . $order->id . '.pdf');
+    }
+
+    public function downloadReceipt($orderId)
+    {
+        $categories = Category::with('articles.tags')->get();
+
+        // $order = Order::with(['orderDetails.article.user'])->findOrFail($orderId);
+        $order = Order::with(['orderDetails.article', 'user'])->findOrFail($orderId);
+
+        // Générer le PDF avec les données de la commande
+        $pdf = PDF::loadView('frontend.pages.account.order-details', compact('order', 'categories'));
+
+        // Retourner le PDF pour téléchargement
+        return $pdf->download('receipt_' . $orderId . '.pdf');
+    }
+
 }
 
 

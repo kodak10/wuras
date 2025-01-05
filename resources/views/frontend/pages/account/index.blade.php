@@ -10,14 +10,14 @@
 <!-- End of Page Header -->
 
 <!-- Start of Breadcrumb -->
-<nav class="breadcrumb-nav">
+{{-- <nav class="breadcrumb-nav">
     <div class="container">
         <ul class="breadcrumb">
             <li><a href="/">Accueil</a></li>
             <li>Mon Compte</li>
         </ul>
     </div>
-</nav>
+</nav> --}}
 <!-- End of Breadcrumb -->
 
 <!-- Start of PageContent -->
@@ -173,29 +173,53 @@
                             <i class="w-icon-orders"></i>
                         </span>
                         <div class="icon-box-content">
-                            <h4 class="icon-box-title text-capitalize ls-normal mb-0">Orders</h4>
+                            <h4 class="icon-box-title text-capitalize ls-normal mb-0">Mes Commandes</h4>
                         </div>
                     </div>
 
                     <table class="shop-table account-orders-table mb-6">
                         <thead>
                             <tr>
-                                <th class="order-id">Order</th>
+                                <th class="order-id">N°</th>
                                 <th class="order-date">Date</th>
                                 <th class="order-status">Status</th>
-                                <th class="order-total">Total</th>
+                                <th class="order-total">Quantité</th>
+                                <th class="order-total">Coût</th>
                                 <th class="order-actions">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($orders as $order)
                                 <tr>
-                                    <td class="order-id">#{{ $order->id }}</td>
-                                    <td class="order-date">{{ $order->created_at->format('d F, Y') }}</td>
-                                    <td class="order-status">{{ $order->status }}</td>
+                                    <td class="order-id">#{{ $order->order_number }}</td>
+                                    <td class="order-date">{{ $order->created_at->format('d F, Y H:i:s') }}</td>
+                                    <td class="order-status">
+                                        @switch($order->status)
+                                            @case('pending')
+                                                En attente
+                                                @break
+                                    
+                                            @case('shipped')
+                                                Expédiée
+                                                @break
+                                    
+                                            @case('delivered')
+                                                Livrée
+                                                @break
+                                    
+                                            @case('cancelled')
+                                                Annulée
+                                                @break
+                                    
+                                            @default
+                                                Statut inconnu
+                                        @endswitch
+                                    </td>
+                                                                        <td class="order-total">
+                                        <span class="order-quantity">{{ $order->orderDetails->sum('quantity') }}</span> article(s)
+                                    </td>
                                     <td class="order-total">
-                                        <span class="order-price">{{ $order->total }}</span> FCFA pour
-                                        <span class="order-quantity">{{ $order->items_count }}</span> article(s)
+                                        <span class="order-price">{{ $order->orderDetails->sum(fn($detail) => $detail->quantity * $detail->unit_price) }}</span> FCFA
                                     </td>
                                     <td class="order-action">
                                         <a href="{{ route('home.orders.show', $order->id) }}"
@@ -211,8 +235,7 @@
                         
                     </table>
 
-                    <a href="shop-banner-sidebar.html" class="btn btn-dark btn-rounded btn-icon-right">Go
-                        Shop<i class="w-icon-long-arrow-right"></i></a>
+                    <a href="/magasin" class="btn btn-dark btn-rounded btn-icon-right">Aller au magasin<i class="w-icon-long-arrow-right"></i></a>
                 </div>
 
                 <div class="tab-pane" id="account-downloads">

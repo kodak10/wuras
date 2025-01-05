@@ -142,6 +142,15 @@
                   <span class="hide-menu">Ajouter</span>
                 </a>
               </li>
+
+              <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Gestion du Stock</span>
+                </a>
+              </li>
               
               {{-- <li class="sidebar-item">
                 <a href="main/eco-edit-product.html" class="sidebar-link">

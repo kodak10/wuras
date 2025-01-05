@@ -41,14 +41,5 @@ class Article extends Model
         return $this->belongsToMany(Promotion::class, 'article_promotion');
     }
 
-
-
-
-    
-
-    
-    
-
-
     
 }

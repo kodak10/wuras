@@ -1,4 +1,4 @@
-<aside class="left-sidebar with-horizontal">
+{{-- <aside class="left-sidebar with-horizontal">
     <!-- Sidebar scroll-->
     <div>
       <!-- Sidebar navigation-->
@@ -629,4 +629,4 @@
       <!-- End Sidebar navigation -->
     </div>
     <!-- End Sidebar scroll-->
-  </aside>
+  </aside> --}}

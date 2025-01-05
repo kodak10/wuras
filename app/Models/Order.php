@@ -3,33 +3,42 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
-    protected $fillable = [
-        // 'firstname', 
-        'lastname', 
-        'company-name', 
-        'country', 
-        'street-address-1', 
-        'street-address-2', 
-        'town', 
-        'zip', 
-        'state', 
-        'phone', 
-        'email', 
-        'shipping-toggle', 
-        'order-notes', 
-        'user_id', // Ajoutez cette ligne
-        'total',
-        'status',
-        'shipping_address',
-        'shipping_method',
-        'name'
-    ];
-    public function orderDetails()
-{
-    return $this->hasMany(OrderDetail::class);
-}
+    use HasFactory;
 
+    protected $fillable = [
+        'firstname',
+        'lastname',
+        'pays',
+        'phone01',
+        'phone02',
+        'email',
+        'order_notes',
+        'total_price',
+        'order_number',
+        'user_id',
+    ];
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    // public function addressModel()
+    // {
+    //     return $this->belongsTo(Address::class, 'address_id');
+    // }
+
+    public function totalAmount()
+    {
+        return $this->details->sum('subtotal');
+    }
 }

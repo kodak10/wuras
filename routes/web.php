@@ -29,7 +29,10 @@ Route::post('/clear-cart', [WebsiteController::class, 'clearCart'])->name('clear
 
 Route::get('/checkout', [OrderController::class, 'index'])->name('checkout');
 Route::post('/commander', [OrderController::class, 'store'])->name('order.store');
-
+// Route::get('/order/success', [OrderController::class, 'success'])->name('order.success');
+Route::get('/order-success/{orderId}', [OrderController::class, 'success'])->name('order.success');
+// Route::get('/receipt/{orderId}/pdf', [OrderController::class, 'downloadReceipt'])->name('receipt.pdf');
+Route::get('order/{orderId}/receipt/download', [OrderController::class, 'downloadReceipt'])->name('order.downloadReceipt');
 
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -68,6 +71,7 @@ Route::prefix('home')->name('home.')->group(function () {
     
     // Route pour afficher les détails d'une commande
     Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+
 
     Route::post('/account', [UserController::class, 'updateAccount'])->name('account.update');
 

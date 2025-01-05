@@ -309,6 +309,7 @@ public function addToCart(Request $request)
     } else {
         // Ajouter le produit dans le panier si ce n'est pas déjà fait
         $cart[$request->product_id] = [
+            'id' => $product->id, 
             'name' => $product->name,
             'price' => $product->price,
             'quantite' => 1,

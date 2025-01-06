@@ -851,6 +851,14 @@
                     product_id: productId // L'ID du produit à ajouter
                 },
                 success: function(response) {
+                    $.ajax({
+                    url: '/get-cart-count', // Assurez-vous d'avoir cette route configurée
+                    method: 'GET',
+                    success: function(data) {
+                        // Mettre à jour le compteur dans l'interface utilisateur
+                        $('.cart-count').text(data.cartCount);
+                    }
+                });
                     // Afficher un message de succès si l'ajout a réussi
                     //alert('Produit ajouté au panier !');
                     // Vous pouvez aussi mettre à jour l'interface ici, comme le compteur du panier

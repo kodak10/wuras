@@ -26,6 +26,7 @@ Route::post('/update-cart', [WebsiteController::class, 'updateCart'])->name('upd
 Route::delete('/remove-from-cart/{product_id}', [WebsiteController::class, 'removeFromCart'])->name('removeFromCart');
 // Route::get('/clear-cart', [WebsiteController::class, 'clearCart'])->name('clearCart');
 Route::post('/clear-cart', [WebsiteController::class, 'clearCart'])->name('clearCart');
+Route::get('/get-cart-count', [WebsiteController::class, 'getCartCount']);
 
 Route::get('/checkout', [OrderController::class, 'index'])->name('checkout');
 Route::post('/commander', [OrderController::class, 'store'])->name('order.store');

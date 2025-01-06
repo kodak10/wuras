@@ -180,7 +180,7 @@
                   </div>
                 </div>
               
-                <div class="card">
+                {{-- <div class="card">
                   <div class="card-body">
                       <label class="form-label">Ajouter des variantes de l'article</label>
                       <div class="email-repeater mb-3">
@@ -232,7 +232,7 @@
                           </button>
                       </div>
                   </div>
-              </div>
+              </div> --}}
               
               {{-- <div class="card">
                 <div class="card-body">
@@ -276,7 +276,7 @@
                 </div>
                 <div class="col-lg-6">
                   <div class="card-body">
-                    <label class="form-label mb-2">LImite de stock</label>
+                    <label class="form-label mb-2">Limite de stock</label>
                     <input type="number" class="form-control @error('limit_quantite') is-invalid @enderror" name="limit_quantite" value="{{ old('limit_quantite', 1) }}" min="1" max="100" step="1">
   
                 </div>

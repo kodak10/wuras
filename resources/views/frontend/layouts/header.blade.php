@@ -131,7 +131,9 @@
                     <div class="cart-overlay"></div>
                     <a href="#" class="cart-toggle label-down link">
                         <i class="w-icon-cart">
-                            <span class="cart-count">2</span>
+                            
+                            <span class="cart-count">{{ session()->get('cart', []) ? array_sum(array_column(session()->get('cart', []), 'quantite')) : 0 }}</span>
+
                             
                         </i>
                         <span class="cart-label">Panier</span>
@@ -155,7 +157,7 @@
                                             {{ $details['name'] }}
                                         </a>
                                         <div class="price-box">
-                                            <span class="product-quantity">1</span>
+                                            <span class="product-quantity">{{ $details['quantite']}}</span>
                                             <span class="product-price">{{ number_format($details['price'], 0, ',', ' ') }} FCFA</span>
                                         </div>
                                     </div>
@@ -377,12 +379,12 @@
         let cart = {};
 
         // Récupérer les quantités modifiées
-        document.querySelectorAll('.quantity').forEach(function (input) {
+        document.querySelectorAll('.quantite').forEach(function (input) {
             let product_id = input.getAttribute('data-product-id'); // Récupérer l'ID du produit
-            let quantity = input.value; // Nouvelle quantité
+            let quantite = input.value; // Nouvelle quantité
 
             // Ajouter l'ID du produit et la quantité dans l'objet cart
-            cart[product_id] = quantity;
+            cart[product_id] = quantite;
         });
 
         // Envoi des nouvelles quantités au serveur via une requête AJAX

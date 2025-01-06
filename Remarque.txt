@@ -1,0 +1,35 @@
+Index
+
+Ce ne sont pas tout les ordinateurs en promotion qui s'affichent
+mettre le nom des catégories et tags au lieu de index dans l'url
+rendre uniforme toutes les images d'articles
+faire fonctionner la newletter
+faire fonctionner le contact form
+rediger le Faqs
+la page contactez-nous
+la page about
+terme et condition d'utilisation
+centre
+
+footer
+
+
+
+Magasin
+
+Voir si on peux utiliser livewire. je veux pas que la page se recharge
+les affichage par nombres, le mode de vue et le tri 
+retirer les marques comme tri
+
+
+Panier
+
+faire fonctionner le bouton mettre a jour les totaux. pour la livriaosn en afficher le cout au dessus du pays
+
+crer une table sortie_article ou l'id du produit et la quantité sorti (lorsque le status de la commande est terminé) dans edit article  prend la quantité dns la table article - la quantité dans la table sortie_artilce
+c'est dans la gestion du compte quon pourra modifier la quantité du stock
+
+Admin 
+- Ajout d'article
+Trier les categories et tags par nom
+Afficher un message quand c'est enregistrer

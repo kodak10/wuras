@@ -5,7 +5,23 @@
     .select-box select, .select-menu select{
         max-width: 100% !important;
     }
-</style>
+    @media (max-width: 992px) {
+        .cart-action{
+        flex-direction: column !important
+        }
+        .cart-action a{
+            margin-bottom: 20px !important;
+            width: 100%;
+        }
+        .cart-action form{
+            margin-bottom: 20px;
+        }
+        .cart-action form button{
+            width: 100%;
+        }
+    }
+    
+    </style>
 @endpush
 
 @section('content')
@@ -83,7 +99,8 @@
                                         </td>
                                         <td class="product-quantity">
                                             <div class="input-group">
-                                                <input class="quantity form-control" type="number" min="1" max="100000" value="{{ $details['quantite'] }}" data-product-id="{{ $product_id }}">
+                                                {{-- <span>{{ $details['quantite'] }}</span> --}}
+                                                <input class="quantite form-control" type="text" name="cart[{{ $product_id }}]"  value="{{ $details['quantite'] ? : 1 }}" data-product-id="{{ $product_id }}">
                                                 <button class="quantity-plus w-icon-plus"></button>
                                                 <button class="quantity-minus w-icon-minus"></button>
                                             </div>
@@ -98,12 +115,12 @@
         
                         <div class="row">
                             <div class="cart-action mb-6 mt-5 d-flex">
-                                <a href="/magasin" class="btn btn-dark btn-rounded btn-icon-left btn-shopping mr-auto">
+                                <a href="/magasin" class="btn btn-dark btn-rounded btn-icon-left btn-shopping mr-auto ">
                                     <i class="w-icon-long-arrow-left"></i>Continuer vos achats
                                 </a>
                                 <form action="{{ route('clearCart') }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="btn btn-rounded btn-default btn-clear mr-3">Vider le panier</button>
+                                    <button type="submit" class="btn btn-rounded btn-default btn-clear mr-3" id="clearCartButton">Vider le panier</button>
                                 </form>
                                 <button type="submit" class="btn btn-rounded btn-update" name="update_cart" value="Update Cart" id="updateCartButton">Mettre à jour le panier</button>
                             </div>
@@ -208,12 +225,12 @@
         let cart = {};
 
         // Récupérer les quantités modifiées
-        document.querySelectorAll('.quantity').forEach(function (input) {
+        document.querySelectorAll('.quantite').forEach(function (input) {
             let product_id = input.getAttribute('data-product-id'); // Récupérer l'ID du produit
-            let quantity = input.value; // Nouvelle quantité
+            let quantite = input.value; // Nouvelle quantité
 
             // Ajouter l'ID du produit et la quantité dans l'objet cart
-            cart[product_id] = quantity;
+            cart[product_id] = quantite;
         });
 
         // Envoi des nouvelles quantités au serveur via une requête AJAX
@@ -228,7 +245,7 @@
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                location.reload(); // Recharger la page pour afficher le panier mis à jour
+                //location.reload(); // Recharger la page pour afficher le panier mis à jour
             }
         })
         .catch(error => {
@@ -240,11 +257,6 @@
 
 </script>
 
-<script>
-    document.getElementById('updateCartButton').addEventListener('click', function() {
-        alert('Panier mis à jour !');
-        // Vous pouvez ajouter la logique pour actualiser le panier ici
-    });
-</script>
+
 
 @endpush

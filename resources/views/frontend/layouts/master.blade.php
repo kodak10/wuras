@@ -6,10 +6,24 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Wuras </title>
-    <meta name="keywords" content="" />
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <title>Wuras - Vente d'ordinateurs et matériel informatique en Côte d'Ivoire</title>
+    <meta name="keywords" content="ordinateurs, matériel informatique, accessoires, composants PC, Côte d'Ivoire, Wuras">
+    <meta name="description" content="Achetez des ordinateurs, accessoires et matériel informatique de qualité chez Wuras, votre boutique en ligne spécialisée en Côte d'Ivoire.">
+    <meta name="author" content="Wuras">
+
+     <!-- Open Graph -->
+     <meta property="og:title" content="Wuras - Vente d'ordinateurs et matériel informatique">
+     <meta property="og:description" content="Découvrez notre gamme d'ordinateurs et de matériel informatique. Livraison en Côte d'Ivoire.">
+     <meta property="og:image" content="{{ asset('assets/images/logo.png') }}">
+     <meta property="og:url" content="https://wuras.ci">
+     <meta property="og:type" content="website">
+ 
+     <!-- Twitter Cards -->
+     <meta name="twitter:card" content="summary_large_image">
+     <meta name="twitter:title" content="Wuras - Vente d'ordinateurs et matériel informatique">
+     <meta name="twitter:description" content="Achetez des ordinateurs, accessoires et matériel informatique de qualité en Côte d'Ivoire.">
+     <meta name="twitter:image" content="{{ asset('assets/images/logo-wuras.png') }}">
+ 
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{asset('assets/images/icons/favicon.png')}}">
@@ -78,6 +92,17 @@
 
 <body class="home">
     <div class="page-wrapper">
+
+        <div id="preloader" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.8); z-index: 9999; text-align: center;">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <p>Chargement...</p>
+            </div>
+        </div>
+
+        
         <h1 class="d-none">Wuras - </h1>
         <!-- Start of Header -->
 
@@ -206,7 +231,7 @@
                     <ul class="mobile-menu">
                         @foreach ($categories as $categorie)
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ route('shop', ['category' => $categorie->name ?? null]) }}">
                                         <i class="w-icon-tshirt2"></i>{{$categorie->name}}
                                     </a>
                                     <ul class="megamenu">
@@ -329,6 +354,20 @@
             });
         @endif
     </script>
+
+<script>
+    document.getElementById('updateCartButton').addEventListener('click', function () {
+        // Afficher le préchargeur
+        document.getElementById('preloader').style.display = 'block';
+    });
+
+    document.getElementById('clearCartButton').addEventListener('click', function () {
+        // Afficher le préchargeur
+        document.getElementById('preloader').style.display = 'block';
+    });
+</script>
+
+
     
 </body>
 

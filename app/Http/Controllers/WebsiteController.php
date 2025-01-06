@@ -324,6 +324,7 @@ public function addToCart(Request $request)
 
     // Sauvegarder le panier dans la session
     session()->put('cart', $cart);
+    
 
     // Retourner une réponse de succès si tout s'est bien passé
     return response()->json(['success' => 'Produit ajouté au panier !']);
@@ -362,12 +363,22 @@ public function addToCart(Request $request)
 
 public function updateCart(Request $request)
 {
+    $request->validate([
+        'cart' => 'required|array',
+        'cart.*' => 'integer|min:1', // Chaque quantité doit être un entier supérieur ou égal à 1
+    ]);
+
+    
     $cart = session()->get('cart', []);
     
-    // Mettre à jour les quantités dans le panier
+    $updated_product_id = null;
+    $updated_quantity = null;
+
     foreach ($request->cart as $product_id => $quantity) {
         if (isset($cart[$product_id])) {
             $cart[$product_id]['quantite'] = $quantity; // Mise à jour de la quantité
+            $updated_product_id = $product_id;         // ID du produit mis à jour
+            $updated_quantity = $quantity;            // Quantité mise à jour
         }
     }
 
@@ -380,11 +391,15 @@ public function updateCart(Request $request)
         $total += $details['price'] * $details['quantite']; // Calcul du total
     }
 
+
     // Retourner le nouveau total au client
     return response()->json([
         'success' => true,
+        'product_id' => $updated_product_id,          // ID du produit mis à jour
+        'quantite' => $updated_quantity,           
         'total' => number_format($total, 2) . ' FCFA'
     ]);
+
 }
 
 

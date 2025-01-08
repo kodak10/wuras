@@ -384,7 +384,7 @@
                     </div>
                 </div>
                 
-                <section class="related-product-section">
+                {{-- <section class="related-product-section">
                     <div class="title-link-wrapper mb-4">
                         <h4 class="title">Produits similaires</h4>
                         <a href="#" class="btn btn-dark btn-link btn-slide-right btn-icon-right">Voir plus<i class="w-icon-long-arrow-right"></i></a>
@@ -547,7 +547,88 @@
                             </div>
                         </div>
                     </div>
+                </section> --}}
+                <section class="related-product-section mb-5">
+                    <div class="title-link-wrapper mb-4">
+                        <h4 class="title">Produits similaires</h4>
+                        <a href="#" class="btn btn-dark btn-link btn-slide-right btn-icon-right">Voir plus<i class="w-icon-long-arrow-right"></i></a>
+                    </div>
+                    <div class="swiper-container swiper-theme" data-swiper-options="{
+                        'spaceBetween': 20,
+                        'slidesPerView': 2,
+                        'breakpoints': {
+                            '576': {'slidesPerView': 3},
+                            '768': {'slidesPerView': 4},
+                            '992': {'slidesPerView': 3}
+                        }
+                    }">
+                        <div class="swiper-wrapper row cols-lg-3 cols-md-4 cols-sm-3 cols-2">
+                            @foreach($relatedArticles as $article)
+                            <div class="swiper-slide product">
+                                <figure class="product-media">
+                                    <a href="{{ route('article.show', ['slug' => $article->slug]) }}">
+                                        <img src="{{ asset('storage/' . $article->couverture) }}" alt="{{ $article->name }}" width="300" height="338" style="height: 300px !important" />
+                                    </a>
+                                    <div class="product-action-horizontal">
+                                        <a href="#" class="btn-product-icon btn-cart w-icon-cart"
+                                            title="Ajouter au Panier" data-product-id="{{ $article->id }}"></a>
+                                        <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
+                                            title="Mes Souhaits"></a>
+                                        <a href="#" class="btn-product-icon btn-compare w-icon-compare"
+                                            title="Comparer"></a>
+                                        
+                                    </div>
+                                    {{-- <div class="product-action">
+                                        <a href="{{ route('article.show', ['slug' => $article->slug]) }}" class="btn-product btn-quickview" title="Quick View">Quick View</a>
+                                    </div> --}}
+                                </figure>
+                                <div class="product-details">
+                                    {{-- <div class="product-cat">
+                                        <a href="#">{{$categories_shop->categories->name}}</a>
+                                    </div> --}}
+                                    <div class="product-cat">
+                                        <!-- Affiche le nom de la première catégorie de l'article -->
+                                        @if ($article->categories->isNotEmpty())
+                                            <a href="#">{{ $article->categories->first()->name }}</a>
+                                        @else
+                                            <p>Aucune catgéorie</p>
+                                        @endif
+                                    </div>
+                                    <h3 class="product-name">
+                                        <a href="{{ route('article.show', ['slug' => $article->slug]) }}">{{$article->name}}</a>
+                                    </h3>
+                                    
+                                    <div class="product-pa-wrapper">
+                                       
+                                        <div class="product-price">
+                                            @if($article->promotion_type == 'percentage' && $article->promotion_value)
+                                                @php
+                                                    // Calcul du prix après remise en pourcentage
+                                                    $discountedPrice = $article->price - ($article->price * $article->promotion_value / 100);
+                                                @endphp
+                                                <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                                <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                            @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                                @php
+                                                    // Calcul du prix après remise en montant fixe
+                                                    $discountedPrice = $article->price - $article->promotion_value;
+                                                @endphp
+                                                <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                                <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                            @else
+                                                <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
+                                            @endif
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </section>
+                
             </div>
             <!-- End of Main Content -->
             <aside class="sidebar product-sidebar sidebar-fixed right-sidebar sticky-sidebar-wrapper">

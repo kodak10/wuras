@@ -20,6 +20,8 @@ class Order extends Model
         'total_price',
         'order_number',
         'user_id',
+        'admin_id',
+        'status',
     ];
 
     public function orderDetails()

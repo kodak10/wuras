@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryArticleController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\MarketingController;
+use App\Http\Controllers\Admin\CommandesController;
 
 use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\UserController;
@@ -51,6 +52,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::delete('articles/{article}/image/{id}', [ArticleController::class, 'destroyImage'])->name('image.delete');
 
     Route::resource('marketing', MarketingController::class);
+
+    Route::resource('commandes', CommandesController::class);
+
+    //Route::put('commandes/{id}', [CommandesController::class, 'update'])->name('commande.update');
+
+    Route::get('stock', [AdminController::class, 'StockArticle'])->name('stock.index');
+
+    Route::get('stock/edit/{id}', [AdminController::class, 'EditStockArticle'])->name('edit.stock.article');
+    Route::put('stock/edit/{id}', [AdminController::class, 'Stockupdate'])->name('stock.update');
+
 
 
 });

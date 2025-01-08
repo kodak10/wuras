@@ -651,6 +651,7 @@
       });
   });
 </script>
+
 <script>
   // Affiche/Masque les détails de la promotion selon l'état du toggle
   document.getElementById('is_promotion').addEventListener('change', function () {

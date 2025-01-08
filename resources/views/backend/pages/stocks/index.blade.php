@@ -11,13 +11,13 @@
                 <i class="ti ti-home fs-5"></i>
               </a>
             </li>
-            <li class="breadcrumb-item" aria-current="page">Liste des articles en promotion</li>
+            <li class="breadcrumb-item" aria-current="page">Liste des articles</li>
           </ol>
         </nav>
       </div>
       <div class="col-lg-4 col-md-6 d-none d-md-flex align-items-center justify-content-end">
        
-        <a href="#" class="btn btn-primary d-flex align-items-center ms-2">
+        <a href="{{route('admin.articles.create')}}" class="btn btn-primary d-flex align-items-center ms-2">
           <i class="ti ti-plus me-1"></i>
           Ajouter
         </a>
@@ -36,6 +36,15 @@
                 </div>
             </div>
         @endif
+        @if ($errors->any())
+      <div class="alert alert-danger">
+          <ul>
+              @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+              @endforeach
+          </ul>
+      </div>
+      @endif
         <div class="datatables">
             <!-- start File export -->
             <div class="card">
@@ -53,10 +62,8 @@
                                 </th>
                                 <th>Couverture</th>
                                 <th>Nom</th>
-                                <th>Type de remise</th>
-                                <th>Valeur</th>
-                                <th>Debut</th>
-                                <th>Fin</th>
+                                <th>Stock Disponible</th>
+                                <th>Limite</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -68,28 +75,10 @@
                                             <input class="form-check-input" type="checkbox" value="{{ $article->id }}" id="flexCheckDefault{{ $article->id }}">
                                         </div>
                                     </td>
-                                    <td>
-                                        <ul class="list-unstyled mb-0">
-                                            @foreach ($article->categories as $category)
-                                                <li>{{ $category->name }}</li>
-                                            @endforeach
-                                            @if($article->categories->count() > 3)
-                                                <li><a href="#">Voir plus...</a></li>
-                                            @endif
-                                        </ul>
-                                    </td>
-                        
-                                    <td>
-                                        <ul class="list-unstyled mb-0">
-                                            @foreach ($article->tags as $tag)
-                                                <li>{{ $tag->tag_name }}</li>
-                                            @endforeach
-                                            @if($article->tags->count() > 3)
-                                                <li><a href="#">Voir plus...</a></li>
-                                            @endif
-                                        </ul>
-                                    </td>
-                        
+                                   
+
+                                    
+                                    
                                     <td>
                                         <div class="d-flex align-items-center m-auto">
                                             <img src="{{ asset('storage/' . $article->couverture) }}" class="rounded-circle" alt="{{ $article->name }}" width="56" height="56">
@@ -98,64 +87,33 @@
                                     <td>
                                         <p class="mb-0">{{ $article->name }}</p>
                                     </td>
-                        
-                                    <td>
-                                        <p class="mb-0">{{ number_format($article->price, 2) }} FCFA</p>
-                                    </td>
-                        
-                                    <td>
-                                        <!-- Colonne Promotions -->
-                                        <ul class="list-unstyled mb-0">
-                                            @foreach ($article->promotions as $promotion)
-                                                <li>
-                                                    {{ $promotion->title }} 
-                                                    ({{ $promotion->discount_type == 'percentage' ? $promotion->discount_value . '%' : $promotion->discount_value . ' FCFA' }})
-                                                    <br>
-                                                    <small>
-                                                        Du {{ $promotion->start_date->format('d/m/Y') }} 
-                                                        au {{ $promotion->end_date->format('d/m/Y') }}
-                                                    </small>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </td>
-                        
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <span class="text-bg-{{ $article->status == 'published' ? 'success' : ($article->status == 'draft' ? 'warning' : 'danger') }} p-1 rounded-circle"></span>
-                                            <p class="mb-0 ms-2">
-                                                {{ 
-                                                    [
-                                                        'published' => 'Publié',
-                                                        'draft' => 'Brouillon',
-                                                        'inactive' => 'Inactif'
-                                                    ][$article->status] ?? 'Inconnu'
-                                                }}
-                                            </p>
-                                        </div>
-                                    </td>
+
+                                    
+
+                                   
                                     
                                     <td>
                                         <h6 class="mb-0 fs-4 {{ $article->quantite <= $article->limit_quantite ? 'text-danger' : '' }}">
                                             {{ $article->quantite }}
                                         </h6>
+                                        
                                     </td>
                                     <td>
-                                        <a class="fs-6 text-muted" href="{{ route('admin.articles.edit', $article->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Modifier">
+                                        <h6 class="mb-0 fs-4  {{ $article->quantite <= $article->limit_quantite ? 'text-danger' : '' }}">
+                                            {{ $article->limit_quantite }}
+                                        </h6>
+                                        
+                                    </td>
+                                    <td>
+                                        <a class="fs-6 text-muted" href="{{ route('admin.edit.stock.article', $article->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Modifier">
                                             <i class="ti ti-pencil"></i>
                                         </a>
-                                        <form action="{{ route('admin.articles.destroy', $article->id) }}" method="POST" class="d-inline" id="delete-form-{{ $article->id }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-link text-danger fs-6 p-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Supprimer" onclick="confirmDelete({{ $article->id }})">
-                                                <i class="ti ti-trash"></i>
-                                            </button>
-                                        </form>
+
+                                       
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
-                        
                         <tfoot>
                             <tr>
                                 <th>
@@ -163,13 +121,10 @@
                                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                     </div>
                                 </th>
-                                <th>Catégories</th>
-                                <th>Tags</th>
                                 <th>Couverture</th>
                                 <th>Nom</th>
-                                <th>Prix</th>
-                                <th>Status</th>
-                                <th>Stock</th>
+                                <th>Stock Disponible</th>
+                                <th>Limite</th>
                                 <th>Actions</th>
                             </tr>
                         </tfoot>
@@ -228,45 +183,6 @@
         }
     }
 </script>
-
-<script>
-    // Initialisation du Toast de SweetAlert2
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end', // Positionner en haut à droite
-        iconColor: 'white',
-        customClass: {
-            popup: 'colored-toast',
-        },
-        showConfirmButton: false,
-        timer: 3000,  // L'alerte restera pendant 3 secondes
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer);  // Arrêter le timer au survol
-            toast.addEventListener('mouseleave', Swal.resumeTimer);  // Reprendre le timer quand le survol est terminé
-        },
-    });
-  
-    // Produits avec faible stock récupérés en JavaScript
-    const lowStockProducts = @json($lowStockProducts);
-  
-    // Fonction pour afficher un Toast pour un produit spécifique avec un délai
-    function showToast(productName, delay) {
-        setTimeout(() => {
-            Toast.fire({
-                icon: 'warning',
-                title: 'Le produit ' + productName + ' est en faible stock!',
-            });
-        }, delay);
-    }
-  
-    // Afficher les toasts pour chaque produit en faible stock avec un délai
-    lowStockProducts.forEach((product, index) => {
-        // Le délai augmente à chaque produit pour les espacer
-        const delay = index * 3500;  // Délai de 3,5 secondes entre chaque toast
-        showToast(product.name, delay);
-    });
-  </script>
 @endpush
 
 @endsection

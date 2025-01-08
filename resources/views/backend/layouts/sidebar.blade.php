@@ -28,7 +28,7 @@
           <!-- ---------------------------------- -->
           
           <li class="sidebar-item">
-            <a class="sidebar-link" href="/admin" aria-expanded="false">
+            <a class="sidebar-link" href="#" aria-expanded="false">
               <span>
                 <i class="ti ti-shopping-cart"></i>
               </span>
@@ -67,7 +67,7 @@
                 </a>
               </li> --}}
               <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="{{route('admin.commandes.index')}}" class="sidebar-link">
                   <div class="round-16 d-flex align-items-center justify-content-center">
                     <i class="ti ti-circle"></i>
                   </div>
@@ -144,7 +144,7 @@
               </li>
 
               <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="stock" class="sidebar-link">
                   <div class="round-16 d-flex align-items-center justify-content-center">
                     <i class="ti ti-circle"></i>
                   </div>
@@ -266,14 +266,7 @@
               </li> --}}
             </ul>
           </li>
-          <li class="sidebar-item">
-            <a class="sidebar-link" href="{{route('admin.marketing.index')}}" aria-expanded="false">
-              <span>
-                <i class="ti ti-calendar"></i>
-              </span>
-              <span class="hide-menu">Marketing et Promotions</span>
-            </a>
-          </li>
+         
           
           {{-- <li class="sidebar-item">
             <a class="sidebar-link" href="main/app-kanban.html" aria-expanded="false">

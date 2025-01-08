@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
 class OrderController extends Controller
 {
 
+
     public function index()
     {
         $categories = Category::with(['articles' => function ($query) {

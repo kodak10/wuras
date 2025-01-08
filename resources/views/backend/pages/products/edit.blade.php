@@ -87,13 +87,28 @@
                         <p class="fs-2">Fixez le prix de l'article.</p>
                     </div>
 
-                    <div class="mb-4">
+                    {{-- <div class="mb-4">
                         <label class="form-label">Cet article est-il en promotion ?</label>
                         <div class="form-check form-switch">
                             <input type="checkbox" class="form-check-input" id="is_promotion" name="is_promotion" value="1" {{ old('is_promotion') ? 'checked' : '' }}>
                             <label class="form-check-label" for="is_promotion">Oui</label>
                         </div>
+                    </div> --}}
+
+                    <div class="mb-4">
+                        <label class="form-label">Cet article est-il en promotion ?</label>
+                        <div class="form-check form-switch">
+                            <input 
+                                type="checkbox" 
+                                class="form-check-input" 
+                                id="is_promotion" 
+                                name="is_promotion" 
+                                value="1" 
+                                {{ old('is_promotion', $article->is_promotion ?? 0) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="is_promotion">Oui</label>
+                        </div>
                     </div>
+                    
 
                     <!-- Détails de la promotion -->
                     <div id="promotion-details" style="{{ $article->is_promotion ? 'display: block;' : 'display: none;' }}">
@@ -348,6 +363,16 @@
 
     </div>
 </form>
+
+@if ($errors->any())
+      <div class="alert alert-danger">
+          <ul>
+              @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+              @endforeach
+          </ul>
+      </div>
+      @endif
 
 
 

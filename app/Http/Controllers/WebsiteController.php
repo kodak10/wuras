@@ -221,7 +221,17 @@ class WebsiteController extends Controller
             return view('shop.article', compact('article'))->with('message', 'Aucune catégorie associée à cet article.');
         }
 
-        return view('frontend.pages.articles_details', compact('article', 'categories'));
+        // Récupérer les tags de l'article actuel
+        $tags = $article->tags;
+
+        // Récupérer les autres articles qui partagent les mêmes tags, sauf l'article actuel
+        $relatedArticles = Article::whereHas('tags', function ($query) use ($tags) {
+            $query->whereIn('tags.id', $tags->pluck('id')); // Filtrer par les tags
+        })
+        ->where('id', '!=', $article->id) // Éviter de sélectionner l'article actuel
+        ->get();
+
+        return view('frontend.pages.articles_details', compact('article', 'categories', 'relatedArticles'));
     }
 
     public function login(){

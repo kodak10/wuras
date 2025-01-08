@@ -71,6 +71,8 @@ class ArticleController extends Controller
         'tag_name' => 'nullable|string|max:255',
         'tags' => 'nullable|array', // Assurez-vous que les tags sont envoyés sous forme de tableau
         'tags.*' => 'exists:tags,id', // Chaque tag doit exister dans la table tags
+
+
     ], [
         'name.required' => 'Le nom de l\'article est requis.',
         'name.unique' => 'Un article avec ce nom existe déjà.',
@@ -267,6 +269,7 @@ public function edit($id)
        
     
         ]);
+        
         $isPromotion = $request->has('is_promotion') ? 1 : 0;
 
 
@@ -280,15 +283,17 @@ public function edit($id)
             // 'quantite' => $request->quantite,
             'limit_quantite' => $request->limit_quantite,
             'status' => $request->status,
-            'is_promotion' => $isPromotion, // Gestion de la promotion
+            'is_promotion' => 1, // Gestion de la promotion
             'promotion_type' => $request->promotion_type,
             'promotion_value' => $request->promotion_value,
             'promotion_start' => $request->promotion_start,
             'promotion_end' => $request->promotion_end,
 
         ]);
+        // dd($article->toArray()); // Vérifier si les données sont bien mises à jour
 
-        // dd($validated);
+
+        //dd($validated);
 
 
         // Mise à jour des données de l'article
@@ -337,7 +342,7 @@ public function edit($id)
         $article->tags()->sync($request->tags); // Synchroniser les tags
 
         // Enregistrer l'article mis à jour
-        $article->save();
+        //$article->save();
 
         // Retourner à la liste des articles avec un message de succès
         return redirect()->route('admin.articles.index')->with('success', 'Article mis à jour avec succès!');

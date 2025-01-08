@@ -191,7 +191,7 @@
                                         @endif
                                     </div>
                                     <h3 class="product-name">
-                                        <a href="#">{{$categories_shop->name}}</a>
+                                        <a href="{{ route('article.show', ['slug' => $categories_shop->slug]) }}">{{$categories_shop->name}}</a>
                                     </h3>
                                     
                                     <div class="product-pa-wrapper">

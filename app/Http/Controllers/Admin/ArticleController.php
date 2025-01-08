@@ -106,7 +106,6 @@ class ArticleController extends Controller
    
     ]);
 
-    // dd($validated);
 
     try {
         // Créer un nouvel article
@@ -290,11 +289,9 @@ public function edit($id)
             'promotion_end' => $request->promotion_end,
 
         ]);
-        // dd($article->toArray()); // Vérifier si les données sont bien mises à jour
 
 
-        //dd($validated);
-
+        // dd($validated);
 
         // Mise à jour des données de l'article
         
@@ -314,6 +311,7 @@ public function edit($id)
         
             // Mettre à jour l'attribut de l'article avec le nouveau chemin
             $article->couverture = 'images/articles/' . $imageName;
+            // dd($article->couverture);
         }
 
         // Gestion des autres images supplémentaires
@@ -342,7 +340,7 @@ public function edit($id)
         $article->tags()->sync($request->tags); // Synchroniser les tags
 
         // Enregistrer l'article mis à jour
-        //$article->save();
+        $article->save();
 
         // Retourner à la liste des articles avec un message de succès
         return redirect()->route('admin.articles.index')->with('success', 'Article mis à jour avec succès!');

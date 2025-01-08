@@ -770,7 +770,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                     <span class="ratings" style="width: 100%;"></span>
                                                     <span class="tooltiptext tooltip-top"></span>
                                                 </div>
-                                                <a href="product-default.html" class="rating-reviews">(3 avis)</a>
+                                                <a href="#" class="rating-reviews">(3 avis)</a>
                                             </div>
                                             <div class="product-price">
                                                 @if($article->promotion_type == 'percentage' && $article->promotion_value)

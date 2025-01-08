@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Category;
 use App\Models\Article;
@@ -11,6 +12,7 @@ use App\Models\User;
 
 use Illuminate\Support\Str;
 use App\Mail\VerificationCode;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -35,29 +37,8 @@ class WebsiteController extends Controller
     ->take(12) // Limite à 12 articles
     ->get() // Récupère les articles
     ->chunk(2); // Regroupe les articles par 2
-
-
-
-        
-        // $article_imprimantesScanners = Article::where('status', 'published') // Articles publiés
-        // ->whereHas('tags', function ($query) {
-        //     $query->where('tag_name', 'Ordinateur Portable'); // Vérifie que le tag est "Ordinateur portable"
-        // })
-        // ->with(['categories', 'tags']) // Charge les relations categories et tags
-        // ->orderBy('created_at', 'desc') // Trie les articles par date de création
-        // ->get()
-        // ->chunk(2);
-
-
-        // $articlesGrouped = Article::where('status', 'published')
-                        
-        //                         ->with(['categories', 'tags']) // Charge les relations categories et tags
-
-        //                   //->take(11)
-        //                   ->get()
-        //                   ->chunk(2);
-
-                          $articlesGroupedPortable = Article::where('status', 'published') // Articles publiés
+       
+    $articlesGroupedPortable = Article::where('status', 'published') // Articles publiés
     ->whereHas('tags', function ($query) {
         $query->where('tag_name', 'Ordinateur Portable'); // Vérifie que le tag est "Ordinateur portable"
     })
@@ -100,6 +81,18 @@ class WebsiteController extends Controller
     ->chunk(2); // Regroupe les articles par 2
 
 
+   // $recentArticles = Article::where('status', 'published') // Articles publiés
+    // ->whereHas('categories', function ($query) {
+    //     $query->where('name', 'Moniteurs et écrans'); // Vérifie que la catégorie est "Imprimantes et scanners"
+    // })
+    // ->with(['categories', 'tags']) // Charge les relations categories et tags
+    // ->where('created_at', '>=', Carbon::now()->subMonths(2)) // Filtrer les articles des 2 derniers mois
+    // ->orderBy('created_at', 'desc') // Trie par date de création
+    // ->take(9)
+    // ->get()
+    // ->chunk(3); // Regroupe les articles par 2
+
+
 
 
         
@@ -139,8 +132,27 @@ class WebsiteController extends Controller
         
         // dd($ordinateursPromotion);
 
+        $recentArticles = DB::table('order_details')
+        ->join('articles', 'order_details.article_id', '=', 'articles.id')
+        ->select(
+            'articles.id', 
+            'articles.name',
+            'articles.couverture',
+            'articles.price',
+            'articles.slug',
+            'articles.promotion_type',
+            'articles.promotion_value',
+            'articles.created_at',
+            
 
-        return view('frontend.pages.index', compact('articlePromotion','categories', 'articles', 'tags', 'ecrans', 'imprimantesEtScanners', 'sourisEtClaviers', 'disquesDurs', 'cablesAdaptateurs', 'batteriesChargeurs', 'articlesGroupedPortable', 'articlesGroupedBureau', 'articlesGroupedComplet', 'article_imprimantesScanners', 'ordinateursPromotion'));
+
+             DB::raw('SUM(order_details.quantity) as total_sold'))
+        ->groupBy('articles.id', 'articles.name')
+        ->orderByDesc('total_sold')
+        ->take(10) // Limiter aux 10 articles les plus vendus
+        ->get();
+
+        return view('frontend.pages.index', compact('articlePromotion','categories', 'articles', 'tags', 'ecrans', 'imprimantesEtScanners', 'sourisEtClaviers', 'disquesDurs', 'cablesAdaptateurs', 'batteriesChargeurs', 'articlesGroupedPortable', 'articlesGroupedBureau', 'articlesGroupedComplet', 'article_imprimantesScanners', 'ordinateursPromotion','recentArticles'));
     }
 
     public function shop(Request $request)

@@ -27,6 +27,8 @@ class ArticleController extends Controller
         ->orderBy('created_at', 'desc')  // Trie les articles par la date de création, du plus récent au plus ancien
         ->get();  // Limite à 10 articles par page
 
+       
+
         return view('backend.pages.products.index', compact('articles', 'lowStockProducts'));
     }
 
@@ -173,8 +175,8 @@ class ArticleController extends Controller
             return redirect()->back()->with('error', 'Aucune image n\'a été envoyée.');
         }
 
-        return redirect()->route('admin.articles.create')
-        ->with('success', 'Article créé avec succès!');
+        return redirect()->route('admin.articles.create')->with('success', 'Article mis à jour avec succès!');
+
     } catch (\Exception $e) {
         return response()->json(['error' => 'Une erreur est survenue : ' . $e->getMessage()], 500);
     }

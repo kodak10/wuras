@@ -54,7 +54,7 @@
                     <div class="widget">
                         <h3 class="widget-title">Title</h3>
                         <ul class="widget-body">
-                            <li><a href="#">À propos de nous</a></li>
+                            {{-- <li><a href="#">À propos de nous</a></li> --}}
                             <li><a href="#">Contactez-nous</a></li>
                             <li><a href="#">Faqs</a></li>
                         </ul>

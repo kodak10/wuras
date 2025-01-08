@@ -58,7 +58,7 @@
                             <input type="hidden" name="pays" value="Côte D'Ivoire">
                         </div>
                         <div class="form-group mb-3">
-                            <label>Ville *</label>
+                            <label>Commune *</label>
                             <div class="select-box">
                                 <select name="" class="form-control form-control-md">
                                     <option value="default" selected="selected">Commune</option>

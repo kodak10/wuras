@@ -288,7 +288,7 @@ public function edit($id)
 
         ]);
 
-        dd($validated);
+        // dd($validated);
 
 
         // Mise à jour des données de l'article

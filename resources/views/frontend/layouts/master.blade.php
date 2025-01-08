@@ -208,7 +208,7 @@
                             <a href="#">Pages</a>
                             <ul>
 
-                                <li><a href="#">À propos de nous</a></li>
+                                {{-- <li><a href="#">À propos de nous</a></li> --}}
                                 <li><a href="#">Contactez-nous</a></li>
                                 <li><a href="#">FAQs</a></li>
                                

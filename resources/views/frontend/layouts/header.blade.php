@@ -220,7 +220,7 @@
                                 <a href="#" style="color: #000000 !important">Pages</a>
                                 <ul>
 
-                                    <li ><a href="#" style="color: #000000 !important">À propos de nous</a></li>
+                                    {{-- <li ><a href="#" style="color: #000000 !important">À propos de nous</a></li> --}}
                                     <li ><a href="#" style="color: #000000 !important">Contactez-nous</a></li>
                                     <li ><a href="#" style="color: #000000 !important">FAQs</a></li>
                                     

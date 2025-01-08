@@ -264,26 +264,27 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                 Aucun Ordinateur en promotion
                             @endforelse
                             
+                            <div class="product-label-group">
+                                @if($article->promotion_type == 'percentage' && $article->promotion_value)
+                                    <label class="product-label label-discount">
+                                        -{{ intval($article->promotion_value) }}% de réduction
+                                    </label>
+                                @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                    @php
+                                        // Calcul du pourcentage équivalent à la réduction fixe
+                                        $percentageDiscount = intval(round(($article->promotion_value / $article->price) * 100));
+                                    @endphp
+                                    <label class="product-label label-discount">
+                                        -{{ $percentageDiscount }}% de réduction
+                                    </label>
+                                @else
+                                    <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
+                                @endif
+                            </div>
                         </div>
                         <button class="swiper-button-next"></button>
                         <button class="swiper-button-prev"></button>
-                        <div class="product-label-group">
-                            @if($article->promotion_type == 'percentage' && $article->promotion_value)
-                                <label class="product-label label-discount">
-                                    -{{ intval($article->promotion_value) }}% de réduction
-                                </label>
-                            @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
-                                @php
-                                    // Calcul du pourcentage équivalent à la réduction fixe
-                                    $percentageDiscount = intval(round(($article->promotion_value / $article->price) * 100));
-                                @endphp
-                                <label class="product-label label-discount">
-                                    -{{ $percentageDiscount }}% de réduction
-                                </label>
-                            @else
-                                <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
-                            @endif
-                        </div>
+                        
                         
                     </div>
                 </div>

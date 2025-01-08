@@ -25,6 +25,14 @@ return new class extends Migration
            
 
             $table->timestamps();
+
+            if (Schema::hasColumn('articles', 'discount_type')) {
+                $table->dropColumn('discount_type');
+            }
+    
+            if (Schema::hasColumn('articles', 'discount_value')) {
+                $table->dropColumn('discount_value');
+            }
         });
     }
 

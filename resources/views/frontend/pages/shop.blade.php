@@ -253,7 +253,7 @@
         <div class="col-lg-9 mb-4">
             <div class="single-product h-100 br-sm">
                 <h4 class="title-sm title-underline font-weight-bolder ls-normal">
-                    Article en promotion cette semaine
+                    Article en promotion
                 </h4>
                 <div class="swiper">
                     <div class="swiper-container swiper-theme nav-top swiper-nav-lg" data-swiper-options="{
@@ -261,317 +261,199 @@
                         'slidesPerView': 1
                     }">
                         <div class="swiper-wrapper row cols-1 gutter-no">
-                            <div class="swiper-slide">
-                                <div class="product product-single row">
-                                    <div class="col-md-6">
-                                        <div class="product-gallery product-gallery-sticky product-gallery-vertical">
-                                            <div class="swiper-container product-single-swiper swiper-theme nav-inner">
-                                                <div class="swiper-wrapper row cols-1 gutter-no">
-                                                    <div class="swiper-slide">
-                                                        <figure class="product-image">
-                                                            <img src="{{ asset('assets/images/default.jpg') }}"
-                                                                data-zoom-image="{{ asset('assets/images/default.jpg') }}"
-                                                                alt="Image" width="800"
-                                                                height="900">
-                                                        </figure>
+                            @forelse ($articlePromotions as $articles)
+                                @foreach ($articles->articles as $article)
+                                    <div class="swiper-slide">
+                                        <div class="product product-single row">
+                                            <div class="col-md-6">
+                                                <div class="product-gallery product-gallery-sticky product-gallery-vertical">
+                                                    <div class="swiper-container product-single-swiper swiper-theme nav-inner">
+                                                        <div class="swiper-wrapper row cols-1 gutter-no">
+                                                            {{-- <div class="swiper-slide">
+                                                                <figure class="product-image">
+                                                                    <img src="{{ asset('assets/images/default.jpg') }}"
+                                                                        data-zoom-image="{{ asset('assets/images/default.jpg') }}"
+                                                                        alt="Image" width="800"
+                                                                        height="900">
+                                                                </figure>
+                                                            </div>
+                                                            <div class="swiper-slide">
+                                                                <figure class="product-image">
+                                                                    <img src="{{ asset('assets/images/default.jpg') }}"
+                                                                        data-zoom-image="{{ asset('assets/images/default.jpg') }}"
+                                                                        alt="Image" width="800"
+                                                                        height="900">
+                                                                </figure>
+                                                            </div>
+                                                            <div class="swiper-slide">
+                                                                <figure class="product-image">
+                                                                    <img src="{{ asset('assets/images/default.jpg') }}"
+                                                                        data-zoom-image="{{ asset('assets/images/default.jpg') }}"
+                                                                        alt="Image" width="800"
+                                                                        height="900">
+                                                                </figure>
+                                                            </div> --}}
+                                                            <div class="swiper-slide">
+                                                                <figure class="product-image">
+                                                                    <img src="{{ asset('storage/' . $article->couverture) }}"
+                                                                        data-zoom-image="{{ asset('images/default.jpg') }}"
+                                                                        alt="Product Image" width="800"
+                                                                        height="900">
+                                                                </figure>
+                                                            </div>
+                                                        </div>
+                                                        <button class="swiper-button-next"></button>
+                                                        <button class="swiper-button-prev"></button>
+                                                        <div class="product-label-group">
+                                                            @if($article->promotion_type == 'percentage' && $article->promotion_value)
+                                                                <label class="product-label label-discount">
+                                                                    -{{ intval($article->promotion_value) }}% de réduction
+                                                                </label>
+                                                            @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                                                @php
+                                                                    // Calcul du pourcentage équivalent à la réduction fixe
+                                                                    $percentageDiscount = intval(round(($article->promotion_value / $article->price) * 100));
+                                                                @endphp
+                                                                <label class="product-label label-discount">
+                                                                    -{{ $percentageDiscount }}% de réduction
+                                                                </label>
+                                                            @else
+                                                                <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
+                                                            @endif
+                                                        </div>
+                                                        
                                                     </div>
-                                                    <div class="swiper-slide">
-                                                        <figure class="product-image">
-                                                            <img src="{{ asset('assets/images/default.jpg') }}"
-                                                                data-zoom-image="{{ asset('assets/images/default.jpg') }}"
-                                                                alt="Image" width="800"
-                                                                height="900">
-                                                        </figure>
-                                                    </div>
-                                                    <div class="swiper-slide">
-                                                        <figure class="product-image">
-                                                            <img src="{{ asset('assets/images/default.jpg') }}"
-                                                                data-zoom-image="{{ asset('assets/images/default.jpg') }}"
-                                                                alt="Image" width="800"
-                                                                height="900">
-                                                        </figure>
-                                                    </div>
-                                                    <div class="swiper-slide">
-                                                        <figure class="product-image">
-                                                            <img src="{{ asset('assets/images/default.jpg') }}"
-                                                                data-zoom-image="{{ asset('images/default.jpg') }}"
-                                                                alt="Product Image" width="800"
-                                                                height="900">
-                                                        </figure>
-                                                    </div>
-                                                </div>
-                                                <button class="swiper-button-next"></button>
-                                                <button class="swiper-button-prev"></button>
-                                                <div class="product-label-group">
-                                                    <label class="product-label label-discount">25%
-                                                        de réduction</label>
-                                                </div>
-                                            </div>
-                                            <div class="product-thumbs-wrap swiper-container"
-                                                data-swiper-options="{
-                                                'direction': 'vertical',
-                                                'breakpoints': {
-                                                    '0': {
-                                                        'direction': 'horizontal',
-                                                        'slidesPerView': 4
-                                                    },
-                                                    '992': {
+                                                    <div class="product-thumbs-wrap swiper-container"
+                                                        data-swiper-options="{
                                                         'direction': 'vertical',
-                                                        'slidesPerView': 'auto'
-                                                    }
-                                                }
-                                            }">
-                                                <div class="product-thumbs swiper-wrapper row cols-lg-1 cols-4 gutter-sm">
-                                                    <div class="product-thumb swiper-slide">
-                                                        <img src="{{ asset('assets/images/default.jpg') }}"
-                                                            alt="Product thumb" width="60" height="68" />
+                                                        'breakpoints': {
+                                                            '0': {
+                                                                'direction': 'horizontal',
+                                                                'slidesPerView': 4
+                                                            },
+                                                            '992': {
+                                                                'direction': 'vertical',
+                                                                'slidesPerView': 'auto'
+                                                            }
+                                                        }
+                                                    }">
+                                                        <div class="product-thumbs swiper-wrapper row cols-lg-1 cols-4 gutter-sm">
+                                                            <div class="product-thumb swiper-slide">
+
+                                                                <img src="{{ asset('storage/' . $article->couverture) }}"
+                                                                    alt="Product thumb" width="60" height="68" />
+                                                            </div>
+                                                            {{-- <div class="product-thumb swiper-slide">
+                                                                <img src="{{ asset('assets/images/default.jpg') }}"
+                                                                    alt="Product thumb" width="60" height="68" />
+                                                            </div>
+                                                            <div class="product-thumb swiper-slide">
+                                                                <img src="{{ asset('assets/images/default.jpg') }}"
+                                                                    alt="Product thumb" width="60" height="68" />
+                                                            </div>
+                                                            <div class="product-thumb swiper-slide">
+                                                                <img src="{{ asset('assets/images/default.jpg') }}"
+                                                                    alt="Product thumb" width="60" height="68" />
+                                                            </div> --}}
+                                                        </div>
                                                     </div>
-                                                    <div class="product-thumb swiper-slide">
-                                                        <img src="{{ asset('assets/images/default.jpg') }}"
-                                                            alt="Product thumb" width="60" height="68" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="product-details scrollable">
+                                                    <h2 class="product-title mb-1">
+                                                        <a href="{{ route('article.show', ['slug' => $article->slug]) }}">{{$article->name}}</a>
+
+                                                    </h2>
+        
+                                                    <hr class="product-divider">
+        
+                                                    <div class="product-price">
+                                                        @if($article->promotion_type == 'percentage' && $article->promotion_value)
+                                                            @php
+                                                                // Calcul du prix après remise en pourcentage
+                                                                $discountedPrice = $article->price - ($article->price * $article->promotion_value / 100);
+                                                            @endphp
+                                                            <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                                            <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                                        @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                                            @php
+                                                                // Calcul du prix après remise en montant fixe
+                                                                $discountedPrice = $article->price - $article->promotion_value;
+                                                            @endphp
+                                                            <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                                            <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                                        @else
+                                                            <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
+                                                        @endif
                                                     </div>
-                                                    <div class="product-thumb swiper-slide">
-                                                        <img src="{{ asset('assets/images/default.jpg') }}"
-                                                            alt="Product thumb" width="60" height="68" />
+        
+                                                    <div class="product-countdown-container flex-wrap">
+                                                        <label class="mr-2 text-default">L'offre se termine dans :</label>
+                                                        <div class="product-countdown countdown-compact"
+                                                            data-until="2025, 01, 04" data-compact="true">
+                                                            629 days, 11: 59: 52</div>
                                                     </div>
-                                                    <div class="product-thumb swiper-slide">
-                                                        <img src="{{ asset('assets/images/default.jpg') }}"
-                                                            alt="Product thumb" width="60" height="68" />
+        
+                                                    <div class="ratings-container">
+                                                        <div class="ratings-full">
+                                                            <span class="ratings" style="width: 80%;"></span>
+                                                            <span class="tooltiptext tooltip-top"></span>
+                                                        </div>
+                                                        <a href="#" class="rating-reviews">(3 Avis)</a>
+                                                    </div>
+        
+                                                    <div class="product-variation-price">
+                                                        <p>
+                                                            {!! Str::limit($article->description, 100) !!}
+
+                                                        </p>
+                                                    </div>
+        
+                                                    <div class="product-form pt-4">
+                                                        <div class="product-qty-form mb-2 mr-2">
+                                                            <div class="input-group">
+                                                                <input class="quantity form-control" type="number"
+                                                                    min="1" max="10000000">
+                                                                <button class="quantity-plus w-icon-plus"></button>
+                                                                <button
+                                                                    class="quantity-minus w-icon-minus"></button>
+                                                            </div>
+                                                        </div>
+                                                        <button class="btn btn-primary btn-cart" title="Ajouter au Panier" data-product-id="{{ $article->id }}">
+                                                            <i class="w-icon-cart"></i>
+                                                            <span>Ajouter au Panier</span>
+                                                        </button>
+                                                    </div>
+        
+                                                    <div class="social-links-wrapper mt-1">
+                                                        <div class="social-links">
+                                                            <div class="social-icons social-no-color border-thin">
+                                                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank" class="social-icon social-facebook w-icon-facebook"></a>
+                                        <a href="https://twitter.com/intent/tweet?url={{ url()->current() }}" target="_blank" class="social-icon social-twitter w-icon-twitter"></a>
+                                        <a href="https://www.pinterest.com/pin/create/button/?url={{ url()->current() }}" target="_blank" class="social-icon social-pinterest fab fa-pinterest-p"></a>
+                                        <a href="https://wa.me/?text={{ urlencode(url()->current()) }}" target="_blank" class="social-icon social-whatsapp fab fa-whatsapp"></a>
+                                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ url()->current() }}" target="_blank" class="social-icon social-youtube fab fa-linkedin-in"></a>
+                                                            </div>
+                                                        </div>
+                                                        <span class="divider d-xs-show"></span>
+                                                        <div class="product-link-wrapper d-flex">
+                                                            <a href="#"
+                                                                class="btn-product-icon btn-wishlist w-icon-heart"></a>
+                                                            <a href="#"
+                                                                class="btn-product-icon btn-compare btn-icon-left w-icon-compare"></a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="product-details scrollable">
-                                            <h2 class="product-title mb-1"><a
-                                                    href="#">Coat Pool
-                                                    Comfort Jacket</a></h2>
-
-                                            <hr class="product-divider">
-
-                                            <div class="product-price"><ins class="new-price ls-50">150 FCFA
-                                                    -
-                                                    18000 FCFA</ins></div>
-
-                                            <div class="product-countdown-container flex-wrap">
-                                                <label class="mr-2 text-default">L'offre se termine dans :</label>
-                                                <div class="product-countdown countdown-compact"
-                                                    data-until="2024, 12, 16" data-compact="true">
-                                                    629 days, 11: 59: 52</div>
-                                            </div>
-
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 80%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                                <a href="#" class="rating-reviews">(3 Avis)</a>
-                                            </div>
-
-                                            <div class="product-variation-price">
-                                                <span></span>
-                                            </div>
-
-                                            <div class="product-form pt-4">
-                                                <div class="product-qty-form mb-2 mr-2">
-                                                    <div class="input-group">
-                                                        <input class="quantity form-control" type="number"
-                                                            min="1" max="10000000">
-                                                        <button class="quantity-plus w-icon-plus"></button>
-                                                        <button
-                                                            class="quantity-minus w-icon-minus"></button>
-                                                    </div>
-                                                </div>
-                                                <button class="btn btn-primary btn-cart">
-                                                    <i class="w-icon-cart"></i>
-                                                    <span>Ajouter au Panier</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="social-links-wrapper mt-1">
-                                                <div class="social-links">
-                                                    <div class="social-icons social-no-color border-thin">
-                                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank" class="social-icon social-facebook w-icon-facebook"></a>
-                            <a href="https://twitter.com/intent/tweet?url={{ url()->current() }}" target="_blank" class="social-icon social-twitter w-icon-twitter"></a>
-                            <a href="https://www.pinterest.com/pin/create/button/?url={{ url()->current() }}" target="_blank" class="social-icon social-pinterest fab fa-pinterest-p"></a>
-                            <a href="https://wa.me/?text={{ urlencode(url()->current()) }}" target="_blank" class="social-icon social-whatsapp fab fa-whatsapp"></a>
-                            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ url()->current() }}" target="_blank" class="social-icon social-youtube fab fa-linkedin-in"></a>
-                                                    </div>
-                                                </div>
-                                                <span class="divider d-xs-show"></span>
-                                                <div class="product-link-wrapper d-flex">
-                                                    <a href="#"
-                                                        class="btn-product-icon btn-wishlist w-icon-heart"></a>
-                                                    <a href="#"
-                                                        class="btn-product-icon btn-compare btn-icon-left w-icon-compare"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="product product-single row">
-                                    <div class="col-md-6">
-                                        <div
-                                            class="product-gallery product-gallery-sticky product-gallery-vertical">
-                                            <div
-                                                class="swiper-container product-single-swiper swiper-theme nav-inner">
-                                                <div class="swiper-wrapper row cols-1 gutter-no">
-                                                    <div class="swiper-slide">
-                                                        <figure class="product-image">
-                                                            <img src="{{asset('assets/images/default.jpg')}}"
-                                                                data-zoom-image="{{asset('assets/images/default.jpg')}}"
-                                                                alt="Product Image" width="800"
-                                                                height="900">
-                                                        </figure>
-                                                    </div>
-                                                    <div class="swiper-slide">
-                                                        <figure class="product-image">
-                                                            <img src="{{asset('assets/images/default.jpg')}}"
-                                                                data-zoom-image="{{asset('assets/images/default.jpg')}}"
-                                                                alt="Product Image" width="800"
-                                                                height="900">
-                                                        </figure>
-                                                    </div>
-                                                    <div class="swiper-slide">
-                                                        <figure class="product-image">
-                                                            <img src="{{asset('assets/images/default.jpg')}}"
-                                                                data-zoom-image="{{asset('assets/images/default.jpg')}}"
-                                                                alt="Product Image" width="800"
-                                                                height="900">
-                                                        </figure>
-                                                    </div>
-                                                    <div class="swiper-slide">
-                                                        <figure class="product-image">
-                                                            <img src="{{asset('assets/images/default.jpg')}}"
-                                                                data-zoom-image="{{asset('assets/images/default.jpg')}}"
-                                                                alt="Product Image" width="800"
-                                                                height="900">
-                                                        </figure>
-                                                    </div>
-                                                </div>
-                                                <button class="swiper-button-next"></button>
-                                                <button class="swiper-button-prev"></button>
-                                                <div class="product-label-group">
-                                                    <label class="product-label label-discount">25%
-                                                        Off</label>
-                                                </div>
-                                            </div>
-                                            <div class="product-thumbs-wrap swiper-container"
-                                                data-swiper-options="{
-                                                'breakpoints': {
-                                                    '992': {
-                                                        'direction': 'vertical',
-                                                        'slidesPerView': 'auto'
-                                                    }
-                                                }
-                                            }">
-                                                <div
-                                                    class="product-thumbs swiper-wrapper row cols-lg-1 cols-4 gutter-sm">
-                                                    <div class="product-thumb swiper-slide">
-                                                        <img src="{{asset('assets/images/default.jpg')}}"
-                                                            alt="Product thumb" width="60" height="68" />
-                                                    </div>
-                                                    <div class="product-thumb swiper-slide">
-                                                        <img src="{{asset('assets/images/default.jpg')}}"
-                                                            alt="Product thumb" width="60" height="68" />
-                                                    </div>
-                                                    <div class="product-thumb swiper-slide">
-                                                        <img src="{{asset('assets/images/default.jpg')}}"
-                                                            alt="Product thumb" width="60" height="68" />
-                                                    </div>
-                                                    <div class="product-thumb swiper-slide">
-                                                        <img src="{{asset('assets/images/default.jpg')}}"
-                                                            alt="Product thumb" width="60" height="68" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="product-details scrollable">
-                                            <h2 class="product-title mb-1"><a
-                                                    href="#">Coat Pool
-                                                    Comfort Jacket</a></h2>
-
-                                            <hr class="product-divider">
-
-                                            <div class="product-price"><ins class="new-price ls-50">$150.00
-                                                    -
-                                                    $180.00</ins></div>
-
-                                            <div class="product-countdown-container flex-wrap">
-                                                <label class="mr-2 text-default">Offer Ends In:</label>
-                                                <div class="product-countdown countdown-compact"
-                                                    data-until="2024, 12, 16" data-compact="true">
-                                                    629 days, 11: 59: 52</div>
-                                            </div>
-
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 80%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                                <a href="#" class="rating-reviews">(3 Avis)</a>
-                                            </div>
-
-                                            <div
-                                                class="product-form product-variation-form product-size-swatch mb-3">
-                                                <label class="mb-1">Size:</label>
-                                                <div
-                                                    class="flex-wrap d-flex align-items-center product-variations">
-                                                    <a href="#" class="size">Extra Large</a>
-                                                    <a href="#" class="size">Large</a>
-                                                    <a href="#" class="size">Medium</a>
-                                                    <a href="#" class="size">Small</a>
-                                                </div>
-                                                <a href="#" class="product-variation-clean">Clean All</a>
-                                            </div>
-
-                                            <div class="product-variation-price">
-                                                <span></span>
-                                            </div>
-
-                                            <div class="product-form pt-4">
-                                                <div class="product-qty-form mb-2 mr-2">
-                                                    <div class="input-group">
-                                                        <input class="quantity form-control" type="number"
-                                                            min="1" max="10000000">
-                                                        <button class="quantity-plus w-icon-plus"></button>
-                                                        <button
-                                                            class="quantity-minus w-icon-minus"></button>
-                                                    </div>
-                                                </div>
-                                                <button class="btn btn-primary btn-cart">
-                                                    <i class="w-icon-cart"></i>
-                                                    <span>Ajouter au Panier</span>
-                                                </button>
-                                            </div>
-
-                                            <div class="social-links-wrapper mt-1">
-                                                <div class="social-links">
-                                                    <div class="social-icons social-no-color border-thin">
-                                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank" class="social-icon social-facebook w-icon-facebook"></a>
-                                                        <a href="https://twitter.com/intent/tweet?url={{ url()->current() }}" target="_blank" class="social-icon social-twitter w-icon-twitter"></a>
-                                                        <a href="https://www.pinterest.com/pin/create/button/?url={{ url()->current() }}" target="_blank" class="social-icon social-pinterest fab fa-pinterest-p"></a>
-                                                        <a href="https://wa.me/?text={{ urlencode(url()->current()) }}" target="_blank" class="social-icon social-whatsapp fab fa-whatsapp"></a>
-                                                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ url()->current() }}" target="_blank" class="social-icon social-youtube fab fa-linkedin-in"></a>
-                                                    </div>
-                                                </div>
-                                                <span class="divider d-xs-show"></span>
-                                                <div class="product-link-wrapper d-flex">
-                                                    <a href="#"
-                                                        class="btn-product-icon btn-wishlist w-icon-heart"></a>
-                                                    <a href="#"
-                                                        class="btn-product-icon btn-compare btn-icon-left w-icon-compare"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                @endforeach
+                            @empty
+                            Aucun Article en promotion
+                            @endforelse
+                            
+                            
                         </div>
                         <button class="swiper-button-prev"></button>
                         <button class="swiper-button-next"></button>
@@ -582,240 +464,79 @@
         <div class="col-lg-3 mb-4">
             <div class="widget widget-products widget-products-bordered h-100">
                 <div class="widget-body br-sm h-100">
-                    <h4 class="title-sm title-underline font-weight-bolder ls-normal mb-2">Top des meilleurs
-                        Ventes</h4>
+                    <h4 class="title-sm title-underline font-weight-bolder ls-normal mb-2">
+                        Top des meilleurs Ventes
+                    </h4>
                     <div class="swiper">
                         <div class="swiper-container swiper-theme nav-top" data-swiper-options="{
                             'slidesPerView': 1,
                             'spaceBetween': 20,
                             'breakpoints': {
-                                '576': {
-                                    'slidesPerView': 2
-                                },
-                                '768': {
-                                    'slidesPerView': 3
-                                },
-                                '992': {
-                                    'slidesPerView': 1
-                                }
+                                '576': { 'slidesPerView': 2 },
+                                '768': { 'slidesPerView': 3 },
+                                '992': { 'slidesPerView': 1 }
                             }
                         }">
                             <div class="swiper-wrapper row cols-lg-1 cols-md-3">
-                                <div class="swiper-slide product-widget-wrap">
-                                    <div class="product product-widget bb-no">
-                                        <figure class="product-media">
-                                            <a href="#">
-                                                <img src="{{asset('assets/images/default.jpg')}}"
-                                                    alt="Product" width="105" height="118" />
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h4 class="product-name">
-                                                <a href="#">Kitchen Cooker</a>
-                                            </h4>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 60%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
+                                @foreach ($recentArticles as $article)
+                                    <div class="swiper-slide product-widget-wrap">
+                                        <div class="product product-widget bb-no">
+                                            <figure class="product-media">
+                                                <a href="#">
+                                                    <img src="{{ asset('storage/' . $article->couverture) }}"
+                                                        alt="{{ $article->name }}" width="105" height="118" />
+                                                </a>
+                                                <div class="product-label-group">
+                                                    @if($article->promotion_value && $article->promotion_value < $article->price)
+                                                            @php
+                                                                // Calcul du pourcentage de la remise par rapport au prix de l'article
+                                                                $discountPercentage = (($article->price - $article->promotion_value) / $article->price) * 100;
+                                                            @endphp
+                                                            <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
+                                                        @endif
+                                                    @if($article->created_at >= now()->subMonths(3))
+                                                        <label class="product-label label-new">New</label>
+                                                    @endif
                                                 </div>
-                                            </div>
-                                            <div class="product-price">
-                                                <ins class="new-price">$150.60</ins>
+                                            </figure>
+                                            <div class="product-details">
+                                                <h4 class="product-name">
+                                                    <a href="{{ route('article.show', ['slug' => $article->slug]) }}">{{ $article->name }}</a>
+                                                </h4>
+                                                <div class="ratings-container">
+                                                    <div class="ratings-full">
+                                                        <span class="ratings" style="width: 60%;"></span>
+                                                        <span class="tooltiptext tooltip-top"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="product-price">
+                                                    @if($article->promotion_type == 'percentage' && $article->promotion_value)
+                                                        @php
+                                                            // Calcul du prix après remise en pourcentage
+                                                            $discountedPrice = $article->price - ($article->price * $article->promotion_value / 100);
+                                                        @endphp
+                                                        <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                                        <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                                    @elseif($article->promotion_type == 'fixed' && $article->promotion_value)
+                                                        @php
+                                                            // Calcul du prix après remise en montant fixe
+                                                            $discountedPrice = $article->price - $article->promotion_value;
+                                                        @endphp
+                                                        <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                                        <del class="old-price">{{ number_format($article->price, 0, '', '') }} FCFA</del>
+                                                    @else
+                                                        <ins class="new-price">{{ number_format($article->price, 0, '', '') }} FCFA</ins>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="product product-widget bb-no">
-                                        <figure class="product-media">
-                                            <a href="#">
-                                                <img src="{{asset('assets/images/default.jpg')}}"
-                                                    alt="Product" width="105" height="118" />
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h4 class="product-name">
-                                                <a href="#">Professional Pixel Camera</a>
-                                            </h4>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 60%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                            </div>
-                                            <div class="product-price">
-                                                <ins class="new-price">$215.68</ins><del
-                                                    class="old-price">$230.45</del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product product-widget">
-                                        <figure class="product-media">
-                                            <a href="#">
-                                                <img src="{{asset('assets/images/default.jpg')}}"
-                                                    alt="Product" width="105" height="118" />
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h4 class="product-name">
-                                                <a href="#">Sport Women’s Wear</a>
-                                            </h4>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 60%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                            </div>
-                                            <div class="product-price">
-                                                <ins class="new-price">$220.20</ins><del
-                                                    class="old-price">$300.62</del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide product-widget-wrap">
-                                    <div class="product product-widget bb-no">
-                                        <figure class="product-media">
-                                            <a href="#">
-                                                <img src="{{asset('assets/images/default.jpg')}}"
-                                                    alt="Product" width="105" height="118" />
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h4 class="product-name">
-                                                <a href="#">Latest Speaker</a>
-                                            </h4>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 60%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                            </div>
-                                            <div class="product-price">
-                                                <ins class="new-price">$250.68</ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product product-widget bb-no">
-                                        <figure class="product-media">
-                                            <a href="#">
-                                                <img src="{{asset('assets/images/default.jpg')}}"
-                                                    alt="Product" width="105" height="118" />
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h4 class="product-name">
-                                                <a href="#">Men's Black Wrist Watch</a>
-                                            </h4>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 100%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                            </div>
-                                            <div class="product-price">
-                                                <ins class="new-price">$135.60</ins><del
-                                                    class="old-price">$155.70</del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product product-widget">
-                                        <figure class="product-media">
-                                            <a href="#">
-                                                <img src="{{asset('assets/images/default.jpg')}}"
-                                                    alt="Product" width="105" height="118" />
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h4 class="product-name">
-                                                <a href="#">Wash Machine</a>
-                                            </h4>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 100%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                            </div>
-                                            <div class="product-price">
-                                                <ins class="new-price">$215.68</ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide product-widget-wrap">
-                                    <div class="product product-widget bb-no">
-                                        <figure class="product-media">
-                                            <a href="#">
-                                                <img src="{{asset('assets/images/default.jpg')}}"
-                                                    alt="Product" width="105" height="118" />
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h4 class="product-name">
-                                                <a href="#">Security Guard</a>
-                                            </h4>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 100%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                            </div>
-                                            <div class="product-price">
-                                                <ins class="new-price">$320.00</ins>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product product-widget bb-no">
-                                        <figure class="product-media">
-                                            <a href="#">
-                                                <img src="{{asset('assets/images/default.jpg')}}"
-                                                    alt="Product" width="105" height="118" />
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h4 class="product-name">
-                                                <a href="#">Apple Super Notecom</a>
-                                            </h4>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 100%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                            </div>
-                                            <div class="product-price">
-                                                <ins class="new-price">$243.30</ins><del
-                                                    class="old-price">$253.50</del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product product-widget">
-                                        <figure class="product-media">
-                                            <a href="#">
-                                                <img src="{{asset('assets/images/default.jpg')}}"
-                                                    alt="Product" width="105" height="118" />
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h4 class="product-name">
-                                                <a href="#">HD Television</a>
-                                            </h4>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 60%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                            </div>
-                                            <div class="product-price">
-                                                <ins class="new-price">$450.68</ins><del
-                                                    class="old-price">$500.00</del>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                             <button class="swiper-button-next"></button>
                             <button class="swiper-button-prev"></button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

@@ -208,7 +208,45 @@ class WebsiteController extends Controller
         // Pagination des articles filtrés
         $categories_shops = $query->paginate(12);
 
-        return view('frontend.pages.shop', compact('categories', 'tags', 'categories_shops', 'categoryName'));
+        $recentArticles = DB::table('order_details')
+        ->join('articles', 'order_details.article_id', '=', 'articles.id')
+        ->select(
+            'articles.id', 
+            'articles.name',
+            'articles.couverture',
+            'articles.price',
+            'articles.slug',
+            'articles.promotion_type',
+            'articles.promotion_value',
+            'articles.created_at',
+            'articles.description',
+
+            
+
+
+             DB::raw('SUM(order_details.quantity) as total_sold'))
+        ->groupBy(
+        'articles.id', 
+        'articles.name',
+        'articles.couverture',
+        'articles.price',
+        'articles.slug',
+        'articles.promotion_type',
+        'articles.promotion_value',
+        'articles.created_at',
+        'articles.description',
+        )
+        ->orderByDesc('total_sold')
+        ->take(10) // Limiter aux 10 articles les plus vendus
+        ->get();
+
+        $articlePromotions = Category::with(['articles' => function ($query) {
+            $query->where('status', 'published')
+                  ->where('is_promotion', true); 
+        }])
+        ->get();
+
+        return view('frontend.pages.shop', compact('categories', 'tags', 'categories_shops', 'categoryName', 'recentArticles', 'articlePromotions'));
     }
 
     public function show($slug)

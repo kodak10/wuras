@@ -907,6 +907,18 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                     </div>
                                     
                                 </div>
+
+                                <div class="product-hidden-details">
+                                    <div class="product-action">
+                                        <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier" data-product-id="{{ $article->id }}">
+                                            <i class="w-icon-cart"></i><span>Ajouter au panier</span></a>
+                                        </a>                                                    
+                                        <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
+                                            title="Ajouter Au favori"></a>
+                                        <a href="#" class="btn-product-icon btn-compare w-icon-compare"
+                                            title="Comparer"></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     @endforeach
@@ -963,6 +975,17 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                         @endif
                                     </div>
                                     
+                                </div>
+                                <div class="product-hidden-details">
+                                    <div class="product-action">
+                                        <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier" data-product-id="{{ $article->id }}">
+                                            <i class="w-icon-cart"></i><span>Ajouter au panier</span></a>
+                                        </a>                                                    
+                                        <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
+                                            title="Ajouter Au favori"></a>
+                                        <a href="#" class="btn-product-icon btn-compare w-icon-compare"
+                                            title="Comparer"></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1021,6 +1044,17 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                     </div>
                                     
                                 </div>
+                                <div class="product-hidden-details">
+                                    <div class="product-action">
+                                        <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier" data-product-id="{{ $article->id }}">
+                                            <i class="w-icon-cart"></i><span>Ajouter au panier</span></a>
+                                        </a>                                                    
+                                        <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
+                                            title="Ajouter Au favori"></a>
+                                        <a href="#" class="btn-product-icon btn-compare w-icon-compare"
+                                            title="Comparer"></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     @endforeach
@@ -1078,6 +1112,17 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                         @endif
                                     </div>
                                     
+                                </div>
+                                <div class="product-hidden-details">
+                                    <div class="product-action">
+                                        <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier" data-product-id="{{ $article->id }}">
+                                            <i class="w-icon-cart"></i><span>Ajouter au panier</span></a>
+                                        </a>                                                    
+                                        <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
+                                            title="Ajouter Au favori"></a>
+                                        <a href="#" class="btn-product-icon btn-compare w-icon-compare"
+                                            title="Comparer"></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

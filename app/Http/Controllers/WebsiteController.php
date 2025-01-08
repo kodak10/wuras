@@ -149,7 +149,17 @@ class WebsiteController extends Controller
 
 
              DB::raw('SUM(order_details.quantity) as total_sold'))
-        ->groupBy('articles.id', 'articles.name')
+        ->groupBy(
+        'articles.id', 
+        'articles.name',
+        'articles.couverture',
+        'articles.price',
+        'articles.slug',
+        'articles.promotion_type',
+        'articles.promotion_value',
+        'articles.created_at',
+        'articles.description',
+        )
         ->orderByDesc('total_sold')
         ->take(10) // Limiter aux 10 articles les plus vendus
         ->get();

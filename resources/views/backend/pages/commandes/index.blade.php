@@ -11,12 +11,12 @@
                 <i class="ti ti-home fs-5"></i>
               </a>
             </li>
-            <li class="breadcrumb-item" aria-current="page">Shop list</li>
+            <li class="breadcrumb-item" aria-current="page">Liste des commandes</li>
           </ol>
         </nav>
-        <h2 class="mb-0 fw-bolder fs-8">Shop list</h2>
+        <h2 class="mb-0 fw-bolder fs-8">Liste des commandes</h2>
       </div>
-      <div class="col-lg-4 col-md-6 d-none d-md-flex align-items-center justify-content-end">
+      {{-- <div class="col-lg-4 col-md-6 d-none d-md-flex align-items-center justify-content-end">
         <select class="form-select w-auto bg-primary-subtle border-0" aria-label="Default select example">
           <option selected="">Today 23 March</option>
           <option value="1">Today 23 March</option>
@@ -27,7 +27,7 @@
           <i class="ti ti-plus me-1"></i>
           Add New
         </a>
-      </div>
+      </div> --}}
     </div>
   </div>
 
@@ -52,15 +52,7 @@
           </ul>
       </div>
       @endif
-        <div class="d-flex justify-content-between align-items-center gap-6 mb-9">
-          <form class="position-relative">
-            <input type="text" class="form-control search-chat py-2 ps-5" id="text-srh" placeholder="Search Product">
-            <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
-          </form>
-          <a class="fs-6 text-muted" href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Filter list">
-            <i class="ti ti-filter"></i>
-          </a>
-        </div>
+        
         <div class="table-responsive">
             <table id="lang_file" class="table w-100 table-striped table-bordered display ">
                 <thead>
@@ -129,7 +121,7 @@
                            
                             <td>
                                 <a class="fs-6 text-muted" href="{{ route('admin.commandes.edit', $commande->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Details">
-                                    <i class="ti ti-pencil"></i>
+                                    <i class="ti ti-eye"></i>
                                 </a>
 
                                 {{-- <form action="{{ route('admin.commandes.destroy', $commande->id) }}" method="POST" class="d-inline" id="delete-form-{{ $commande->id }}">

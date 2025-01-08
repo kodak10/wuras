@@ -37,7 +37,7 @@ Route::get('/order-success/{orderId}', [OrderController::class, 'success'])->nam
 Route::get('order/{orderId}/receipt/download', [OrderController::class, 'downloadReceipt'])->name('order.downloadReceipt');
 
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/', [AdminController::class, 'index']);
 
     Route::resource('articles', ArticleController::class);

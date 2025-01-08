@@ -7,16 +7,16 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb align-items-center">
             <li class="breadcrumb-item">
-              <a class="text-muted text-decoration-none" href="index.html">
+              <a class="text-muted text-decoration-none" href="/admin/commandes">
                 <i class="ti ti-home fs-5"></i>
               </a>
             </li>
-            <li class="breadcrumb-item" aria-current="page">checkout</li>
+            <li class="breadcrumb-item" aria-current="page">Mise à jour de la commande</li>
           </ol>
         </nav>
         <h2 class="mb-0 fw-bolder fs-8"></h2>
       </div>
-      <div class="col-lg-4 col-md-6 d-none d-md-flex align-items-center justify-content-end">
+      {{-- <div class="col-lg-4 col-md-6 d-none d-md-flex align-items-center justify-content-end">
         <select class="form-select w-auto bg-primary-subtle border-0" aria-label="Default select example">
           <option selected="">Today 23 March</option>
           <option value="1">Today 23 March</option>
@@ -27,7 +27,7 @@
           <i class="ti ti-plus me-1"></i>
           Add New
         </a>
-      </div>
+      </div> --}}
     </div>
   </div>
   <div class="checkout">
@@ -104,6 +104,14 @@
                     </tr>
                   </tbody> --}}
                 </table>
+                
+              </div>
+              <div class="card shadow-none border mt-3">
+                <div class="card-body p-4">
+                  <h6 class="mb-3 fs-4 fw-semibold">Note d'information</h6>
+                  <p class="mb-1 fs-2">{{ $commande->order_notes ?? 'Aucune note écrite' }}</p>
+  
+                </div>
               </div>
               <div class="order-summary border rounded p-4 my-4">
                 <div class="p-3">
@@ -127,6 +135,7 @@
                 </div>
               </div>
             </section>
+           
             <!-- Step 2 -->
             <h6>Utilisateur & adresse de livraison</h6>
             <section>

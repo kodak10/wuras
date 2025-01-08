@@ -21,13 +21,15 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'phone' => 'required|phone:CI|unique:users,phone,' . $user->id, // "CI" pour Côte d'Ivoire
             'cur_password' => 'nullable|current_password', // Vérifier si l'ancien mot de passe est correct
             'new_password' => 'nullable|string|min:8|confirmed', // Vérifier si le mot de passe est valide
         ]);
 
         // Mise à jour des informations
         $user->name = $validatedData['name'];
-        
+        $user->phone = $validatedData['phone'];
+
         //$user->email = $validatedData['email'];
 
         // Mise à jour du mot de passe si fourni

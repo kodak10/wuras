@@ -165,12 +165,13 @@
                     <div class="d-flex align-items-center py-9 mx-7 border-bottom">
                       <img src="{{asset('assets/backend/images/profile/user-1.jpg')}}" class="rounded-circle" width="80" height="80" alt="flexy-img" />
                       <div class="ms-3">
-                        <h5 class="mb-1 fs-4">Kodak</h5>
-                        <span class="mb-1 d-block">Administrator</span>
+                        <h5 class="mb-1 fs-4">{{ Auth::user()->name }}</h5> <!-- Nom de l'utilisateur -->
+                        <span class="mb-1 d-block">{{ Auth::user()->role ?? 'Gestionnaire' }}</span> <!-- Rôle (ou 'Utilisateur' si le rôle n'existe pas) -->
                         <p class="mb-0 d-flex align-items-center gap-2">
-                          <i class="ti ti-mail fs-4"></i> info@wuras.com
+                            <i class="ti ti-mail fs-4"></i> {{ Auth::user()->email }}
                         </p>
-                      </div>
+                    </div>
+                    
                     </div>
                     <div class="message-body">
                       <a href="#" class="py-8 px-7 mt-8 d-flex align-items-center">

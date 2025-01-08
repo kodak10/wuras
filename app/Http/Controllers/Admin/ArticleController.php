@@ -223,7 +223,7 @@ public function edit($id)
             'price' => 'required|numeric',
             'status' => 'required|in:published,draft,inactive', 
             // 'quantite' => 'required|integer|min:1',
-            'limit_quantite' => 'required|integer|min:1',
+            // 'limit_quantite' => 'required|integer|min:1',
             'categories' => 'required|array',
             'categories.*' => 'exists:categories,id', // Validation des catégories
             'tags' => 'nullable|array',
@@ -280,7 +280,7 @@ public function edit($id)
             'description' => $request->description,
             'price' => $request->price,
             // 'quantite' => $request->quantite,
-            'limit_quantite' => $request->limit_quantite,
+            // 'limit_quantite' => $request->limit_quantite,
             'status' => $request->status,
             'is_promotion' => 1, // Gestion de la promotion
             'promotion_type' => $request->promotion_type,

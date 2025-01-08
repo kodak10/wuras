@@ -7,16 +7,16 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb align-items-center">
             <li class="breadcrumb-item">
-              <a class="text-muted text-decoration-none" href="index.html">
+              <a class="text-muted text-decoration-none" href="#">
                 <i class="ti ti-home fs-5"></i>
               </a>
             </li>
-            <li class="breadcrumb-item" aria-current="page">Ajouter un article</li>
+            <li class="breadcrumb-item" aria-current="page"></li>
           </ol>
         </nav>
-        <h2 class="mb-0 fw-bolder fs-8">Ajouter un article</h2>
+        <h2 class="mb-0 fw-bolder fs-8"></h2>
       </div>
-      <div class="col-lg-4 col-md-6 d-none d-md-flex align-items-center justify-content-end">
+      {{-- <div class="col-lg-4 col-md-6 d-none d-md-flex align-items-center justify-content-end">
         <select class="form-select w-auto bg-primary-subtle border-0" aria-label="Default select example">
           <option selected="">Today 23 March</option>
           <option value="1">Today 23 March</option>
@@ -27,7 +27,7 @@
           <i class="ti ti-plus me-1"></i>
           Add New
         </a>
-      </div>
+      </div> --}}
     </div>
   </div>
   <!-- start Basic Area Chart -->

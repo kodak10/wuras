@@ -378,6 +378,12 @@
                         <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" class="form-control form-control-md" disabled >
                         @error('email')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
+
+                    <div class="form-group mb-3">
+                        <label for="email_1">Numéro de téléphone *</label>
+                        <input type="text" id="phone" name="phone" value="{{ old('phone', $user->phone) }}" class="form-control form-control-md" required >
+                        @error('phone')<span class="text-danger">{{ $message }}</span>@enderror
+                    </div>
             
                     <h4 class="title title-password ls-25 font-weight-bold">Modifier le mot de passe</h4>
             

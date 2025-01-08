@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.6",
         "mammo32_laravel/lang": "^7.0",
+        "propaganistas/laravel-phone": "^5.3",
         "realrashid/sweet-alert": "^7.2"
     },
     "require-dev": {

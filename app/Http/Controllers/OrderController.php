@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\User;
 
 use App\Models\Order;
 use App\Models\OrderDetail;
@@ -11,6 +12,9 @@ use App\Models\OrderDetail;
 
 // use Barryvdh\DomPDF\Facade as PDF;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+
+use App\Mail\OrderConfirmationMail;
+use Illuminate\Support\Facades\Mail;
 
 use Illuminate\Support\Str;
 
@@ -68,6 +72,13 @@ class OrderController extends Controller
                     'subtotal' => $item['price'] * $item['quantite'],
                 ]);
             }
+
+            // Chercher l'email de l'utilisateur lié à la commande
+            $user = User::find($order->user_id); // Trouver l'utilisateur par son ID
+            $userEmail = $user->email; // Récupérer l'email de l'utilisateur
+
+            // Envoyer l'email au client
+            Mail::to($userEmail)->send(new OrderConfirmationMail($order, $cartItems));
         
             // Vider le panier après commande
             session()->forget('cart');

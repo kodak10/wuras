@@ -1,0 +1,14 @@
+<h1>Merci pour votre commande, {{ $order->firstname }} {{ $order->lastname }} !</h1>
+<p>Votre commande a été enregistrée avec succès. Voici les détails :</p>
+
+<p><strong>Numéro de commande :</strong> {{ $order->order_number }}</p>
+<p><strong>Total :</strong> {{ number_format($order->total_price, 2) }} €</p>
+
+<h3>Détails des articles :</h3>
+<ul>
+    @foreach ($cartItems as $item)
+        <li>{{ $item['name'] }} x {{ $item['quantite'] }} - {{ number_format($item['price'], 2) }} €</li>
+    @endforeach
+</ul>
+
+<p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>

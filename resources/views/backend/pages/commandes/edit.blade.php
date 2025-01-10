@@ -300,7 +300,16 @@
                 <a href="javascript:void(0)" class="btn btn-primary d-block">Download Receipt</a>
               </div>
             </section> --}}
-            <input type="hidden" name="status" value="delivered">
+            <input type="hidden" name="status" value="available">
+            <select name="status" id="status" class="form-control">
+              <option value="available" {{ $commande->status == 'available' ? 'selected' : '' }}>Disponible au magasin</option>
+              <option value="shipped" {{ $commande->status == 'shipped' ? 'selected' : '' }}>En Expédition</option>
+              <option value="cancelled" {{ $commande->status == 'cancelled' ? 'selected' : '' }}>Annuler</option>
+              <option value="delivered" {{ $commande->status == 'delivered' ? 'selected' : '' }}>Livré</option>
+
+
+              <!-- Ajouter d'autres options si nécessaire -->
+          </select>
             <input type="hidden" name="admin_id" value="{{ auth()->user()->id }}">
             <button type="submit" class="btn btn-secondary">Valider la commande</button>
           </form>

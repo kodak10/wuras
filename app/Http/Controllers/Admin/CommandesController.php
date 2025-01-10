@@ -8,6 +8,7 @@ use App\Models\Article;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Category;
+use App\Notifications\ItemAvailableNotification;
 
 
 
@@ -21,13 +22,8 @@ class CommandesController extends Controller
 
         $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
 
-
         //$order = Order::with('orderDetails')->findOrFail($id);
-        $commandes = Order::with('orderDetails')->get();
-
-//        $commandes = Order::orderBy('created_at', 'desc')  // Trie les articles par la date de création, du plus récent au plus ancien
-        //->get();  // Limite à 10 articles par page
-
+        $commandes = Order::with('orderDetails')->orderBy('created_at', 'desc')->get();
        
 
         return view('backend.pages.commandes.index', compact('commandes', 'lowStockProducts'));
@@ -99,6 +95,11 @@ class CommandesController extends Controller
             'admin_id' => $request->admin_id,
 
         ]);      
+
+        // Envoyer la notification à l'utilisateur si la commande est disponible
+        if ($request->status === 'available') {
+            $Order->user->notify(new ItemAvailableNotification($Order));
+        }
 
         return redirect()->route('admin.commandes.index')->with('success', 'Commandes mise à jour avec succès!');
     }

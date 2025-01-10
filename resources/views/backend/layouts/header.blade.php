@@ -106,6 +106,9 @@
                   </div>
                 </div>
               </li> --}}
+
+
+
               <li class="nav-item nav-icon-hover-bg rounded-circle dropdown">
                 <a class="nav-link position-relative" href="javascript:void(0)" id="drop2" aria-expanded="false">
                     <i class="ti ti-bell-ringing"></i>
@@ -120,7 +123,7 @@
                     </div>
                     <div class="message-body" data-simplebar>
                         @forelse($lowStockProducts as $product)
-                            <a href="{{ route('admin.articles.edit', $product->id) }}" class="py-6 px-7 d-flex align-items-center dropdown-item">
+                            <a href="{{ route('admin.edit.stock.article', $product->id) }}" class="py-6 px-7 d-flex align-items-center dropdown-item">
                                 <span class="me-3">
                                   <img src="{{ asset('storage/' . $product->couverture) }}" alt="Couverture" class="rounded-circle"  width="48" height="48" >
 
@@ -141,6 +144,9 @@
                     </div>
                 </div>
             </li>
+
+            
+          
             
               <!-- ------------------------------- -->
               <!-- end notification Dropdown -->

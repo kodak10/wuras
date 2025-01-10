@@ -7,12 +7,14 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\MarketingController;
 use App\Http\Controllers\Admin\CommandesController;
+use App\Http\Controllers\Auth\VerificationController;
 
 use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', [WebsiteController::class, 'index']);
@@ -37,13 +39,12 @@ Route::get('/order-success/{orderId}', [OrderController::class, 'success'])->nam
 Route::get('order/{orderId}/receipt/download', [OrderController::class, 'downloadReceipt'])->name('order.downloadReceipt');
 
 
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index']);
 
     Route::resource('articles', ArticleController::class);
     Route::get('articles/{id}/promotion', [ArticleController::class, 'promotion'])->name('articles.promotion');
     Route::post('articles/{id}/toggle-promotion', [ArticleController::class, 'togglePromotion'])->name('articles.togglePromotion');
-
 
     Route::post('categories/store', [CategoryArticleController::class, 'store'])->name('categories.store');
     Route::post('tags', [TagController::class, 'store'])->name('tags.store');
@@ -62,28 +63,21 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('stock/edit/{id}', [AdminController::class, 'EditStockArticle'])->name('edit.stock.article');
     Route::put('stock/edit/{id}', [AdminController::class, 'Stockupdate'])->name('stock.update');
 
-
+    // Route::post('/notifications/{product}/markAsRead', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 
 });
 
-// Route::prefix('home')->name('home.')->group(function () {
-//     Route::get('/', [UserController::class, 'index'])->name('index');
-// });
+// Auth::routes();
+Auth::routes(['verify' => true]);
 
+Route::get('/email/verify', [VerificationController::class, 'show'])->name('verification.notice');
 
-Auth::routes();
-
-
-Route::prefix('home')->name('home.')->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('home')->name('home.')->group(function () {
     // Route pour la page d'accueil
     Route::get('/', [HomeController::class, 'index'])->name('home');
     
-    // Route pour afficher les commandes
-    // Route::get('/my-orders', [OrderController::class, 'myOrders'])->name('orders.index');
-    
     // Route pour afficher les détails d'une commande
     Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
-
 
     Route::post('/account', [UserController::class, 'updateAccount'])->name('account.update');
 

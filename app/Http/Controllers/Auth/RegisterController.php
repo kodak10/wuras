@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\VerificationMail;
+use App\Notifications\VerifyEmailNotification; // Import de la notification
 use Illuminate\Support\Str;
 
 
@@ -76,7 +76,7 @@ class RegisterController extends Controller
         ]);
 
         // Envoi de l'email de vérification avec le token
-    Mail::to($user->email)->send(new VerificationMail($user));
+        $user->notify(new VerifyEmailNotification());
 
     // Redirection vers la page de connexion avec message de succès
     return redirect()->route('login')->with('status', 'Inscription réussie. Vérifiez votre e-mail pour activer votre compte.');

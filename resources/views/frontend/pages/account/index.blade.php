@@ -198,6 +198,10 @@
                                             @case('pending')
                                                 En attente
                                                 @break
+
+                                            @case('available')
+                                                Expédiée
+                                                @break
                                     
                                             @case('shipped')
                                                 Expédiée

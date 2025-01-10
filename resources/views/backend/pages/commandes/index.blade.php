@@ -62,6 +62,7 @@
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                             </div>
                         </th>
+                        <th>Date</th>
                         <th>N°</th>
                         <th>Statut</th>
                         <th>Nombres d'articles</th>
@@ -77,6 +78,9 @@
                                     <input class="form-check-input" type="checkbox" value="{{ $commande->id }}" id="flexCheckDefault{{ $commande->id }}">
                                 </div>
                             </td>
+
+                            <td> {{ $commande->created_at }}</td>
+                            
                             <td>
                                 
                                     <p class="mb-0">{{ $commande->order_number }}</p>
@@ -85,6 +89,10 @@
                                 @switch($commande->status)
                                     @case('pending')
                                         En attente
+                                        @break
+
+                                    @case('available')
+                                        Disponible au magasin
                                         @break
                             
                                     @case('shipped')

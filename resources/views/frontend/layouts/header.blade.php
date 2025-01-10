@@ -296,7 +296,8 @@
                             <div class="form-checkbox d-flex align-items-center justify-content-between">
                                 <input type="checkbox" class="custom-checkbox" id="remember" name="remember">
                                 <label for="remember">Souviens-toi de moi</label>
-                                <a href="#">Mot de passe oublié ?</a>
+                                <a href="{{ route('password.request') }}">Mot de passe oublié ?</a>
+
                             </div>
                             <button type="submit" class="btn btn-primary">
                                 Se connecter

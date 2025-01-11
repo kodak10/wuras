@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
-
 use App\Models\Article;
-use App\Models\Image;
-use App\Models\Variation;
+
 use App\Models\Category;
-use App\Models\Tag;
+use App\Models\Image;
 use App\Models\ProductImage;
+use App\Models\Promotion;
+use App\Models\Tag;
+use App\Models\Variation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 

@@ -40,7 +40,7 @@ class AdminController extends Controller
 
 
        
-        $articles = Article::where('quantite', '<=', DB::raw('limit_quantite'))->orderBy('quantite', 'asc')->get();
+        $articles = Article::orderBy('quantite', 'asc')->get();
 
        
 

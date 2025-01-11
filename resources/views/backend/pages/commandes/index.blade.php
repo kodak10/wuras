@@ -150,6 +150,8 @@
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                             </div>
                         </th>
+                        <th>Date</th>
+
                         <th>N°</th>
                         <th>Statut</th>
                         <th>Nombres d'articles</th>

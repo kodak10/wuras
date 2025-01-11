@@ -22,6 +22,7 @@ class Order extends Model
         'user_id',
         'admin_id',
         'status',
+        'created_at'
     ];
 
     public function orderDetails()

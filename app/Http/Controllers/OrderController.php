@@ -47,6 +47,7 @@ class OrderController extends Controller
                 'phone02' => 'nullable|string',
                 'email' => 'required|email',
                 'order_notes' => 'nullable|string',
+
             ]);
         
             $cartItems = session('cart', []);
@@ -70,6 +71,7 @@ class OrderController extends Controller
                     'quantity' => $item['quantite'],
                     'unit_price' => $item['price'],
                     'subtotal' => $item['price'] * $item['quantite'],
+                    
                 ]);
             }
 

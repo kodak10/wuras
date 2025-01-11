@@ -25,6 +25,7 @@
             @foreach($cartItems as $item)
                 <tr>
                     {{-- <td><img src="{{asset('assets/images/products')}}/{{$item->product->image}}" width="100" /></td> --}}
+                    <td></td>
                     <td>{{$item['name']}}</td>
                     <td>{{$item['quantite']}}</td>
                     <td>{{$item['price'] * $item['quantite']}} FCFA</td>
@@ -35,7 +36,6 @@
                 <td style="font-size:15px;font-weight:bold;border-top:1px solid #ccc;">Sous-total : {{$order->total_price}} FCFA</td>
                 {{-- <td style="font-size:15px;font-weight:bold;border-top:1px solid #ccc;">Subtotal : ${{$order->subtotal}}</td> --}}
             </tr>
-            
             <tr>
                 <td colspan="3"></td>
                 <td  style="font-size:15px;font-weight:bold;">Livraison : Free Shipping</td>

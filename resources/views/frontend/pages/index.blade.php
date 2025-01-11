@@ -17,6 +17,10 @@
     word-break: break-word;
 }
 
+.header-bottom a{
+    color: #252525 !important;
+}
+
 
 .section-ordinateur .nav-tabs .nav-link{
     border: none !important ;
@@ -32,6 +36,22 @@ a.btn-product-icon.btn-cart.w-icon-cart {
             margin-top: 0px !important;
         }
     }
+
+    .uniform-image-promotion {
+    width: 100%;
+    height: 500px !important; /* Hauteur par défaut */
+    object-fit: cover;
+    border-radius: 5px; /* Coins arrondis */
+}
+
+@media (max-width: 768px) { /* Écrans de moins de 768px (tablettes, smartphones) */
+    .uniform-image-promotion {
+        height: 200px !important; /* Hauteur réduite de moitié */
+    }
+}
+
+
+
 </style>
 
 @include(('frontend.layouts.header-Categorie'))
@@ -207,8 +227,8 @@ a.btn-product-icon.btn-cart.w-icon-cart {
     <div class="row appear-animate">
         <div class="col-lg-4 col-md-5 mb-6">
             <div class="product-lg br-sm">
-                <h2 class="title title-underline mb-4">Ordinateur en promotion</h2>
-                <div class="swiper">
+                <h2 class="title title-underline mb-4">Ordinateurs en promotion</h2>
+                <div class="swiper promotion">
                     <div class="swiper-container swiper-theme nav-top swiper-nav-md " data-swiper-options="{
                         'spaceBetween': 20
                     }">
@@ -218,8 +238,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                 <div class="swiper-slide product text-center">
                                     <figure class="product-media">
                                         <a href="{{ route('article.show', ['slug' => $article->slug]) }}">
-                                            <img src="{{ asset('storage/' . $article->couverture) }}" alt="Product"
-                                                width="800" height="900" />
+                                            <img class="uniform-image-promotion" src="{{ asset('storage/' . $article->couverture) }}" alt="Product"/>
                                             {{-- <img src="{{ asset('storage/' . $article->couverture) }}" alt="Product"
                                                 width="800" height="900" /> --}}
                                         </a>
@@ -228,7 +247,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
 
                                             <a href="#" class="btn-product-icon btn-cart w-icon-cart"
                                                 title="Ajouter au Panier" data-product-id="{{ $article->id }}"></a>
-                                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
+                                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart d"
                                                 title="Mes Souhaits"></a>
                                             <a href="#" class="btn-product-icon btn-compare w-icon-compare"
                                                 title="Comparer"></a>
@@ -868,7 +887,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                             <div class="product text-center">
                                 <figure class="product-media">
                                     <a href="{{ route('article.show', ['slug' => $article->slug]) }}">
-                                        <img src="{{ asset('storage/' . $article->couverture) }}" alt="Product" width="300" height="338" />
+                                        <img src="{{ asset('storage/' . $article->couverture) }}" alt="Product" width="300" height="338" style="height: 200px; object-fit:cover"  />
                                         {{-- <img src="{{ asset('storage/' . $accessoire->image_2) }}" alt="Product" width="300" height="338" /> --}}
                                     </a>
                                     <div class="product-label-group">
@@ -936,7 +955,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                             <div class="product text-center">
                                 <figure class="product-media">
                                     <a href="{{ route('article.show', ['slug' => $article->slug]) }}">
-                                        <img src="{{ asset('storage/' . $article->couverture) }}" alt="Product" width="300" height="338" />
+                                        <img src="{{ asset('storage/' . $article->couverture) }}" alt="Product" width="300" height="338" style="height: 200px; object-fit:cover" />
                                         {{-- Si vous avez une deuxième image à afficher, vous pouvez la décommenter --}}
                                         {{-- <img src="{{ asset('storage/' . $article->image_2) }}" alt="Product" width="300" height="338" /> --}}
                                     </a>
@@ -1004,7 +1023,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                             <div class="product text-center">
                                 <figure class="product-media">
                                     <a href="{{ route('article.show', ['slug' => $article->slug]) }}">
-                                        <img src="{{ asset('storage/' . $article->couverture) }}" alt="Product" width="300" height="338" />
+                                        <img src="{{ asset('storage/' . $article->couverture) }}" alt="Product" width="300" height="338" style="height: 200px; object-fit:cover"  />
                                         {{-- Si vous avez une deuxième image à afficher, vous pouvez la décommenter --}}
                                         {{-- <img src="{{ asset('storage/' . $article->image_2) }}" alt="Product" width="300" height="338" /> --}}
                                     </a>
@@ -1072,7 +1091,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                             <div class="product text-center">
                                 <figure class="product-media">
                                     <a href="{{ route('article.show', ['slug' => $article->slug]) }}">
-                                        <img src="{{ asset('storage/' . $article->couverture) }}" alt="Product" width="300" height="338" />
+                                        <img src="{{ asset('storage/' . $article->couverture) }}" alt="Product" width="300" height="338" style="height: 200px; object-fit:cover" />
                                         {{-- Si vous avez une deuxième image à afficher, vous pouvez la décommenter --}}
                                         {{-- <img src="{{ asset('storage/' . $article->image_2) }}" alt="Product" width="300" height="338" /> --}}
                                     </a>
@@ -1313,7 +1332,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
             <div class="col-lg-9 mb-4">
                 <div class="single-product h-100 br-sm">
                     <h4 class="title-sm title-underline font-weight-bolder ls-normal">
-                        Article en promotion
+                        Articles en promotion
                     </h4>
                     <div class="swiper">
                         <div class="swiper-container swiper-theme nav-top swiper-nav-lg" data-swiper-options="{
@@ -1329,36 +1348,12 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                     <div class="product-gallery product-gallery-sticky product-gallery-vertical">
                                                         <div class="swiper-container product-single-swiper swiper-theme nav-inner">
                                                             <div class="swiper-wrapper row cols-1 gutter-no">
-                                                                {{-- <div class="swiper-slide">
-                                                                    <figure class="product-image">
-                                                                        <img src="{{ asset('assets/images/default.jpg') }}"
-                                                                            data-zoom-image="{{ asset('assets/images/default.jpg') }}"
-                                                                            alt="Image" width="800"
-                                                                            height="900">
-                                                                    </figure>
-                                                                </div>
-                                                                <div class="swiper-slide">
-                                                                    <figure class="product-image">
-                                                                        <img src="{{ asset('assets/images/default.jpg') }}"
-                                                                            data-zoom-image="{{ asset('assets/images/default.jpg') }}"
-                                                                            alt="Image" width="800"
-                                                                            height="900">
-                                                                    </figure>
-                                                                </div>
-                                                                <div class="swiper-slide">
-                                                                    <figure class="product-image">
-                                                                        <img src="{{ asset('assets/images/default.jpg') }}"
-                                                                            data-zoom-image="{{ asset('assets/images/default.jpg') }}"
-                                                                            alt="Image" width="800"
-                                                                            height="900">
-                                                                    </figure>
-                                                                </div> --}}
+                                                                
                                                                 <div class="swiper-slide">
                                                                     <figure class="product-image">
                                                                         <img src="{{ asset('storage/' . $article->couverture) }}"
-                                                                            data-zoom-image="{{ asset('images/default.jpg') }}"
-                                                                            alt="Product Image" width="800"
-                                                                            height="900">
+                                                                            data-zoom-image="{{ asset('storage/' . $article->couverture) }}"
+                                                                            alt="Product Image"  style="height: 400px; object-fit:cover" />
                                                                     </figure>
                                                                 </div>
                                                             </div>
@@ -1606,7 +1601,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                         <div class="swiper-slide product-widget-wrap">
                                             <div class="product product-widget bb-no">
                                                 <figure class="product-media">
-                                                    <a href="#">
+                                                    <a href="{{ route('article.show', ['slug' => $article->slug]) }}">
                                                         <img src="{{ asset('storage/' . $article->couverture) }}"
                                                             alt="{{ $article->name }}" width="105" height="118" />
                                                     </a>

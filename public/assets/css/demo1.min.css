@@ -9580,7 +9580,7 @@ body .product-popup {
     min-width: auto;
   }
   .product-hidden-details .btn-cart i {
-    display: block;
+    display: none;/*  kodak */
   }
   .product-hidden-details .btn-cart span {
     display: none;

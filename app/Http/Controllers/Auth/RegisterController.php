@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\User;
+use App\Notifications\VerifyEmailNotification; // Import de la notification
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
-use App\Notifications\VerifyEmailNotification; // Import de la notification
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 
@@ -80,5 +81,11 @@ class RegisterController extends Controller
 
     // Redirection vers la page de connexion avec message de succès
     return redirect()->route('login')->with('status', 'Inscription réussie. Vérifiez votre e-mail pour activer votre compte.');
+    }
+
+    public function showRegistrationForm()
+    {
+        $categories = Category::all(); // Récupérez toutes les catégories ou appliquez un filtre selon vos besoins
+        return view('auth.register', compact('categories'));
     }
 }

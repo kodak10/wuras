@@ -84,4 +84,7 @@ Route::middleware(['auth', 'verified'])->prefix('home')->name('home.')->group(fu
 });
 
 
+Route::fallback(function(){
+    return view('frontend.pages.404');
+});
 

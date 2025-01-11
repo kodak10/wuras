@@ -32,6 +32,12 @@
   </div>
   <div class="checkout">
     <div class="card">
+      @if ($errors->has('message'))
+      <div class="alert alert-danger">
+          {!! $errors->first('message') !!}
+      </div>
+  @endif
+  
       <div class="card-body p-4">
         <a href="{{route('admin.commandes.index')}}" class="btn btn-primary mb-3">Retour</a>
 
@@ -300,7 +306,13 @@
                 <a href="javascript:void(0)" class="btn btn-primary d-block">Download Receipt</a>
               </div>
             </section> --}}
-            <input type="hidden" name="status" value="available">
+
+            @foreach ($commande->orderDetails as $detail)
+                <input type="hidden" name="article_id[]" value="{{ $detail->article->id }}">
+                <input type="hidden" name="quantite[]" value="{{ $detail->quantity }}" min="1">
+
+            @endforeach
+            
             <select name="status" id="status" class="form-control">
               <option value="available" {{ $commande->status == 'available' ? 'selected' : '' }}>Disponible au magasin</option>
               <option value="shipped" {{ $commande->status == 'shipped' ? 'selected' : '' }}>En Expédition</option>

@@ -15,10 +15,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+use Picqer\Barcode\BarcodeGeneratorPNG;
 
 class ArticleController extends Controller
 {
-
+   
+   
     public function index()
     {
         $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
@@ -128,6 +130,33 @@ class ArticleController extends Controller
         $article->slug = Str::slug($article->name, '-');
 
         $article->save();
+
+        // Enregistrer le code-barres pour l'article
+        $generator = new BarcodeGeneratorPNG();
+        $barcodeContent = $generator->getBarcode($article->id, BarcodeGeneratorPNG::TYPE_CODE_128);
+
+        // Enregistrez l'image dans le dossier storage
+        $barcodePath = 'images/articles/barcodes/' . $article->id . '.png';
+        Storage::disk('public')->put($barcodePath, $barcodeContent);
+
+        // Créez une entrée dans la table article_barcode
+        $article->barcodes()->create([
+            'barcode_path' => 'storage/' . $barcodePath,
+        ]);
+
+        // Sauvegarder l'article avec son code-barres
+        $article->barcode = 'storage/' . $barcodePath;
+        $article->save();
+
+        // Enregistrez l'image dans le dossier storage
+        $barcodePath = 'images/articles/barcodes/' . $article->id . '.png';
+        Storage::disk('public')->put($barcodePath, $barcodeContent);
+
+        // Enregistrez le chemin dans la base de données
+        $article->barcode = 'storage/' . $barcodePath;
+        $article->save();
+
+
 
         // Attacher les catégories à l'article
         $article->categories()->attach($request->input('categories'));

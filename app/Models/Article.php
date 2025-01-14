@@ -58,5 +58,10 @@ class Article extends Model
         return $this->belongsToMany(Promotion::class, 'article_promotion');
     }
 
+    public function barcodes()
+    {
+        return $this->hasMany(ArticleBarcode::class, 'article_id');
+    }
+
     
 }

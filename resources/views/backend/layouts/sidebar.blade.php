@@ -94,6 +94,41 @@
               </li> --}}
             </ul>
           </li>
+
+          <li class="nav-small-cap">
+            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+            <span class="hide-menu">Ventes</span>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+              <span class="d-flex">
+                <i class="ti ti-basket"></i>
+              </span>
+              <span class="hide-menu">Ventes</span>
+            </a>
+            <ul aria-expanded="false" class="collapse first-level">
+              
+              <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Liste</span>
+                </a>
+              </li>
+              
+              <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Faire une vente</span>
+                </a>
+              </li>
+              
+             
+            </ul>
+          </li>
           <!-- ---------------------------------- -->
           <!-- Apps -->
           <!-- ---------------------------------- -->
@@ -149,6 +184,14 @@
                     <i class="ti ti-circle"></i>
                   </div>
                   <span class="hide-menu">Gestion du Stock</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a href="/admin/codeBarres" class="sidebar-link">
+                  <div class="round-16 d-flex align-items-center justify-content-center">
+                    <i class="ti ti-circle"></i>
+                  </div>
+                  <span class="hide-menu">Gestion des codes barres</span>
                 </a>
               </li>
               

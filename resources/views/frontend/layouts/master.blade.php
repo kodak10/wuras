@@ -136,7 +136,7 @@
             <i class="w-icon-category"></i>
             <p>Magasin</p>
         </a>
-        <a href="#" class="sticky-link">
+        <a href="/home" class="sticky-link">
             <i class="w-icon-account"></i>
             <p>Mon Compte</p>
         </a>

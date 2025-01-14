@@ -200,7 +200,7 @@
                                                 @break
 
                                             @case('available')
-                                                Expédiée
+                                                Disponible au magasin
                                                 @break
                                     
                                             @case('shipped')
@@ -208,7 +208,7 @@
                                                 @break
                                     
                                             @case('delivered')
-                                                Livrée
+                                                Recupéré
                                                 @break
                                     
                                             @case('cancelled')

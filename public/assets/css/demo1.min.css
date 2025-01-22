@@ -13032,7 +13032,7 @@ aside .sp-sidebar-banner span {
 
 .header-bottom {
   color: #333;
-  background: #fff;
+  background: #00657c;
   font-size: 1.4rem;
   font-weight: 600;
   letter-spacing: -0.025em;
@@ -13153,7 +13153,7 @@ aside .sp-sidebar-banner span {
           flex: 1;
   min-width: 40px;
   padding: 0.9rem;
-  border: 2px solid #336699;
+  border: 2px solid #ffffff;
   border-right: 0;
   font-size: 1.2rem;
   letter-spacing: 0;
@@ -13180,7 +13180,7 @@ aside .sp-sidebar-banner span {
   min-width: 5.1rem;
   color: #333;
   border-left: 0;
-  border-color: #336699;
+  border-color: #ffffff;
   font-size: 1.5rem;
   font-weight: normal;
   letter-spacing: -0.025em;
@@ -13275,7 +13275,7 @@ aside .sp-sidebar-banner span {
 }
 .header-search.hs-expanded .select-box {
   width: 14.6rem;
-  border: 2px solid #336699;
+  border: 2px solid #fff;
   border-right: none;
   color: #666666;
 }

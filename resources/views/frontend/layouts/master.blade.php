@@ -70,6 +70,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/demo1.min.css')}}">
 
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
 
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
@@ -146,21 +147,7 @@
         </a>
        
 
-        <div class="header-search hs-toggle dir-up">
-            <a href="#" class="search-toggle sticky-link">
-                <i class="w-icon-search"></i>
-                <p>Rechercher</p>
-            </a>
-            <form method="get" action="{{ route('shop') }}" class="input-wrapper header-search hs-expanded hs-round d-none d-md-flex">
-                
-                <input type="text" class="form-control" name="search" id="search" placeholder="Tapez ici..." value="{{ request('search') }}" />
-                {{-- <input type="text" class="form-control" name="search" autocomplete="off" placeholder="Rechercher" --}}
-                    required />
-                <button class="btn btn-search" type="submit">
-                    <i class="w-icon-search"></i>
-                </button>
-            </form>
-        </div>
+       
     </div>
     <!-- End of Sticky Footer -->
 
@@ -319,6 +306,11 @@
 
     
 
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 

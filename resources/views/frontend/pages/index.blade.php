@@ -148,9 +148,9 @@ a.btn-product-icon.btn-cart.w-icon-cart {
     </div>
 </section>
 
-<div class="container mt-5">
+<div class="container mt-5 four-box">
     <div class="row grid grid-float pt-2 banner-grid mb-9 appear-animate">
-                    <div class="grid-item col-lg-6 height-x2">
+                    <div class="grid-item col-lg-6 height-x2" data-aos="fade-up" data-aos-once="true">
                         <div class="banner banner-fixed banner-lg br-sm">
                             <figure>
                                 <img src="{{asset('assets/images/one_card.png')}}" alt="Banner" width="670"
@@ -168,7 +168,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                             </div>
                         </div>
                     </div>
-                    <div class="grid-item col-lg-6 height-x1">
+                    <div class="grid-item col-lg-6 height-x1" data-aos="fade-up" data-aos-once="true">
                         <div class="banner banner-fixed banner-md br-sm">
                             <figure>
                                 <img src="{{asset('assets/images/two_card.png')}}" alt="Banner" width="670"
@@ -186,7 +186,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                             </div>
                         </div>
                     </div>
-                    <div class="grid-item col-sm-6 col-lg-3 height-x1">
+                    <div class="grid-item col-sm-6 col-lg-3 height-x1" data-aos="fade-up" data-aos-once="true">
                         <div class="banner banner-fixed banner-sm br-sm">
                             <figure>
                                 <img src="{{asset('assets/images/slides-bg/4.png')}}" alt="Banner" width="330"
@@ -204,7 +204,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                             </div>
                         </div>
                     </div>
-                    <div class="grid-item col-sm-6 col-lg-3 height-x1">
+                    <div class="grid-item col-sm-6 col-lg-3 height-x1" data-aos="fade-up" data-aos-once="true">
                         <div class="banner banner-fixed banner-sm br-sm">
                             <figure>
                                 <img src="{{asset('assets/images/slides-bg/3.png')}}" alt="Banner" width="330"

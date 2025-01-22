@@ -42,6 +42,33 @@ body {
   background: #fff;
 }
 
+/* Effet général pour tous les grid-item */
+.four-box .grid-item:hover {
+    transform: scale(1.05); /* Légère mise en avant */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; /* Animation fluide */
+    z-index: 2; /* S'assurer que l'élément reste au-dessus des autres */
+}
+
+/* Modification des figures (images) lors du hover */
+.four-box .grid-item:hover figure img {
+    filter: brightness(0.9); /* Assombrit légèrement l'image */
+    transition: filter 0.3s ease; /* Animation fluide */
+}
+
+/* Modification du contenu lors du hover */
+.four-box .grid-item:hover .banner-content {
+    opacity: 1; /* Rend le contenu plus visible */
+    transform: translateY(-10px); /* Déplace le contenu légèrement vers le haut */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Bannière normale */
+.four-box .banner-content {
+    opacity: 0.9; /* Transparence initiale */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+
 main {
   display: block;
   position: relative;

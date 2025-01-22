@@ -1,5 +1,8 @@
-
 <style>
+    form.input-wrapper.header-search.hs-expanded.hs-round.d-none.d-md-flex{
+        background-color:#ffffff;
+        border-color: none;
+    }
     a.product-name:first-child{
     color: #000000 !important;
    }
@@ -83,11 +86,14 @@
         </div>
     </div>
     <!-- End of Header Top -->
+    <span class="divider d-lg-show"></span>
+
 
     <div class="header-middle">
         <div class="container">
             <div class="header-left mr-md-4">
-                <a href="#" class="mobile-menu-toggle  w-icon-hamburger" aria-label="menu-toggle">
+                <a href="#" class="mobile-menu-toggle  w-icon-hamburger" aria-label="menu-toggle" style="border: 2px solid #5f5c5c; padding:5px;
+">
                 </a>
                 <a href="/" class="logo ml-lg-0">
                     <img src="{{asset('assets/images/logo.png')}}" alt="logo" width="144" height="45" />
@@ -123,13 +129,13 @@
                     <i class="w-icon-heart"></i>
                     <span class="wishlist-label d-lg-show">Liste de souhaits</span>
                 </a>
-                <a class="compare label-down link d-xs-show" href="#">
+                {{-- <a class="compare label-down link d-xs-show" href="#">
                     <i class="w-icon-compare"></i>
                     <span class="compare-label d-lg-show">Comparaison</span>
-                </a>
+                </a> --}}
                 <div class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2">
                     <div class="cart-overlay"></div>
-                    <a href="#" class="cart-toggle label-down link">
+                    <a href="#" class="cart-toggle label-down link" style="border: 2px solid #5f5c5c; padding:5px;">
                         <i class="w-icon-cart">
                             
                             <span class="cart-count">{{ session()->get('cart', []) ? array_sum(array_column(session()->get('cart', []), 'quantite')) : 0 }}</span>
@@ -204,7 +210,7 @@
         </div>
     </div>
 
-    <div class="header-bottom sticky-content fix-top sticky-header">
+    <div class="header-bottom sticky-content fix-top sticky-header mb-5">
         <div class="container">
             <div class="inner-wrap">
                 <div class="header-left">
@@ -242,13 +248,6 @@
             </div>
         </div>
     </div>
-
-
-   
-
-
-    
-
     
 </header>
 

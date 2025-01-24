@@ -139,6 +139,19 @@
                                         </span>
                                         
                                     </div>
+                                    <div class="product-categories">
+                                        Disponible à :
+                                        {{-- <span class="product-category"><a href="#">{{ $article->categories->name }}</a></span> --}}
+                                        <span class="product-category">
+                                            @if($article->categories->isNotEmpty())
+                                                @foreach($article->categories as $category)
+                                                    <a href="#">{{ $category->name }}</a>@if (!$loop->last), @endif
+                                                @endforeach
+                                            @else
+                                                <span>Aucune catégorie</span>
+                                            @endif
+                                        </span>
+                                    </div>
                                     
                                 </div>
                             </div>

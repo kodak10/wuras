@@ -74,6 +74,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
+            'role'
         ]);
 
         // Envoi de l'email de vérification avec le token

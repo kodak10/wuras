@@ -109,7 +109,7 @@
             <ul aria-expanded="false" class="collapse first-level">
               
               <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="/admin/ventes" class="sidebar-link">
                   <div class="round-16 d-flex align-items-center justify-content-center">
                     <i class="ti ti-circle"></i>
                   </div>
@@ -118,7 +118,7 @@
               </li>
               
               <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="/admin/ventes/create" class="sidebar-link">
                   <div class="round-16 d-flex align-items-center justify-content-center">
                     <i class="ti ti-circle"></i>
                   </div>
@@ -205,58 +205,7 @@
               </li> --}}
             </ul>
           </li>
-          <li class="sidebar-item">
-            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-              <span class="d-flex">
-                <i class="ti ti-basket"></i>
-              </span>
-              <span class="hide-menu">Fournisseurs</span>
-            </a>
-            <ul aria-expanded="false" class="collapse first-level">
-              {{-- <li class="sidebar-item">
-                <a href="main/eco-shop.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Shop</span>
-                </a>
-              </li> --}}
-              {{-- <li class="sidebar-item">
-                <a href="main/eco-shop-detail.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Details</span>
-                </a>
-              </li> --}}
-              <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Liste</span>
-                </a>
-              </li>
-              
-              <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Ajouter</span>
-                </a>
-              </li>
-              
-              {{-- <li class="sidebar-item">
-                <a href="main/eco-edit-product.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Edit Product</span>
-                </a>
-              </li> --}}
-            </ul>
-          </li>
+         
           <li class="sidebar-item">
             <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
               <span class="d-flex">
@@ -265,37 +214,22 @@
               <span class="hide-menu">Utilisateurs / <br> Rôle et Permissions</span>
             </a>
             <ul aria-expanded="false" class="collapse first-level">
-              {{-- <li class="sidebar-item">
-                <a href="main/eco-shop.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Shop</span>
-                </a>
-              </li> --}}
-              {{-- <li class="sidebar-item">
-                <a href="main/eco-shop-detail.html" class="sidebar-link">
-                  <div class="round-16 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-circle"></i>
-                  </div>
-                  <span class="hide-menu">Details</span>
-                </a>
-              </li> --}}
+              
               <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="/admin/utilisateurs" class="sidebar-link">
                   <div class="round-16 d-flex align-items-center justify-content-center">
                     <i class="ti ti-circle"></i>
                   </div>
                   <span class="hide-menu">Utilisateurs</span>
                 </a>
               </li>
-              
+
               <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="/admin/permissions" class="sidebar-link">
                   <div class="round-16 d-flex align-items-center justify-content-center">
                     <i class="ti ti-circle"></i>
                   </div>
-                  <span class="hide-menu">Rôle et Permissions</span>
+                  <span class="hide-menu">Rôles / Permissions</span>
                 </a>
               </li>
               
@@ -311,14 +245,14 @@
           </li>
          
           
-          {{-- <li class="sidebar-item">
-            <a class="sidebar-link" href="main/app-kanban.html" aria-expanded="false">
+          <li class="sidebar-item">
+            <a class="sidebar-link" href="/admin/stores" aria-expanded="false">
               <span>
                 <i class="ti ti-layout-kanban"></i>
               </span>
-              <span class="hide-menu">Kanban</span>
+              <span class="hide-menu">Les Magasins</span>
             </a>
-          </li> --}}
+          </li>
           {{-- <li class="sidebar-item">
             <a class="sidebar-link" href="main/app-chat.html" aria-expanded="false">
               <span>

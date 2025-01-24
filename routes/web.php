@@ -6,9 +6,13 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryArticleController;
 use App\Http\Controllers\Admin\CommandesController;
 use App\Http\Controllers\Admin\MarketingController;
-use App\Http\Controllers\Admin\TagController;
-use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\StoreController;
 
+use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\UserAdminController;
+use App\Http\Controllers\Admin\VentesController;
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\BarcodeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
@@ -17,6 +21,11 @@ use App\Http\Controllers\WebsiteController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
+
+
+
+
 
 
 
@@ -52,11 +61,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 
     Route::post('categories/store', [CategoryArticleController::class, 'store'])->name('categories.store');
     Route::post('tags', [TagController::class, 'store'])->name('tags.store');
-    Route::resource('banners', BannerController::class);
+    // Route::resource('banners', BannerController::class);
 
     Route::delete('articles/{article}/image/{id}', [ArticleController::class, 'destroyImage'])->name('image.delete');
 
-    Route::resource('marketing', MarketingController::class);
+    // Route::resource('marketing', MarketingController::class);
 
     Route::resource('commandes', CommandesController::class);
 
@@ -75,6 +84,37 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 
     // Route pour générer et afficher le code-barres
     Route::post('codeBarres', [BarcodeController::class, 'store'])->name('codeBarres.store');
+
+
+
+
+
+    Route::get('/api/roles/{role}/permissions', function (Role $role) {
+        return $role->permissions;
+    });
+    
+
+    // Groupe de routes pour les administrateurs
+    // Route::middleware(['role:admin'])->group(function () {
+    //     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    // });
+
+    // Groupe de routes pour les managers
+    // Route::middleware(['role:manager'])->group(function () {
+    //     Route::get('/store/{store}/orders', [StoreController::class, 'manageOrders'])->name('store.orders');
+    // });
+
+    // Routes pour la gestion des permissions
+    Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
+    Route::post('/permissions/update', [PermissionController::class, 'update'])->name('permissions.update');
+    Route::get('/roles/{roleId}/permissions', [PermissionController::class, 'getPermissions']);
+
+    
+    Route::resource('utilisateurs', UserAdminController::class);
+    Route::resource('stores', StoreController::class);
+    Route::resource('ventes', VentesController::class);
+
+
 });
 
 // Auth::routes();

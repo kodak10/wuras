@@ -46,7 +46,7 @@
     <div class="header-top">
         <div class="container">
             <div class="header-left">
-                <p class="welcome-msg" style="color: #ffffff">Bienvenue dans le message du magasin Wuras !</p>
+                <p class="welcome-msg" style="color: #ffffff">Bienvenue au magasin Wuras !</p>
             </div>
             <div class="header-right">
                 

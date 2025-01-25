@@ -34,6 +34,7 @@ class UserAdminController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
             'role' => 'required',
+            'store_id' => 'required',
         ]);
 // dd($request);
         User::create([
@@ -41,6 +42,7 @@ class UserAdminController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
+            'store_id' => $request->store_id,
         ]);
 
         return redirect()->route('admin.utilisateurs.create')->with('success', 'Utilisateur créé avec succès.');

@@ -3,6 +3,28 @@
 @section('content')
 <div class="container">
     <h1>Gestion des utilisateurs</h1>
+
+    <!-- Affichage des messages de succès ou d'erreur -->
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @elseif (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    <!-- Affichage des erreurs de validation -->
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <a href="{{ route('admin.utilisateurs.create') }}" class="btn btn-primary">Ajouter un utilisateur</a>
     <table class="table table-bordered mt-3">
         <thead>

@@ -201,7 +201,7 @@
                                                 <td class="product-name">{{ $item['name'] }} <i class="fas fa-times"></i> <span class="product-quantity">{{ $item['quantite'] }}</span></td>
                                                 <td class="product-total">{{ number_format($item['price'] * $item['quantite'], 2) }} FCFA</td>
                                                 <input type="hidden" value="{{$item ['id'] }}" name="product_id">
-
+                                                <input type="hidden" name="store_id" value="{{ $item['store_id'] }}">
                                             </tr>
                                         @endforeach
 

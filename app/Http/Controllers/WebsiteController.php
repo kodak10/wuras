@@ -144,6 +144,7 @@ class WebsiteController extends Controller
             'articles.promotion_value',
             'articles.created_at',
             'articles.description',
+            'articles.store_id',
 
             
 
@@ -159,6 +160,8 @@ class WebsiteController extends Controller
         'articles.promotion_value',
         'articles.created_at',
         'articles.description',
+        'articles.store_id',
+
         )
         ->orderByDesc('total_sold')
         ->take(10) // Limiter aux 10 articles les plus vendus
@@ -220,6 +223,7 @@ class WebsiteController extends Controller
             'articles.promotion_value',
             'articles.created_at',
             'articles.description',
+            'articles.store_id',
 
             
 
@@ -235,6 +239,8 @@ class WebsiteController extends Controller
         'articles.promotion_value',
         'articles.created_at',
         'articles.description',
+        'articles.store_id',
+
         )
         ->orderByDesc('total_sold')
         ->take(10) // Limiter aux 10 articles les plus vendus
@@ -253,7 +259,7 @@ class WebsiteController extends Controller
     {
         $categories = Category::with('articles.tags')->get();
 
-        $article = Article::with('categories', 'tags', 'images')->where('slug', $slug)->firstOrFail();
+        $article = Article::with('categories', 'tags', 'images', 'stores')->where('slug', $slug)->firstOrFail();
 
         if ($article->categories->isEmpty()) {
             return view('shop.article', compact('article'))->with('message', 'Aucune catégorie associée à cet article.');
@@ -389,6 +395,8 @@ public function addToCart(Request $request)
             'slug' => $product->slug,
             'promotion_type' => $product->promotion_type,
             'promotion_value' => $product->promotion_value,
+            'store_id' => $product->store_id,
+
 
 
         ];

@@ -15,18 +15,18 @@
     <table style="width: 600px; text-align:right">
         <thead>
             <tr>
-                <th>Date</th>
                 <th>Article</th>
-                <th>Quantité</th>
                 <th>Prix</th>
+                <th>Quantité</th>
+                <th>Total</th>
             </tr>
         </thead>
         <tbody>
             @foreach($cartItems as $item)
                 <tr>
                     {{-- <td><img src="{{asset('assets/images/products')}}/{{$item->product->image}}" width="100" /></td> --}}
-                    <td></td>
                     <td>{{$item['name']}}</td>
+                    <td>{{$item['price']}}</td>
                     <td>{{$item['quantite']}}</td>
                     <td>{{$item['price'] * $item['quantite']}} FCFA</td>
                 </tr>
@@ -38,7 +38,7 @@
             </tr>
             <tr>
                 <td colspan="3"></td>
-                <td  style="font-size:15px;font-weight:bold;">Livraison : Free Shipping</td>
+                <td  style="font-size:15px;font-weight:bold;">Livraison : Au magasin</td>
             </tr>
             <tr>
                 <td colspan="3"></td>

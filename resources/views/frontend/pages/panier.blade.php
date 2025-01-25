@@ -108,6 +108,7 @@
                                         <td class="product-subtotal">
                                             <span class="amount">{{ number_format($details['price'] * $details['quantite'], 2) }} FCFA</span>
                                         </td>
+                                        <input type="hidden" name="store_id" value="{{ $details['store_id'] }}">
                                     </tr>
                                 @endforeach
                             </tbody>

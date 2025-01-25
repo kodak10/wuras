@@ -66,7 +66,7 @@ class Article extends Model
 
     public function stores()
     {
-        return $this->belongsTo(Store::class);
+        return $this->belongsTo(Store::class, 'store_id');
     }
 
     

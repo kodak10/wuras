@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\Category;
 use App\Models\Order;
 use App\Models\OrderDetail;
-use App\Models\Category;
 use App\Notifications\ItemAvailableNotification;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -21,10 +22,7 @@ class CommandesController extends Controller
     {
 
         $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
-
-        //$order = Order::with('orderDetails')->findOrFail($id);
-        $commandes = Order::with('orderDetails')->orderBy('created_at', 'desc')->get();
-       
+        $commandes = Order::with('orderDetails')->where('store_id', Auth::id())->orderBy('created_at', 'desc')->get();
 
         return view('backend.pages.commandes.index', compact('commandes', 'lowStockProducts'));
 
@@ -62,12 +60,8 @@ class CommandesController extends Controller
         $categories = Category::with('articles.tags')->get();
         $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
 
-        // Récupérer la commande avec son ID, y compris ses détails
         $commande = Order::with(['orderDetails.article', 'user'])->findOrFail($id);
-        //$order = Order::with(['orderDetails.article', 'user'])->findOrFail($orderId);
 
-
-        // Retourner la vue avec les informations de la commande
         return view('backend.pages.commandes.edit', compact('commande', 'categories', 'lowStockProducts'));
     }
 
@@ -84,7 +78,6 @@ class CommandesController extends Controller
 
         $Order = Order::findOrFail($id);
 
-        // Validation des données du formulaire
         $validated = $request->validate([
             'status' => 'required|string|max:255',
             'admin_id' => 'required|string|max:255',
@@ -93,8 +86,8 @@ class CommandesController extends Controller
 
         // dd($request->all());
 
-        $articleIds = $request->input('article_id'); // Un tableau d'IDs d'articles
-        $quantites = $request->input('quantite'); // Un tableau des quantités
+        $articleIds = $request->input('article_id'); 
+        $quantites = $request->input('quantite');
     
        // Vérifier que les deux sont des tableaux avant d'appeler count()
         if (!is_array($articleIds) || !is_array($quantites)) {

@@ -8,9 +8,6 @@ use App\Models\User;
 
 use App\Models\Order;
 use App\Models\OrderDetail;
-// use \PDF;
-
-// use Barryvdh\DomPDF\Facade as PDF;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 use App\Mail\OrderConfirmationMail;
@@ -32,60 +29,59 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        // Vérifie si l'utilisateur est authentifié
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'Vous devez être connecté pour passer une commande.');
         }
 
-              
-       
-            $validatedData = $request->validate([
-                'firstname' => 'required|string|max:255',
-                'lastname' => 'required|string|max:255',
-                'pays' => 'required|string',
-                'phone01' => 'required|string',
-                'phone02' => 'nullable|string',
-                'email' => 'required|email',
-                'order_notes' => 'nullable|string',
+        $validatedData = $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'pays' => 'required|string',
+            'phone01' => 'required|string',
+            'phone02' => 'nullable|string',
+            'email' => 'required|email',
+            'order_notes' => 'nullable|string',
+            'store_id' => 'required',
 
             ]);
         
-            $cartItems = session('cart', []);
-            $subtotal = collect($cartItems)->sum(fn($item) => $item['price'] * $item['quantite']);
+        $cartItems = session('cart', []);
+        $subtotal = collect($cartItems)->sum(fn($item) => $item['price'] * $item['quantite']);
         
-            // Créer la commande
-            $order = Order::create([
-                ...$validatedData,
-                'total_price' => $subtotal,
-                'user_id' => Auth::user()->id,  // Associe l'utilisateur connecté à la commande
-                'order_number' => 'WURAS-' . strtoupper(Str::random(8)),  // Génère un numéro de commande aléatoire
-                'status' => 'pending',  // Statut initial de la commande
+        // Créer la commande
+        $order = Order::create([
+            ...$validatedData,
+            'total_price' => $subtotal,
+            'user_id' => Auth::user()->id,  
+            'order_number' => 'WURAS-' . strtoupper(Str::random(8)),  // Génère un numéro de commande aléatoire
+            'status' => 'pending',  
+            //'store_id' => 
 
-            ]);
+        ]);
         
-            // Ajouter les détails des articles
-            foreach ($cartItems as $item) {
-                OrderDetail::create([
-                    'order_id' => $order->id,
-                    'article_id' => $item['id'],
-                    'quantity' => $item['quantite'],
-                    'unit_price' => $item['price'],
-                    'subtotal' => $item['price'] * $item['quantite'],
+        // Ajouter les détails des articles
+        foreach ($cartItems as $item) {
+            OrderDetail::create([
+                'order_id' => $order->id,
+                'article_id' => $item['id'],
+                'quantity' => $item['quantite'],
+                'unit_price' => $item['price'],
+                'subtotal' => $item['price'] * $item['quantite'],
                     
-                ]);
-            }
+            ]);
+        }
 
-            // Chercher l'email de l'utilisateur lié à la commande
-            $user = User::find($order->user_id); // Trouver l'utilisateur par son ID
-            $userEmail = $user->email; // Récupérer l'email de l'utilisateur
+        // Chercher l'email de l'utilisateur lié à la commande
+        $user = User::find($order->user_id); // Trouver l'utilisateur par son ID
+        $userEmail = $user->email; // Récupérer l'email de l'utilisateur
 
-            // Envoyer l'email au client
-            Mail::to($userEmail)->send(new OrderConfirmationMail($order, $cartItems));
+        // Envoyer l'email au client
+        Mail::to($userEmail)->send(new OrderConfirmationMail($order, $cartItems));
         
-            // Vider le panier après commande
-            session()->forget('cart');
+        // Vider le panier après commande
+        session()->forget('cart');
         
-            return redirect()->route('order.success', ['orderId' => $order->id])->with('success', 'Commande enregistrée avec succès !');
+        return redirect()->route('order.success', ['orderId' => $order->id])->with('success', 'Commande enregistrée avec succès !');
     
     }
 

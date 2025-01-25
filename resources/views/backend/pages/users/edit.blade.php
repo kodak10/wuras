@@ -33,7 +33,7 @@
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}" required>
+            <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}" disabled>
         </div>
         <div class="mb-3">
             <label for="role" class="form-label">Rôle</label>

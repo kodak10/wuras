@@ -8,6 +8,18 @@
         <!-- Liste des Produits -->
         <div class="col-md-7">
             <h3>Produits Disponibles</h3>
+            @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
 
             <div class="table-responsive">
 
@@ -225,43 +237,85 @@
     });
 
     // Mettre à jour le tableau du panier
-    function updateCartTable() {
-        const tbody = document.querySelector('#cart-table tbody');
-        tbody.innerHTML = '';
-        subtotal = 0;
+    // Mettre à jour le tableau du panier
+function updateCartTable() {
+    const tbody = document.querySelector('#cart-table tbody');
+    tbody.innerHTML = '';
+    subtotal = 0;
 
-        cart.forEach(item => {
-            const tr = document.createElement('tr');
+    cart.forEach(item => {
+        const tr = document.createElement('tr');
 
-            tr.innerHTML = `
-                <td>${item.name}</td>
-                <td>
-                    <input type="number" class="form-control quantity" data-id="${item.id}" value="${item.quantity}" min="1">
-                </td>
-                <td>${item.price.toFixed(2)} FCFA</td>
-                <td>
-                    <input type="number" class="form-control discount" data-id="${item.id}" value="${item.discount}" min="0">
-                </td>
-                <td>${item.total.toFixed(2)} FCFA</td>
-                <td>
-                    <button class="btn btn-danger btn-sm remove-from-cart" data-id="${item.id}">Supprimer</button>
-                </td>
-            `;
+        tr.innerHTML = `
+            <td>${item.name}</td>
+            <td>
+                <input type="number" class="form-control quantity" data-id="${item.id}" value="${item.quantity}" min="1">
+            </td>
+            <td>${item.price.toFixed(2)} FCFA</td>
+            <td>
+                <input type="number" class="form-control discount" data-id="${item.id}" value="${item.discount}" min="0">
+            </td>
+            <td>${item.total.toFixed(2)} FCFA</td>
+            <td>
+                <button class="btn btn-danger btn-sm remove-from-cart" data-id="${item.id}">Supprimer</button>
+            </td>
+        `;
 
-            tbody.appendChild(tr);
-            subtotal += item.total;
+        tbody.appendChild(tr);
+        subtotal += item.total;
+    });
+
+    // Mettre à jour les totaux
+    document.getElementById('subtotal-price').textContent = subtotal.toFixed(2);
+    document.getElementById('total-price').textContent = (subtotal * (1 - discountPercentage / 100)).toFixed(2);
+
+    // Ajouter des événements pour les boutons "Supprimer"
+    document.querySelectorAll('.remove-from-cart').forEach(button => {
+        button.addEventListener('click', function () {
+            const id = this.dataset.id;
+            removeFromCart(id);
         });
+    });
+}
 
-        // Appliquer la remise globale
-        const discountInput = document.querySelector('#discount');
-        discountInput.addEventListener('input', function() {
-            discountPercentage = parseFloat(this.value);
-            updateTotalPrice();
-        });
+// Supprimer un produit du panier
+function removeFromCart(id) {
+    // Filtrer les articles pour retirer l'article correspondant
+    cart = cart.filter(item => item.id !== id);
+    updateCartTable();
+}
 
-        // Calculer le total avec réduction
-        updateTotalPrice();
+// Ajouter une remise globale
+document.querySelector('#discount').addEventListener('input', function () {
+    discountPercentage = parseFloat(this.value) || 0;
+    updateCartTable();
+});
+
+// Ajouter des événements pour changer les quantités et les remises individuelles
+document.addEventListener('input', function (event) {
+    if (event.target.classList.contains('quantity')) {
+        const id = event.target.dataset.id;
+        const quantity = parseInt(event.target.value, 10) || 1;
+        const product = cart.find(item => item.id === id);
+        if (product) {
+            product.quantity = quantity;
+            product.total = product.quantity * product.price - product.discount;
+            updateCartTable();
+        }
     }
+
+    if (event.target.classList.contains('discount')) {
+        const id = event.target.dataset.id;
+        const discount = parseFloat(event.target.value) || 0;
+        const product = cart.find(item => item.id === id);
+        if (product) {
+            product.discount = discount;
+            product.total = product.quantity * product.price - product.discount;
+            updateCartTable();
+        }
+    }
+});
+
 
     // Calculer le total après remise
     function updateTotalPrice() {

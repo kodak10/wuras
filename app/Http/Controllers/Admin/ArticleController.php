@@ -11,10 +11,11 @@ use App\Models\Promotion;
 use App\Models\Tag;
 use App\Models\Variation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
+use Illuminate\Support\Str;
 use Picqer\Barcode\BarcodeGeneratorPNG;
 
 class ArticleController extends Controller
@@ -25,12 +26,11 @@ class ArticleController extends Controller
     {
         $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
 
-
+        $store_id = Auth::user()->store_id;
         $articles = Article::with(['categories', 'tags'])
-        ->orderBy('created_at', 'desc')  // Trie les articles par la date de création, du plus récent au plus ancien
-        ->get();  // Limite à 10 articles par page
-
-       
+        ->where('store_id', $store_id)
+        ->orderBy('created_at', 'desc')  
+        ->get();  
 
         return view('backend.pages.products.index', compact('articles', 'lowStockProducts'));
     }
@@ -58,22 +58,23 @@ class ArticleController extends Controller
         'name' => 'required|unique:articles|string|max:255',
         'description' => 'nullable|string',
         'price' => 'required|numeric',
-        'is_promotion' => 'nullable|boolean',  // Si la promotion est activée ou non
-        'promotion_type' => 'nullable|in:none,percentage,fixed',  // Types de promotion possibles
-        'promotion_value' => 'nullable|numeric|min:0',  // La valeur de la promotion
-        'promotion_start' => 'nullable|date|before_or_equal:promotion_end',  // Date de début, doit être avant ou égale à la date de fin
-        'promotion_end' => 'nullable|date|after_or_equal:promotion_start',  // Date de fin, doit être après ou égale à la date de début
+        'is_promotion' => 'nullable|boolean', 
+        'promotion_type' => 'nullable|in:none,percentage,fixed',  
+        'promotion_value' => 'nullable|numeric|min:0',  
+        'promotion_start' => 'nullable|date|before_or_equal:promotion_end',  
+        'promotion_end' => 'nullable|date|after_or_equal:promotion_start',  
 
         'status' => 'required|in:published,draft,inactive', 
         'images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         'couverture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
 
-        'categories' => 'required|array',  // Validation pour les catégories
-        'categories.*' => 'exists:categories,id', // Vérifier que chaque catégorie existe
+        'categories' => 'required|array', 
+        'categories.*' => 'exists:categories,id', 
 
         'tag_name' => 'nullable|string|max:255',
-        'tags' => 'nullable|array', // Assurez-vous que les tags sont envoyés sous forme de tableau
-        'tags.*' => 'exists:tags,id', // Chaque tag doit exister dans la table tags
+        'tags' => 'nullable|array', 
+        'tags.*' => 'exists:tags,id',
+        'store_id' => 'required',
 
 
     ], [
@@ -106,12 +107,12 @@ class ArticleController extends Controller
         'promotion_start.before_or_equal' => 'La date de début doit être antérieure ou égale à la date de fin.',
         'promotion_end.date' => 'La date de fin de la promotion doit être une date valide.',
         'promotion_end.after_or_equal' => 'La date de fin doit être postérieure ou égale à la date de début.',
-   
+        'store_id.required' => "L'id du magasin est requis",
+
     ]);
 
 
     try {
-        // Créer un nouvel article
         $article = new Article();
         $article->name = $request->input('name');
         $article->description = $request->input('description');
@@ -126,6 +127,7 @@ class ArticleController extends Controller
         $article->promotion_value = $request->input('promotion_value', 0); // Valeur par défaut 0 si non fourni
         $article->promotion_start = $request->input('promotion_start');
         $article->promotion_end = $request->input('promotion_end');
+        $article->store_id = $request->input('store_id');
 
         $article->slug = Str::slug($article->name, '-');
 
@@ -309,10 +311,8 @@ public function edit($id)
             'status' => $request->status,
             'description' => $request->description,
             'price' => $request->price,
-            // 'quantite' => $request->quantite,
-            // 'limit_quantite' => $request->limit_quantite,
             'status' => $request->status,
-            'is_promotion' => 1, // Gestion de la promotion
+            'is_promotion' => 1,
             'promotion_type' => $request->promotion_type,
             'promotion_value' => $request->promotion_value,
             'promotion_start' => $request->promotion_start,
@@ -321,25 +321,16 @@ public function edit($id)
         ]);
 
 
-        // dd($validated);
-
-        // Mise à jour des données de l'article
-        
-
-        // Si une nouvelle image est téléchargée
         if ($request->hasFile('couverture')) {
             // Vérifiez si une image de couverture existe déjà et la supprimer si nécessaire
             if ($article->couverture && Storage::exists('public/' . $article->couverture)) {
                 Storage::delete('public/' . $article->couverture);
             }
         
-            // Générer un nom unique pour la nouvelle image de couverture
             $imageName = uniqid() . '.' . $request->file('couverture')->getClientOriginalExtension();
         
-            // Télécharger la nouvelle image et enregistrer son chemin
             $imagePath = $request->file('couverture')->storeAs('images/articles', $imageName, 'public');
         
-            // Mettre à jour l'attribut de l'article avec le nouveau chemin
             $article->couverture = 'images/articles/' . $imageName;
             // dd($article->couverture);
         }
@@ -349,7 +340,6 @@ public function edit($id)
             foreach ($request->file('images') as $image) {
                 // Générer un nom unique pour chaque image
                 $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
-                // Stocker l'image
                 $imagePath = $image->storeAs('images/articles', $imageName, 'public');
                 
                 // Enregistrer l'image dans la table pivot 'product_image'
@@ -362,37 +352,28 @@ public function edit($id)
             }
         }
         
-
-        // Mettre à jour les catégories associées
         $article->categories()->sync($request->categories);
 
-        // Mettre à jour les tags associés
         $article->tags()->sync($request->tags); // Synchroniser les tags
 
-        // Enregistrer l'article mis à jour
         $article->save();
 
-        // Retourner à la liste des articles avec un message de succès
         return redirect()->route('admin.articles.index')->with('success', 'Article mis à jour avec succès!');
     }
 
     public function destroyImage($id)
     {
 
-        // Trouver l'image par son ID
         $image = ProductImage::findOrFail($id);
     
-        dd($image);
+        // dd($image);
 
-        // Supprimer l'image du stockage
         if (file_exists(public_path($image->image_path))) {
             unlink(public_path($image->image_path)); // Supprimer l'image du répertoire
         }
     
-        // Supprimer l'image de la base de données
         $image->delete();
     
-        // Rediriger vers la page précédente avec un message de succès
         return back()->with('success', 'Image supprimée avec succès.');
     }
     
@@ -400,26 +381,11 @@ public function edit($id)
 
     public function promotion($id)
     {
-        // // Récupérer l'article
-        // $article = Article::find($id);
-    
-        // if (!$article) {
-        //     return redirect()->back()->with('error', 'Article introuvable.');
-        // }
-    
-        // // Marquer l'article comme en promotion ou gérer la logique de promotion
-        // $article->is_promotion = !$article->is_promotion; // Basculer le statut promotion
-        // $article->save();
-    
-        // return redirect()->back()->with('success', "L'article {$article->name} a été mis à jour pour la promotion.");
     
         $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
 
-        // Récupérer l'article à modifier
-        $article = Article::with('categories','tags', 'images')->findOrFail($id); // Utilisez 'with' pour charger les catégories associées si nécessaire
+        $article = Article::with('categories','tags', 'images')->findOrFail($id); 
 
-
-        // Passer les données à la vue
         return view('backend.pages.products.promotion', compact('article', 'lowStockProducts'));
     
     }
@@ -427,7 +393,7 @@ public function edit($id)
     public function togglePromotion(Request $request, $articleId)
     {
         $article = Article::findOrFail($articleId);
-        $promotionId = $request->input('promotion_id'); // ID de la promotion
+        $promotionId = $request->input('promotion_id'); 
 
         if (!$promotionId) {
             return redirect()->back()->with('error', 'Veuillez sélectionner une promotion.');

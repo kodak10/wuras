@@ -15,6 +15,7 @@ class Ventes extends Model
         'price',
         'discount',
         'total',
+        'store_id',
     ];
     
     // Définir la relation avec le produit

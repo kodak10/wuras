@@ -25,6 +25,7 @@ class Article extends Model
         'promotion_value',
         'promotion_start',
         'promotion_end',
+        'store_id'
 
     ];
 
@@ -61,6 +62,11 @@ class Article extends Model
     public function barcodes()
     {
         return $this->hasMany(ArticleBarcode::class, 'article_id');
+    }
+
+    public function stores()
+    {
+        return $this->belongsTo(Store::class);
     }
 
     

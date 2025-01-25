@@ -43,19 +43,13 @@ class PermissionController extends Controller
 
     public function getPermissions($roleId)
     {
-        // Trouver le rôle par ID avec ses permissions
         $role = Role::findById($roleId);
 
         if (!$role) {
             return response()->json(['error' => 'Role not found'], 404);
         }
 
-        // Récupérer les permissions du rôle
-        // $permissions = $role->permissions()->pluck('name')->toArray();
-
-        // return response()->json($permissions);
         return response()->json($role->permissions);
-
     }
 
 }

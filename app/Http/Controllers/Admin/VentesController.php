@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Ventes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VentesController extends Controller
 {
@@ -14,9 +15,10 @@ class VentesController extends Controller
      */
     public function index()
     {
-        // Récupérer toutes les ventes avec leurs détails
-        // $ventes = Ventes::with('orderDetails.product')->get(); // Assurez-vous que 'orderDetails' et 'product' sont définis dans le modèle Sale
-        $ventes = Ventes::all();
+        $ventes = Ventes::whereHas('article', function ($query) {
+            $query->where('store_id', Auth::id());
+        })->get();
+
         $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
 
         return view('backend.pages.ventes.index', compact('ventes', 'lowStockProducts'));
@@ -27,7 +29,7 @@ class VentesController extends Controller
      */
     public function create()
     {
-        $products = Article::all();
+        $products = Article::where('store_id', Auth::id())->get();
         $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
 
         return view('backend.pages.ventes.create', compact('products', 'lowStockProducts'));
@@ -42,6 +44,8 @@ class VentesController extends Controller
             'cart' => 'required|array',
             'total' => 'required|numeric',
         ]);
+
+        $store_id = Auth::id();
     
         foreach ($data['cart'] as $item) {
             // Sauvegarder chaque article vendu
@@ -50,15 +54,16 @@ class VentesController extends Controller
                 'quantity' => $item['quantity'],
                 'price' => $item['price'],
                 'total' => $item['total'],
+                'store_id'=> $store_id,
             ]);
 
             // Déduire la quantité de stock pour chaque article vendu
-            $product = Article::find($item['id']); // Trouver l'article en utilisant son ID
+            $product = Article::find($item['id']);
             if ($product) {
                 // Vérifier si la quantité vendue est disponible en stock
                 if ($product->quantity >= $item['quantity']) {
-                    $product->quantity -= $item['quantite']; // Déduire la quantité vendue
-                    $product->save(); // Sauvegarder les modifications
+                    $product->quantity -= $item['quantite']; 
+                    $product->save(); 
                 } else {
                     return response()->json(['error' => 'Stock insuffisant pour l\'article ' . $product->name], 400);
                 }

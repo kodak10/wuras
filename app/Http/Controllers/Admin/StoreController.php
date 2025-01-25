@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class StoreController extends Controller
 {
-    //
+    
     // public function manageOrders(Store $store)
     // {
     //     if (!Auth::user()->can('manage orders')) {

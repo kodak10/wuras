@@ -28,7 +28,7 @@
           <!-- ---------------------------------- -->
           
           <li class="sidebar-item">
-            <a class="sidebar-link" href="#" aria-expanded="false">
+            <a class="sidebar-link" href="/admin" aria-expanded="false">
               <span>
                 <i class="ti ti-shopping-cart"></i>
               </span>

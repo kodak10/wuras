@@ -98,9 +98,9 @@
         
         <div class="footer-bottom">
             <div class="footer-center text-center m-auto">
-                <p class="copyright">Copyright © 2025 Wuras. Tous droits réservés.</p>
+                <p class="copyright">Copyright © {{ date('Y') }} Wuras. Tous droits réservés.</p>
             </div>
-            
         </div>
+        
     </div>
 </footer>

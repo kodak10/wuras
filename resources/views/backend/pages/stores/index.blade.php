@@ -27,11 +27,6 @@
                     <td>{{ $store->phone2 }}</td>
                     <td>
                         <a href="{{ route('admin.stores.edit', $store->id) }}" class="btn btn-warning btn-sm">Modifier</a>
-                        <form action="{{ route('admin.stores.destroy', $store->id) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce magasin ?')">Supprimer</button>
-                        </form>
                     </td>
                 </tr>
             @endforeach

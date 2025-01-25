@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Store;
 use Illuminate\Support\Facades\DB;
 
 use RealRashid\SweetAlert\Facades\Alert;
@@ -16,6 +17,7 @@ class AdminController extends Controller
     {
         // Récupérer tous les produits
         $products = Article::all();
+        $magasins = Store::all();
 
         // Vérifier les produits en-dessous du seuil
         //$lowStockProducts = Article::where('quantite', '<=', 'limit_quantite')->get();
@@ -29,9 +31,33 @@ class AdminController extends Controller
             Alert::warning('Attention', 'Les produits suivants sont en faible stock: ' . $productNames);
         }
 
+        $orders = DB::table('orders')
+    ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+    ->join('ventes', 'order_details.article_id', '=', 'ventes.article_id')  // Assurez-vous que cette jointure est correcte
+    ->join('articles', 'order_details.article_id', '=', 'articles.id')  // Jointure avec la table des articles pour récupérer le nom
+    ->select(
+        'orders.id as order_id',
+        'orders.firstname',
+        'orders.lastname',
+        'orders.pays',
+        'orders.phone01',
+        'orders.phone02',
+        'orders.email',
+        'orders.total_price',
+        'order_details.quantity',
+        'order_details.unit_price',
+        'order_details.subtotal',
+        'ventes.total as vente_total',
+        'ventes.discount',
+        'ventes.price',
+        'articles.name as article_name'  // Sélectionner le nom de l'article
+    )
+    ->get();
+
+
 
         // Passer les données à la vue
-        return view('backend.pages.index', compact('products', 'lowStockProducts'));
+        return view('backend.pages.index', compact('products', 'lowStockProducts', 'magasins', 'orders'));
     }
 
     public function StockArticle()

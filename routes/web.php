@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\VentesController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\BarcodeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebsiteController;
@@ -22,6 +23,7 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
+
 
 
 
@@ -50,6 +52,9 @@ Route::post('/commander', [OrderController::class, 'store'])->name('order.store'
 Route::get('/order-success/{orderId}', [OrderController::class, 'success'])->name('order.success');
 // Route::get('/receipt/{orderId}/pdf', [OrderController::class, 'downloadReceipt'])->name('receipt.pdf');
 Route::get('order/{orderId}/receipt/download', [OrderController::class, 'downloadReceipt'])->name('order.downloadReceipt');
+
+
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
 
 Route::middleware(['auth', 'verified','role.check'])->prefix('admin')->name('admin.')->group(function () {

@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>Wuras - Vente d'ordinateurs et matériel informatique en Côte d'Ivoire</title>
-    <meta name="keywords" content="ordinateurs, matériel informatique, accessoires, composants PC, Côte d'Ivoire, Wuras">
+    <meta name="keywords" content="wuras, ordinateurs, matériel informatique, accessoires, composants PC, Côte d'Ivoire, Wuras">
     <meta name="description" content="Achetez des ordinateurs, accessoires et matériel informatique de qualité chez Wuras, votre boutique en ligne spécialisée en Côte d'Ivoire.">
     <meta name="author" content="Wuras">
 
@@ -26,7 +26,7 @@
  
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{asset('assets/images/icons/favicon.png')}}">
+    <link rel="icon" type="image/png" href="{{asset('assets/images/logo.png')}}">
 
     <!-- WebFont.js -->
     <script>

@@ -12911,7 +12911,7 @@ aside .sp-sidebar-banner span {
   width: 100%;
 }
 .header a:not(.btn) {
-  color: #ffffff;
+  color: #000;
 }
 .header a:not(.btn):hover {
   color: #336699;
@@ -12956,7 +12956,7 @@ aside .sp-sidebar-banner span {
 }
 
 .header-top {
-  background: #333;
+  background: #f5f6f8;
   font-size: 1.1rem;
   letter-spacing: -0.027em;
   text-transform: capitalize;
@@ -13091,7 +13091,7 @@ aside .sp-sidebar-banner span {
   padding-top: 3.2rem;
   padding-bottom: 3.2rem;
   color: #e3e3e3;
-  background: #333;
+  background: #ffffff;
   font-size: 1.2rem;
   border-bottom: 1px solid #eee;
 }
@@ -13153,7 +13153,7 @@ aside .sp-sidebar-banner span {
           flex: 1;
   min-width: 40px;
   padding: 0.9rem;
-  border: 2px solid #ffffff;
+  border: 2px solid #2266cc;
   border-right: 0;
   font-size: 1.2rem;
   letter-spacing: 0;
@@ -13180,7 +13180,7 @@ aside .sp-sidebar-banner span {
   min-width: 5.1rem;
   color: #333;
   border-left: 0;
-  border-color: #ffffff;
+  border-color: #2266cc;
   font-size: 1.5rem;
   font-weight: normal;
   letter-spacing: -0.025em;
@@ -13275,7 +13275,7 @@ aside .sp-sidebar-banner span {
 }
 .header-search.hs-expanded .select-box {
   width: 14.6rem;
-  border: 2px solid #fff;
+  border: 2px solid #2266cc;
   border-right: none;
   color: #666666;
 }
@@ -13291,7 +13291,7 @@ aside .sp-sidebar-banner span {
           transform: translateY(-50%);
 }
 .header-search.hs-expanded input.form-control {
-  color: #666;
+  color: #666666;
   border-right: none;
   border-left: none;
 }

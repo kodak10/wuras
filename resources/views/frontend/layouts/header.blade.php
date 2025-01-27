@@ -1,11 +1,11 @@
 <style>
-    form.input-wrapper.header-search.hs-expanded.hs-round.d-none.d-md-flex{
+    /* form.input-wrapper.header-search.hs-expanded.hs-round.d-none.d-md-flex{
         background-color:#ffffff;
         border-color: none;
     }
     a.product-name:first-child{
     color: #000000 !important;
-   }
+   } */
    /* Conteneur principal du dropdown */
 .dropdown-box {
     /* position: relative; */
@@ -46,7 +46,7 @@
     <div class="header-top">
         <div class="container">
             <div class="header-left">
-                <p class="welcome-msg" style="color: #ffffff">Bienvenue au magasin Wuras !</p>
+                <p class="welcome-msg">Bienvenue au magasin Wuras !</p>
             </div>
             <div class="header-right">
                 
@@ -220,20 +220,20 @@
                                 <a href="/">Accueil</a>
                             </li>
                             <li class="" >
-                                <a href="{{route('shop')}}" style="color: #000000 !important">Magasin</a>
+                                <a href="{{route('shop')}}">Magasin</a>
                             </li>
                             <li>
-                                <a href="#" style="color: #000000 !important">Pages</a>
+                                <a href="#">Pages</a>
                                 <ul>
 
                                     {{-- <li ><a href="#" style="color: #000000 !important">À propos de nous</a></li> --}}
-                                    <li ><a href="#" style="color: #000000 !important">Contactez-nous</a></li>
-                                    <li ><a href="#" style="color: #000000 !important">FAQs</a></li>
+                                    <li ><a href="#">Contactez-nous</a></li>
+                                    <li ><a href="#">FAQs</a></li>
                                     
                                 </ul>
                             </li>
                             <li class="" >
-                                <a href="/admin" style="color: #000000 !important">Dashboard | Ajouter des Articles</a>
+                                <a href="/admin">Dashboard | Ajouter des Articles</a>
                             </li>
 
                         

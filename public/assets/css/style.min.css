@@ -15096,7 +15096,7 @@ body .product-popup {
   min-width: auto;
   max-width: 55.6rem;
 }
-.header-search.hs-expanded .select-box {
+/* .header-search.hs-expanded .select-box {
   width: 14.6rem;
   border: 2px solid #336699;
   border-right: none;
@@ -15112,7 +15112,7 @@ body .product-popup {
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
-}
+} */
 .header-search.hs-expanded input.form-control {
   color: #666;
   border-right: none;

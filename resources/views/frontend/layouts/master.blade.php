@@ -66,7 +66,7 @@
 
     <!-- Default CSS -->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/demo9.min.css')}}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/demo9.min.css')}}"> --}}
 
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/demo1.min.css')}}">
 

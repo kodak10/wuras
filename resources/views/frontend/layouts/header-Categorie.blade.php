@@ -5,7 +5,7 @@
                 <li>
                     {{-- <a href="{{ route('shop', ['category' => $categorie->id ?? null]) }}"> --}}
                     <a href="{{ route('shop', ['category' => $categorie->name ?? null]) }}">
-                        <i class="w-icon-electronics"></i>{{ $categorie->name}}
+                        <i class="fa-solid {{ $categorie->icon }}"></i>{{ $categorie->name}}
                     </a>
                 </li>
             @empty

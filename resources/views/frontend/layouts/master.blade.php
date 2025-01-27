@@ -24,7 +24,7 @@
      <meta name="twitter:description" content="Achetez des ordinateurs, accessoires et matériel informatique de qualité en Côte d'Ivoire.">
      <meta name="twitter:image" content="{{ asset('assets/images/logo-wuras.png') }}">
  
-
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{asset('assets/images/logo.png')}}">
 

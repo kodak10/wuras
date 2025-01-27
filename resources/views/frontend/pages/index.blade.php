@@ -133,7 +133,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
            
         </div>
     
-        {{-- <div class="custom-dots swiper-img-dots appear-animate">
+        <div class="custom-dots swiper-img-dots appear-animate">
             <a href="#" class="active">
                 <img src="assets/images/demos/demo9/slides/dot-1.png" alt="Dot" width="70" height="70" />
             </a>
@@ -144,9 +144,167 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                 <img src="assets/images/demos/demo9/slides/dot-3.png" alt="Dot" width="70" height="70" />
             </a>
             
-        </div> --}}
+        </div>
     </div>
 </section>
+
+
+{{-- <section class="intro-section mt-4">
+    <div class="swiper-container swiper-theme animation-slider swiper-container-initialized swiper-container-horizontal" data-swiper-options="{
+        'slidesPerView': 1,
+        'autoplay': {
+            'delay': 8000,
+            'disableOnInteraction': false
+        }
+    }">
+        <div class="swiper-wrapper " id="swiper-wrapper-b29b3f0a7ce8497a" aria-live="off" style="transform: translate3d(-1074px, 0px, 0px); transition-duration: 0ms;">
+            <div class="swiper-slide banner banner-fixed content-center intro-slide intro-slide1" style="background-image: url(&quot;assets/images/demos/demo9/slides/slide-1.jpg&quot;); background-color: rgb(238, 244, 244); width: 358px;" role="group" aria-label="1 / 5">
+                <div class="container">
+                    <div class="banner-content d-inline-block y-50">
+                        <div class="slide-animate" data-animation-options="{
+                            'name': 'zoomIn', 'duration': '1s'
+                        }" style="animation-duration: 1s; animation-delay: 0.2s;">
+                            <h5 class="banner-subtitle text-uppercase font-weight-bold">Deals and Promotions
+                            </h5>
+                            <h3 class="banner-title text-capitalize ls-25">
+                                <span class="text-primary">Winter Season</span><br>
+                                Fashion Lifestyle Collection
+                            </h3>
+                            <a href="demo9-shop.html" class="btn btn-dark btn-outline btn-rounded btn-icon-right">
+                                Shop Now<i class="w-icon-long-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <figure class="slide-image skrollable slide-animate floating-item" data-options="{'relativeInput':true,'clipRelativeInput':true,'invertX':true,'invertY':true,'scalarY':0}" data-child-depth="0.4" style="animation-duration: 1.2s; animation-delay: 0.2s;">
+                        <img src="assets/images/demos/demo9/slides/slide-image-1.png" alt="Banner" data-bottom-top="transform: translatex(-10vh);" data-top-bottom="transform: translateX(10vh);" width="472" height="510" class="layer" data-depth="0.4" style="position: relative; display: block; left: 0px; top: 0px; transform: translate3d(-18.88px, 0px, 0px); transform-style: preserve-3d; backface-visibility: hidden;">
+                    </figure>
+                </div>
+            </div>
+            <!-- End of Intro Slide 1 -->
+            <div class="swiper-slide banner banner-fixed intro-slide intro-slide2" style="background-image: url(&quot;assets/images/demos/demo9/slides/slide-2.jpg&quot;); background-color: rgb(237, 238, 240); width: 358px;" role="group" aria-label="2 / 5">
+                <div class="container">
+                    <div class="banner-content d-inline-block y-50">
+                        <div class="slide-animate" data-animation-options="{
+                            'name': 'fadeInDownShorter', 'duration': '1s'
+                        }" style="animation-duration: 1s; animation-delay: 0.2s;">
+                            <h5 class="banner-subtitle text-primary text-uppercase font-weight-bold mb-2">
+                                This
+                                Week Only!</h5>
+                            <h3 class="banner-title text-capitalize ls-25">Originals Comper Star. Shoes</h3>
+                            <hr class="banner-divider bg-dark">
+                            <p class="text-dark">Free Shipping on all orders over <strong>$80.00</strong>
+                            </p>
+                            <a href="demo9-shop.html" class="btn btn-dark btn-outline btn-rounded btn-icon-right">
+                                Shop Now<i class="w-icon-long-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <figure class="slide-image skrollable slide-animate floating-item" data-options="{'relativeInput':true,'clipRelativeInput':true,'invertX':true,'invertY':true}" data-child-depth="0.2" style="transform: translate3d(0px, 0px, 0px); transform-style: preserve-3d; backface-visibility: hidden; animation-duration: 1.2s; animation-delay: 0.2s;">
+                        <img src="assets/images/demos/demo9/slides/slide-image-2.png" alt="Banner" data-bottom-top="transform: translatex(-10vh);" data-top-bottom="transform: translateX(10vh);" width="578" height="364" class="layer" data-depth="0.2" style="position: relative; display: block; left: 0px; top: 0px; transform: translate3d(-11.56px, -7.28781px, 0px); transform-style: preserve-3d; backface-visibility: hidden;">
+                    </figure>
+                </div>
+            </div>
+            <!-- End of Intro Slide 2 -->
+            <div class="swiper-slide banner banner-fixed intro-slide intro-slide3 content-center swiper-slide-prev" style="background-image: url(&quot;assets/images/demos/demo9/slides/slide-3.jpg&quot;); background-color: rgb(212, 214, 213); width: 358px;" role="group" aria-label="3 / 5">
+                <div class="container">
+                    <div class="banner-content y-50">
+                        <div class="content-left mr-auto slide-animate mb-4 mb-lg-0" data-animation-options="{
+                            'name': 'fadeInUpShorter', 'duration': '1s'
+                        }" style="">
+                            <h5 class="banner-subtitle text-white br-xs">Only until the end of this Week
+                            </h5>
+                            <h3 class="banner-title text-uppercase font-weight-normal mb-0 ls-25">
+                                Fashion<strong class="ml-2">Sale</strong>
+                            </h3>
+                            <p class="text-dark font-weight-normal text-uppercase mb-0 ls-25">
+                                Up to <strong class="text-uppercase text-secondary font-weight-bolder">80%
+                                    Off</strong>
+                            </p>
+                        </div>
+                        <div class="content-right slide-animate" data-animation-options="{
+                            'name': 'fadeInUpShorter', 'duration': '1s'
+                        }" style="">
+                            <h4 class="text-white text-uppercase ls-25">
+                                Chooses to extra comfort all around
+                            </h4>
+                            <a href="demo9-shop.html" class="btn btn-dark btn-rounded btn-icon-right">
+                                Shop Now<i class="w-icon-long-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <figure class="slide-image skrollable slide-animate" style="">
+                        <img src="assets/images/demos/demo9/slides/slide-image-3.png" alt="Banner" data-bottom-top="transform: translatex(-10vh);" data-top-bottom="transform: translateX(10vh);" width="488" height="510">
+                    </figure>
+                </div>
+            </div>
+            <!-- End of Intro Slide 3 -->
+            <div class="swiper-slide banner banner-fixed content-center intro-slide intro-slide1 swiper-slide-active" style="background-image: url(&quot;assets/images/demos/demo9/slides/slide-1.jpg&quot;); background-color: rgb(238, 244, 244); width: 358px;" role="group" aria-label="4 / 5">
+                <div class="container">
+                    <div class="banner-content d-inline-block y-50">
+                        <div class="slide-animate zoomIn show-content" data-animation-options="{
+                            'name': 'zoomIn', 'duration': '1s'
+                        }" style="animation-duration: 1s; animation-delay: 0.2s;">
+                            <h5 class="banner-subtitle text-uppercase font-weight-bold">Deals and Promotions
+                            </h5>
+                            <h3 class="banner-title text-capitalize ls-25">
+                                <span class="text-primary">Winter Season</span><br>
+                                Fashion Lifestyle Collection
+                            </h3>
+                            <a href="demo9-shop.html" class="btn btn-dark btn-outline btn-rounded btn-icon-right">
+                                Shop Now<i class="w-icon-long-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <figure class="slide-image skrollable slide-animate fadeIn show-content" style="animation-duration: 1.2s; animation-delay: 0.2s;">
+                        <img src="assets/images/demos/demo9/slides/slide-image-1.png" alt="Banner" data-bottom-top="transform: translatex(-10vh);" data-top-bottom="transform: translateX(10vh);" width="472" height="510">
+                    </figure>
+                </div>
+            </div>
+            <!-- End of Intro Slide 1 -->
+            <div class="swiper-slide banner banner-fixed intro-slide intro-slide2 swiper-slide-next" style="background-image: url(&quot;assets/images/demos/demo9/slides/slide-2.jpg&quot;); background-color: rgb(237, 238, 240); width: 358px;" role="group" aria-label="5 / 5">
+                <div class="container">
+                    <div class="banner-content d-inline-block y-50">
+                        <div class="slide-animate" data-animation-options="{
+                            'name': 'flipInY', 'duration': '1s'
+                        }" style="animation-duration: 1s; animation-delay: 0.2s;">
+                            <h5 class="banner-subtitle text-primary text-uppercase font-weight-bold mb-2">
+                                This
+                                Week Only!</h5>
+                            <h3 class="banner-title text-capitalize ls-25">Originals Comper Star. Shoes</h3>
+                            <hr class="banner-divider bg-dark">
+                            <p class="text-dark">Free Shipping on all orders over <strong>$80.00</strong>
+                            </p>
+                            <a href="demo9-shop.html" class="btn btn-dark btn-outline btn-rounded btn-icon-right">
+                                Shop Now<i class="w-icon-long-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <figure class="slide-image skrollable slide-animate floating-item" data-options="{'relativeInput':true,'clipRelativeInput':true,'invertX':true,'invertY':true}" data-child-depth="0.2" style="transform: translate3d(0px, 0px, 0px); transform-style: preserve-3d; backface-visibility: hidden; animation-duration: 1.2s; animation-delay: 0.2s;">
+                        <img src="assets/images/demos/demo9/slides/slide-image-2.png" alt="Banner" data-bottom-top="transform: translatex(-10vh);" data-top-bottom="transform: translateX(10vh);" width="578" height="364" class="layer" data-depth="0.2" style="position: relative; display: block; left: 0px; top: 0px; transform: translate3d(11.56px, -7.28781px, 0px); transform-style: preserve-3d; backface-visibility: hidden;">
+                    </figure>
+                </div>
+            </div>
+            <!-- End of Intro Slide 2 -->
+        </div>
+        <div class="custom-dots swiper-img-dots appear-animate fadeIn appear-animation-visible" style="animation-duration: 1.2s;">
+            <a href="#" class="">
+                <img src="assets/images/demos/demo9/slides/dot-1.png" alt="Dot" width="70" height="70">
+            </a>
+            <a href="#" class="">
+                <img src="assets/images/demos/demo9/slides/dot-2.png" alt="Dot" width="70" height="70">
+            </a>
+            <a href="#" class="">
+                <img src="assets/images/demos/demo9/slides/dot-3.png" alt="Dot" width="70" height="70">
+            </a>
+            <a href="#" class="active">
+                <img src="assets/images/demos/demo9/slides/dot-1.png" alt="Dot" width="70" height="70">
+            </a>
+            <a href="#" class="">
+                <img src="assets/images/demos/demo9/slides/dot-2.png" alt="Dot" width="70" height="70">
+            </a>
+        </div>
+    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+</section> --}}
 
 <div class="container mt-5 four-box">
     <div class="row grid grid-float pt-2 banner-grid mb-9 appear-animate">

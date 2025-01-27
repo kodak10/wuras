@@ -35,7 +35,7 @@ class GenerateSitemap extends Command
         // Ajouter des URLs dynamiques (exemple pour les articles)
         $articles = \App\Models\Article::all();
         foreach ($articles as $article) {
-            $sitemap->add(Url::create('/articles/' . $article->slug)
+            $sitemap->add(Url::create('/magasin/' . $article->slug)
                 ->setPriority(0.7)
                 ->setChangeFrequency('weekly'));
         }

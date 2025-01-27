@@ -23,9 +23,33 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
 
 
 
+
+Route::get('/sitemap.xml', function () {
+    $sitemap = Sitemap::create();
+
+    // Ajouter les routes principales
+    $sitemap->add(Url::create('/')->setPriority(1.0)->setChangeFrequency('daily'))
+            ->add(Url::create('/magasin')->setPriority(0.9)->setChangeFrequency('daily'))
+            ->add(Url::create('/panier')->setPriority(0.8)->setChangeFrequency('daily'))
+            ->add(Url::create('/checkout')->setPriority(0.8)->setChangeFrequency('monthly'));
+
+    // Ajouter dynamiquement les articles
+    $articles = \App\Models\Article::all();
+    foreach ($articles as $article) {
+        $sitemap->add(Url::create('/magasin/' . $article->slug)
+            ->setPriority(0.7)
+            ->setChangeFrequency('weekly'));
+    }
+
+    // Ajouter dynamiquement d'autres routes ou ressources selon vos besoins
+
+    return $sitemap->toResponse(request());
+});
 
 
 
@@ -146,4 +170,5 @@ Route::fallback(function() {
     // Retourner la vue 404 en passant les catégories
     return view('frontend.pages.404', ['categories' => $categories]);
 });
+
 

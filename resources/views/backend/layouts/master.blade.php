@@ -9,7 +9,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Favicon icon-->
-  <link rel="shortcut icon" type="image/png" href="{{asset('assets/images/logo.png')}}" />
+  <link rel="shortcut icon" type="image/png" href="{{asset('assets/images/logo.webp')}}" />
 
   @stack('styles')
 

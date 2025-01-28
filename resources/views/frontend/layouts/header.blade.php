@@ -96,7 +96,7 @@
 ">
                 </a>
                 <a href="/" class="logo ml-lg-0">
-                    <img src="{{asset('assets/images/logo.png')}}" alt="logo" width="144" height="45" />
+                    <img src="{{asset('assets/images/logo.webp')}}" alt="logo" width="144" height="45" />
                 </a>
                 <form method="get" action="{{ route('shop') }}" class="input-wrapper header-search hs-expanded hs-round d-none d-md-flex">
                     <div class="select-box">

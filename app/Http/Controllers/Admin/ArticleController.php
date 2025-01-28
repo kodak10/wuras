@@ -138,6 +138,7 @@ class ArticleController extends Controller
         $barcodeContent = $generator->getBarcode($article->id, BarcodeGeneratorPNG::TYPE_CODE_128);
 
         // Enregistrez l'image dans le dossier storage
+
         $barcodePath = 'images/articles/barcodes/' . $article->id . '.png';
         Storage::disk('public')->put($barcodePath, $barcodeContent);
 
@@ -179,27 +180,59 @@ class ArticleController extends Controller
             }
         }
 
+        // if ($request->hasFile('couverture')) {
+        //     $couverture = $request->file('couverture');
+        //     $couvertureName = $article->id . '_couverture.' . $couverture->getClientOriginalExtension();
+
+            
+
+        //     $couverturePath = $couverture->storeAs('images/articles/couverture', $couvertureName, 'public');
+            
+            
+
+        //     $article->couverture = 'images/articles/couverture/' . $couvertureName;
+        //     $article->save();
+        // }       
+        
         if ($request->hasFile('couverture')) {
             $couverture = $request->file('couverture');
-            $couvertureName = $article->id . '_couverture.' . $couverture->getClientOriginalExtension();
+            $couverturePath = 'images/articles/couverture/' . $article->id . '_couverture.webp';
 
-            $couverturePath = $couverture->storeAs('images/articles/couverture', $couvertureName, 'public');
-            
-            $article->couverture = 'images/articles/couverture/' . $couvertureName;
+            // Convertir l'image en WebP
+            $image = Article::make($couverture)->encode('webp', 90); // Qualité de 90
+            Storage::disk('public')->put($couverturePath, $image);
+
+            $article->couverture = $couverturePath;
             $article->save();
-        }        
+        }
+
 
         if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                // Générer un nom unique pour chaque image
-                $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
+            // foreach ($request->file('images') as $image) {
+            //     // Générer un nom unique pour chaque image
+            //     $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
                 
-                // Utilisez storeAs pour spécifier le nom du fichier et son emplacement
-                $imagePath = $image->storeAs('images/articles', $imageName, 'public');
+            //     // Utilisez storeAs pour spécifier le nom du fichier et son emplacement
+            //     $imagePath = $image->storeAs('images/articles', $imageName, 'public');
                 
+            //     DB::table('product_image')->insert([
+            //         'article_id' => $article->id,
+            //         'image_path' => 'storage/images/articles/' . $imageName, // Enregistrez le chemin relatif dans la base de données
+            //         'created_at' => now(),
+            //         'updated_at' => now(),
+            //     ]);
+            // }
+
+            foreach ($request->file('images') as $imageFile) {
+                $imagePath = 'images/articles/' . uniqid() . '.webp';
+
+                // Convertir chaque image en WebP
+                $image = ProductImage::make($imageFile)->encode('webp', 90); // Qualité de 90
+                Storage::disk('public')->put($imagePath, $image);
+
                 DB::table('product_image')->insert([
                     'article_id' => $article->id,
-                    'image_path' => 'storage/images/articles/' . $imageName, // Enregistrez le chemin relatif dans la base de données
+                    'image_path' => $imagePath,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);

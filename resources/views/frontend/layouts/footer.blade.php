@@ -37,7 +37,7 @@
                 <div class="col-lg-4 col-sm-6">
                     <div class="widget widget-about">
                         <a href="/" class="logo-footer">
-                            <img src="{{asset('assets/images/logo.png')}}" alt="logo-footer"style="
+                            <img src="{{asset('assets/images/logo.webp')}}" alt="logo-footer"style="
                             width: 60vh;" />
                         </a>
                         <a href="tel:18005707777" class="widget-about-call"><i class="w-icon-phone mr-1"></i> +225 0749667007</a>

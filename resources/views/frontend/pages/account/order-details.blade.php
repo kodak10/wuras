@@ -56,7 +56,7 @@ table tr.items td {
     <table class="w-full">
         <tr>
             <td class="w-half">
-                <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" width="200" />
+                <img src="{{ asset('assets/images/logo.webp') }}" alt="Logo" width="200" />
             </td>
             <td class="w-half">
                 <h2>Facture #{{ $order->order_number }}</h2>

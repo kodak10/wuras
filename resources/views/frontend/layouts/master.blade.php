@@ -14,7 +14,7 @@
      <!-- Open Graph -->
      <meta property="og:title" content="Wuras - Vente d'ordinateurs et matériel informatique">
      <meta property="og:description" content="Découvrez notre gamme d'ordinateurs et de matériel informatique. Livraison en Côte d'Ivoire.">
-     <meta property="og:image" content="{{ asset('assets/images/logo.png') }}">
+     <meta property="og:image" content="{{ asset('assets/images/logo.webp') }}">
      <meta property="og:url" content="https://wuras.ci">
      <meta property="og:type" content="website">
  
@@ -26,7 +26,7 @@
  
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{asset('assets/images/logo.png')}}">
+    <link rel="icon" type="image/png" href="{{asset('assets/images/logo.webp')}}">
 
     <!-- WebFont.js -->
     <script>

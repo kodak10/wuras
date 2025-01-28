@@ -10688,6 +10688,12 @@ body .product-popup {
 .nav-tabs .nav-item:hover .nav-link {
   color: #336699;
 }
+.accessoires .nav-item.show .nav-link,
+.accessoires .nav-item .nav-link.active,
+.accessoires .nav-item:hover .nav-link {
+  color: #ffffff;
+}
+
 
 .nav-link {
   display: block;
@@ -10817,6 +10823,7 @@ body .product-popup {
 .tab-nav-outline .nav-item:hover .nav-link {
   border: 2px solid #336699;
   border-radius: 0.3rem;
+  background-color: #00657c;
 }
 .tab-nav-outline .nav-link {
   color: #333;

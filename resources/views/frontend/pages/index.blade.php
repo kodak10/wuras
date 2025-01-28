@@ -18,7 +18,7 @@
 }
 
 .header-bottom a{
-    color: #252525 !important;
+    color: #ffffff;
 }
 
 
@@ -26,7 +26,7 @@
     border: none !important ;
 }
 a.btn-product-icon.btn-cart.w-icon-cart {
-    background: chocolate !important;
+    background: #00657c !important;
     color: #E3E7EA !important
 }
 
@@ -51,7 +51,9 @@ a.btn-product-icon.btn-cart.w-icon-cart {
 }
 
 
-
+.product-hidden-details .product-action span{
+    line-height: 1;
+}
 </style>
 
 @include(('frontend.layouts.header-Categorie'))
@@ -133,7 +135,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
            
         </div>
     
-        <div class="custom-dots swiper-img-dots appear-animate">
+        {{-- <div class="custom-dots swiper-img-dots appear-animate">
             <a href="#" class="active">
                 <img src="assets/images/demos/demo9/slides/dot-1.png" alt="Dot" width="70" height="70" />
             </a>
@@ -144,7 +146,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                 <img src="assets/images/demos/demo9/slides/dot-3.png" alt="Dot" width="70" height="70" />
             </a>
             
-        </div>
+        </div> --}}
     </div>
 </section>
 
@@ -818,17 +820,6 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                 </div>
                                                 
                                             </div>
-                                            {{-- <div class="product-hidden-details">
-                                                <div class="product-action">
-                                                    <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier" data-product-id="{{ $article->id }}">
-                                                        <i class="w-icon-cart"></i><span>Ajouter au panier</span></a>
-                                                    </a>                                                    
-                                                    <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                                        title="Ajouter Au favori"></a>
-                                                    <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                                        title="Comparer"></a>
-                                                </div>
-                                            </div> --}}
                                             <div class="product-hidden-details">
                                                 <div class="product-action">
                                                     <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Ajouter au Panier" data-product-id="{{ $article->id }}">
@@ -839,6 +830,8 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                     <a href="#" class="btn-product-icon btn-compare w-icon-compare"
                                                         title="Comparer"></a>
                                                 </div>
+
+                                                
                                             </div>
                                         </div>
                                     @endforeach
@@ -866,15 +859,15 @@ a.btn-product-icon.btn-cart.w-icon-cart {
         <div class="row">
             <div class="col-lg-3 col-sm-4 mb-4">
                 <div class="banner h-100 br-sm" style=" 
-                    background-color: #ebeced;">
+                    background-color: #00657c;">
                     <div class="banner-content content-top">
                         <hr class="banner-divider bg-dark mb-2">
-                        <h3 class="banner-title font-weight-bolder ls-25 text-uppercase">
+                        <h3 class="banner-title font-weight-bolder ls-25 text-uppercase text-white">
                             Collection <br><span
                                 class="font-weight-normal text-capitalize">Imprimante & Accessoires</span>
                         </h3>
                         <a href="/magasin"
-                            class="btn btn-dark btn-outline btn-rounded btn-sm">Decouvrir</a>
+                            class="btn btn-white btn-outline btn-rounded btn-sm">Decouvrir</a>
                     </div>
                 </div>
             </div>
@@ -998,26 +991,11 @@ a.btn-product-icon.btn-cart.w-icon-cart {
     </div>
     <!-- End of Product Wrapper 1 -->
 </div>
-<div class="container">
+<div class="container accessoires">
     <h2 class="title justify-content-center ls-normal mb-4 mt-10 pt-1 appear-animate">Accessoires
     </h2>
     <div class="tab tab-nav-boxed tab-nav-outline appear-animate">
-        {{-- <ul class="nav nav-tabs justify-content-center" role="tablist">
-            <li class="nav-item mr-2 mb-2">
-                <a class="nav-link active br-sm font-size-md ls-normal" href="#tab1-1">Souris et claviers</a>
-            </li>
-            <li class="nav-item mr-2 mb-2">
-                <a class="nav-link br-sm font-size-md ls-normal" href="#tab1-2">Disques durs et stockage externe</a>
-            </li>
-            <li class="nav-item mr-2 mb-2">
-                <a class="nav-link br-sm font-size-md ls-normal" href="#tab1-3">Câbles et adaptateurs</a>
-            </li>
-            <li class="nav-item mr-0 mb-2">
-                <a class="nav-link br-sm font-size-md ls-normal" href="#tab1-4">Batteries et chargeurs
-
-                </a>
-            </li>
-        </ul> --}}
+       
         <ul class="nav nav-tabs justify-content-center" id="productTabs" role="tablist">
             <li class="nav-item">
                 <a class="nav-link" id="tab1-1-tab" data-bs-toggle="tab" href="#tab1-1" role="tab" aria-controls="tab1-1" aria-selected="true">Souris et Claviers</a>
@@ -1351,7 +1329,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
         <div class="row">
             <div class="col-lg-3 col-sm-4 mb-4">
                 <div class="banner h-100 br-sm" style=" 
-                background-color: #252525;">
+                background-color: #00657c;">
                     <div class="banner-content content-top">
                         <h5 class="banner-subtitle text-white font-weight-normal mb-2"></h5>
                         <hr class="banner-divider bg-white mb-2">
@@ -1851,6 +1829,14 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                     product_id: productId // L'ID du produit à ajouter
                 },
                 success: function(response) {
+                    $.ajax({
+                    url: '/get-cart-count', // Assurez-vous d'avoir cette route configurée
+                    method: 'GET',
+                    success: function(data) {
+                        // Mettre à jour le compteur dans l'interface utilisateur
+                        $('.cart-count').text(data.cartCount);
+                    }
+                });
                     // Afficher un message de succès si l'ajout a réussi
                     //alert('Produit ajouté au panier !');
                     // Vous pouvez aussi mettre à jour l'interface ici, comme le compteur du panier

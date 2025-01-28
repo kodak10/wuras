@@ -232,11 +232,17 @@
                                     
                                 </ul>
                             </li>
-                            <li class="" >
-                                <a href="/admin">Dashboard | Ajouter des Articles</a>
-                            </li>
-
-                        
+                            @auth
+                                <li>
+                                    @if (Auth::user()->role == 'admin')
+                                        <a href="{{ route('admin.') }}">Tableau de Bord</a>
+                                    @elseif (Auth::user()->role == 'manager')
+                                        <a href="{{ route('admin.') }}">Tableau de Bord </a>
+                                    @elseif (Auth::user()->role == 'employee')
+                                        <a href="{{ route('admin.') }}">Tableau de Bord</a>
+                                    @endif
+                                </li>
+                            @endauth
 
                         </ul>
                     </nav>
@@ -364,6 +370,7 @@
 
 
 @push('scripts') 
+
 <script>
  document.addEventListener('DOMContentLoaded', function () {
     // Écouter tous les champs de quantité

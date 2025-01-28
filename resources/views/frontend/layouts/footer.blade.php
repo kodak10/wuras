@@ -69,10 +69,25 @@
                         <h4 class="widget-title">Mon Compte</h4>
                         <ul class="widget-body">
                             <li><a href="/panier">Mon Panier</a></li>
+
+                            @auth
+                                <li>
+                                    @if (Auth::user()->role == 'admin')
+                                        <a href="{{ route('admin.') }}">Tableau de Bord</a>
+                                    @elseif (Auth::user()->role == 'manager')
+                                        <a href="{{ route('admin.') }}">Tableau de Bord </a>
+                                    @elseif (Auth::user()->role == 'employee')
+                                        <a href="{{ route('admin.') }}">Tableau de Bord</a>
+                                    @elseif (Auth::user()->role == 'user')
+                                        <li><a href="/home">Mon compte</a></li>
+                                        <li><a href="/home">Suivre sa commande</a></li>
+                                        <li><a href="#">Mes souhaits</a></li>
+                                    @endif
+                                </li>
+                            @endauth
+
                             @if (Auth::check())
-                                <li><a href="/home">Mon Compte</a></li>
-                                <li><a href="/home">Suivre sa commande</a></li>
-                                <li><a href="#">Mes souhaits</a></li>
+                               
 
                                 {{-- Ne rien afficher si l'utilisateur est connecté --}}
                             @else

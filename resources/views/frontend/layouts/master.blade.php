@@ -129,7 +129,7 @@
 
     <!-- Start of Sticky Footer -->
     <div class="sticky-footer sticky-content fix-bottom">
-        <a href="/l" class="sticky-link active">
+        <a href="/" class="sticky-link active">
             <i class="w-icon-home"></i>
             <p>Accueil</p>
         </a>
@@ -204,11 +204,18 @@
                                
                             </ul>
                         </li>
-                        <li><a href="{{route('admin.articles.create')}}">Dashboard | Ajouter des Articles</a></li>
-
                         @auth
-                            <!-- Si l'utilisateur est connecté -->
-                            <li class=""><a href="/home">Mon compte</a></li>
+                            <li>
+                                @if (Auth::user()->role == 'admin')
+                                    <a href="{{ route('admin.') }}">Tableau de Bord</a>
+                                @elseif (Auth::user()->role == 'manager')
+                                    <a href="{{ route('admin.') }}">Tableau de Bord </a>
+                                @elseif (Auth::user()->role == 'employee')
+                                    <a href="{{ route('admin.') }}">Tableau de Bord</a>
+                                @elseif (Auth::user()->role == 'user')
+                                    <a href="/home">Mon compte</a>
+                                @endif
+                            </li>
                         @endauth
                     
                         @guest
@@ -222,7 +229,7 @@
                         @foreach ($categories as $categorie)
                                 <li>
                                     <a href="{{ route('shop', ['category' => $categorie->name ?? null]) }}">
-                                        <i class="w-icon-tshirt2"></i>{{$categorie->name}}
+                                        <i class="fa-solid {{ $categorie->icon }}"></i>{{$categorie->name}}
                                     </a>
                                     <ul class="megamenu">
                                         {{-- Récupérer tous les tags uniques associés aux articles de la catégorie --}}

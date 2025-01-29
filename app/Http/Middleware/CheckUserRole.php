@@ -16,14 +16,21 @@ class CheckUserRole
      */
    
 
-    public function handle(Request $request, Closure $next)
-    {
-        // Vérifier si l'utilisateur est authentifié et possède un des rôles autorisés
-        if (Auth::check() && in_array(Auth::user()->role, ['admin', 'manager', 'employee'])) {
-            return $next($request); // Autoriser l'accès si le rôle est valide
+     public function handle(Request $request, Closure $next, $role)
+     {
+         // Vérifie si l'utilisateur est authentifié
+         if (!Auth::check()) {
+             abort(401, 'Non authentifié');
+         }
+ 
+         // Vérifie si l'utilisateur a le rôle requis
+         $user = Auth::user();  // Utilise Auth::user() pour obtenir l'utilisateur
+         if ($user->role !== $role) {
+            abort(403, 'Accès interdit: vous n\'avez pas les autorisations nécessaires');
         }
+ 
+         return $next($request);
 
-        // Rediriger vers la page d'accueil ou autre page si l'utilisateur n'a pas le rôle requis
-        return redirect('/');
-    }
+         
+     }
 }

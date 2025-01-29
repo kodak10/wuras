@@ -197,44 +197,70 @@
 
   
  
-  <!-- column -->
+  <!-- VEnte en ligne -->
   <div class="col-lg-12">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Historique des ventes</h4>
+            <h4 class="card-title">Historique des ventes en ligne</h4>
             <p class="card-subtitle">Dernières ventes</p>
             <!-- Contenu de l'onglet "Pending" -->
             <div class="table-responsive mt-9">
               <table id="lang_file" class="table w-100 table-striped table-bordered display " >               
                 <thead class="thead-dark">
                       <tr>
-                          <th scope="col">N°</th>
                           <th scope="col">Magasin</th>
-                          <th scope="col">Image</th>
-                          <th scope="col">Article</th>
-                          <th scope="col">Prix</th>
-                          <th scope="col">Quantité</th>
-                          <th scope="col">Total</th>
-                          <th scope="col">Vendu par</th>
+                          <th scope="col">N°</th>
+                          <th scope="col">Nombres d'articles</th>
+                          <th scope="col">Valeur Total</th>
+                          <th scope="col">Statut</th>
                           <th scope="col">Action</th>
                       </tr>
                   </thead>
                   <tbody>
-                      @foreach($orders as $index => $order)
+                      @foreach($orders as $order)
                           <tr>
-                              <td>{{ $index + 1 }}</td>
-                              <td>{{ $order->firstname }} {{ $order->lastname }}</td>
+                            <td>{{ $order->store->name }}</td>
+
+                              <td>{{ $order->order_number }}</td>
+                              
+                              <td class="order-total">
+                                <span class="order-quantity">{{ $order->orderDetails->sum('quantity') }}</span> article(s)
+                              </td>   
                               <td>
-                                  <img src="/path/to/image.jpg" alt="Image de l'article" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
-                              </td>
-                              <td>{{ $order->article_name }}</td>
-                              <td>{{ number_format($order->unit_price, 2) }} FCFA</td>
-                              <td>{{ $order->quantity }}</td>
-                              <td>{{ number_format($order->subtotal, 2) }} FCFA</td>
-                              <td></td>
-                              <td>
-                                  <button class="btn btn-sm btn-primary">Voir</button>
-                              </td>
+                                <span class="order-price">{{ $order->orderDetails->sum(fn($detail) => $detail->quantity * $detail->unit_price) }}</span> FCFA
+
+                              </td>                              <td class="order-status">
+                                @switch($order->status)
+                                    @case('pending')
+                                        En attente
+                                        @break
+
+                                    @case('available')
+                                        Disponible au magasin
+                                        @break
+                            
+                                    @case('shipped')
+                                        Expédiée
+                                        @break
+                            
+                                    @case('delivered')
+                                        Livrée
+                                        @break
+                            
+                                    @case('cancelled')
+                                        Annulée
+                                        @break
+                            
+                                    @default
+                                        Statut inconnu
+                                @endswitch
+                              </td> 
+                                                      
+                            <td>
+                              <a class="fs-6 text-muted" href="{{ route('admin.commandes.edit', $order->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Details">
+                                <i class="ti ti-eye"></i>
+                              </a>
+                            </td>
                           </tr>
                       @endforeach
                   </tbody>
@@ -251,6 +277,66 @@
            
         </div>
     </div>
+</div>
+
+
+<div class="col-lg-12">
+  <div class="card">
+      <div class="card-body">
+          <h4 class="card-title">Historique des ventes en magasin</h4>
+          <p class="card-subtitle">Dernières ventes</p>
+          <!-- Contenu de l'onglet "Pending" -->
+          <div class="table-responsive mt-9">
+            <table id="lang_file" class="table w-100 table-striped table-bordered display " >               
+              <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">N°</th>
+                        <th scope="col">Magasin</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Article</th>
+                        <th scope="col">Prix vendu</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Vendu Par</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($ventes as $index => $vente)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $vente->store->name }}</td>
+                            <td>
+                              <img src="{{ asset('storage/' . $vente->article->couverture) }}" alt="Image de l'article" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+
+                                {{-- <img src="" alt="Image de l'article" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;"> --}}
+                            </td>
+                            <td>{{ $vente->article->name }}</td>
+                            <td>{{ number_format($vente->price, 2) }} FCFA</td>
+                            <td>{{ $vente->quantity }}</td>
+                            <td>{{ number_format($vente->total, 2) }} FCFA</td>
+                            <td>{{ $vente->user->name }}</td>                         
+                            {{-- <td>
+                              <a class="fs-6 text-muted" href="{{ route('admin.commandes.edit', $vente->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Details">
+                                <i class="ti ti-eye"></i>
+                              </a>
+                            </td> --}}
+                            
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+          
+         
+          
+          
+          
+            
+            
+            
+          </div>
+         
+      </div>
+  </div>
 </div>
 
  

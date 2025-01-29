@@ -45,4 +45,9 @@ class Order extends Model
     {
         return $this->details->sum('subtotal');
     }
+
+    public function store()
+    {
+        return $this->belongsTo(Store::class, 'store_id');
+    }
 }

@@ -23,7 +23,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'phone',
-        'role',
         'store_id'
     ];
 
@@ -54,6 +53,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Order::class);
     }
+    
 
     public function store()
     {

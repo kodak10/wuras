@@ -16,6 +16,7 @@ class Ventes extends Model
         'discount',
         'total',
         'store_id',
+        'user_id',
     ];
     
     // Définir la relation avec le produit
@@ -23,4 +24,13 @@ class Ventes extends Model
     {
         return $this->belongsTo(Article::class);
     }
+    public function store()
+    {
+        return $this->belongsTo(Store::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

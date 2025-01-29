@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Store;
+use App\Models\Ventes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,30 +32,13 @@ class AdminController extends Controller
             Alert::warning('Attention', 'Les produits suivants sont en faible stock: ' . $productNames);
         }
 
-        $orders = DB::table('orders')
-        ->join('order_details', 'orders.id', '=', 'order_details.order_id')
-        ->join('ventes', 'order_details.article_id', '=', 'ventes.article_id')  
-        ->join('articles', 'order_details.article_id', '=', 'articles.id') 
-        ->select(
-            'orders.id as order_id',
-            'orders.firstname',
-            'orders.lastname',
-            'orders.pays',
-            'orders.phone01',
-            'orders.phone02',
-            'orders.email',
-            'orders.total_price',
-            'order_details.quantity',
-            'order_details.unit_price',
-            'order_details.subtotal',
-            'ventes.total as vente_total',
-            'ventes.discount',
-            'ventes.price',
-            'articles.name as article_name'
-        )
-        ->get();
+       
 
-        return view('backend.pages.index', compact('products', 'lowStockProducts', 'magasins', 'orders'));
+        $store_id = Auth::user()->store_id;
+        $orders = Order::with('orderDetails')->where('store_id', $store_id)->get();
+        $ventes = Ventes::where('store_id', $store_id)->get();
+
+        return view('backend.pages.index', compact('products', 'lowStockProducts', 'magasins', 'orders', 'ventes'));
     }
 
     public function StockArticle()

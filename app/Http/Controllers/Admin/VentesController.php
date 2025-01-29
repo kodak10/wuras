@@ -55,6 +55,7 @@ class VentesController extends Controller
                 'price' => $item['price'],
                 'total' => $item['total'],
                 'store_id'=> $store_id,
+                'user_id' => Auth::id(),
             ]);
 
             // Déduire la quantité de stock pour chaque article vendu

@@ -21,52 +21,73 @@ class RolePermissionSeeder extends Seeder
         //  \DB::table('roles')->truncate();
         //  \DB::table('permissions')->truncate();
  
-         // Création des rôles
-         $adminRole = Role::create(['name' => 'admin']);
-         $managerRole = Role::create(['name' => 'manager']);
-         $employeeRole = Role::create(['name' => 'employee']);
- 
-         // Création des permissions
+         // Créer les permissions
          $permissions = [
-             'manage users',  // Gérer les utilisateurs
-             'manage roles',  // Gérer les rôles
-             'manage orders', // Gérer les commandes
-             'view reports',  // Voir les rapports
-             'manage stores',  // Gérer les magasins
-             'manage articles' // Gérer les articles
-         ];
- 
-         foreach ($permissions as $permission) {
-             Permission::create(['name' => $permission]);
-         }
- 
-         // Attribution des permissions aux rôles
-         $adminRole->givePermissionTo(Permission::all()); // L'admin a toutes les permissions
-         $managerRole->givePermissionTo(['manage orders', 'view reports', 'manage articles']);
-         $employeeRole->givePermissionTo(['view reports']);
- 
-         // Création des utilisateurs de test
-         $admin = User::create([
-             'name' => 'Admin User',
-             'email' => 'admin@example.com',
-             'password' => bcrypt('password')
-         ]);
-         $admin->assignRole('admin');
- 
-         $manager = User::create([
-             'name' => 'Manager User',
-             'email' => 'manager@example.com',
-             'password' => bcrypt('password')
-         ]);
-         $manager->assignRole('manager');
- 
-         $employee = User::create([
-             'name' => 'Employee User',
-             'email' => 'employee@example.com',
-             'password' => bcrypt('password')
-         ]);
-         $employee->assignRole('employee');
- 
-         $this->command->info('Rôles, permissions et utilisateurs créés avec succès !');
+            'view stores',
+            'create stores',
+            'edit stores',
+            'delete stores',
+
+            'view articles',
+            'create articles',
+            'edit articles',
+            'delete articles',
+
+            'view commandes',
+            'create commandes',
+            'edit commandes',
+            'delete commandes',
+
+            'view utilisateurs',
+            'create utilisateurs',
+            'edit utilisateurs',
+            'delete utilisateurs',
+
+            'view ventes',
+            'create ventes',
+            'edit ventes',
+            'delete ventes',
+
+            'manage roles',
+            'manage users',
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::create(['name' => $permission]);
+        }
+
+        // Créer les rôles
+        $adminRole = Role::create(['name' => 'admin']);
+        $managerRole = Role::create(['name' => 'manager']);
+        $employeeRole = Role::create(['name' => 'employee']);
+
+        // Assigner les permissions aux rôles
+
+        // Admin a toutes les permissions
+        $adminRole->givePermissionTo(Permission::all());
+
+        // Manager permissions spécifiques
+        $managerRole->givePermissionTo([
+            'view stores',
+            'create stores',
+            'edit stores',
+            'delete stores',
+            'view articles',
+            'create articles',
+            'edit articles',
+            'view commandes',
+            'create commandes',
+            'edit commandes',
+            'view ventes',
+            'create ventes',
+            'edit ventes',
+        ]);
+
+        // Employee permissions spécifiques
+        $employeeRole->givePermissionTo([
+            'view commandes',
+            'view articles',
+            'view ventes',
+        ]);
     }
 }

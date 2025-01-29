@@ -30,6 +30,7 @@
         <thead>
             <tr>
                 <th>#</th>
+                <th>Magasin</th>
                 <th>Nom</th>
                 <th>Email</th>
                 <th>Rôle</th>
@@ -40,6 +41,7 @@
             @foreach ($users as $user)
             <tr>
                 <td>{{ $loop->iteration }}</td>
+                <td>{{ $user->store->name }}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ ucfirst($user->role) }}</td>

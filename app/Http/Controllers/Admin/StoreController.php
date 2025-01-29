@@ -44,7 +44,10 @@ class StoreController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'location' => 'nullable|string|max:255',
-            'phone' => 'nullable|string|max:20',
+            'email'=> 'required|email|string|max:255',
+            'phone1' => 'nullable|string|max:15',
+            'phone2' => 'nullable|string|max:15',
+
         ]);
 
         $store = Store::findOrFail($id);

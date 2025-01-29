@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 
 use App\Models\Category;
-use App\Models\Image;
+// use App\Models\Image;
 use App\Models\ProductImage;
 use App\Models\Promotion;
 use App\Models\Tag;
@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Str;
 use Picqer\Barcode\BarcodeGeneratorPNG;
+// use Intervention\Image\Facades\Image;
+use Intervention\Image\Laravel\Facades\Image;
 
 class ArticleController extends Controller
 {
@@ -199,7 +201,7 @@ class ArticleController extends Controller
             $couverturePath = 'images/articles/couverture/' . $article->id . '_couverture.webp';
 
             // Convertir l'image en WebP
-            $image = Article::make($couverture)->encode('webp', 90); // Qualité de 90
+            $image = Image::make($couverture)->encode('webp', 90); // Qualité de 90
             Storage::disk('public')->put($couverturePath, $image);
 
             $article->couverture = $couverturePath;
@@ -227,7 +229,7 @@ class ArticleController extends Controller
                 $imagePath = 'images/articles/' . uniqid() . '.webp';
 
                 // Convertir chaque image en WebP
-                $image = ProductImage::make($imageFile)->encode('webp', 90); // Qualité de 90
+                $image = Image::make($imageFile)->encode('webp', 90); // Qualité de 90
                 Storage::disk('public')->put($imagePath, $image);
 
                 DB::table('product_image')->insert([
@@ -355,17 +357,26 @@ public function edit($id)
 
 
         if ($request->hasFile('couverture')) {
-            // Vérifiez si une image de couverture existe déjà et la supprimer si nécessaire
-            if ($article->couverture && Storage::exists('public/' . $article->couverture)) {
-                Storage::delete('public/' . $article->couverture);
+            $couverture = $request->file('couverture');
+
+            try {
+                // Créer un nom de fichier unique
+                $imageName = uniqid() . '.webp';
+
+                // Utilisation de Intervention Image pour ouvrir et convertir l'image au format WebP
+                $image = Image::make($couverture); // Crée une instance de l'image
+                $image->encode('webp', 90); // Convertir en WebP avec une qualité de 90
+
+                // Enregistrer l'image convertie dans le répertoire approprié
+                $imagePath = storage_path('app/public/images/articles/' . $imageName);
+                $image->save($imagePath);
+
+                // Mettre à jour l'article avec le chemin de l'image
+                $article->couverture = 'images/articles/' . $imageName;
+            } catch (\Exception $e) {
+                // Gérer l'exception si l'image ne peut pas être traitée
+                return back()->withErrors(['couverture' => 'Erreur lors du traitement de l\'image.']);
             }
-        
-            $imageName = uniqid() . '.' . $request->file('couverture')->getClientOriginalExtension();
-        
-            $imagePath = $request->file('couverture')->storeAs('images/articles', $imageName, 'public');
-        
-            $article->couverture = 'images/articles/' . $imageName;
-            // dd($article->couverture);
         }
 
         // Gestion des autres images supplémentaires

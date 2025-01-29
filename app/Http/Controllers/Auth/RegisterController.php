@@ -69,14 +69,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
-            'role'
         ]);
 
+        // Assigner le rôle 'user' après la création
+        $user->assignRole('user'); // Assigne le rôle 'user' à l'utilisateur
+        
         // Envoi de l'email de vérification avec le token
         $user->notify(new VerifyEmailNotification());
 

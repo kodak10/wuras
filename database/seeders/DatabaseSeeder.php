@@ -2,12 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
-use App\Models\Article;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,19 +18,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Category::insert([
-            ['name' => 'Ordinateurs'],
-            ['name' => 'Composants PC'],
-            ['name' => 'Imprimantes et scanners'],
-            ['name' => 'Logiciels et licences'],
-            ['name' => 'Stockage et mémoire'],
-            ['name' => 'Accessoires informatiques'],
-            ['name' => 'Réseaux et connectivité'],
-            ['name' => 'Casques et audio'],
-            ['name' => 'Moniteurs et écrans'],
-            ['name' => 'Gaming et eSports'],
-            ['name' => 'Objets connectés'],
-        ]);
+        // Category::insert([
+        //     ['name' => 'Ordinateurs'],
+        //     ['name' => 'Composants PC'],
+        //     ['name' => 'Imprimantes et scanners'],
+        //     ['name' => 'Logiciels et licences'],
+        //     ['name' => 'Stockage et mémoire'],
+        //     ['name' => 'Accessoires informatiques'],
+        //     ['name' => 'Réseaux et connectivité'],
+        //     ['name' => 'Casques et audio'],
+        //     ['name' => 'Moniteurs et écrans'],
+        //     ['name' => 'Gaming et eSports'],
+        //     ['name' => 'Objets connectés'],
+        // ]);
         
         
         // Tag::insert([
@@ -99,6 +101,9 @@ class DatabaseSeeder extends Seeder
         //         ]);
         //     }
         // });
+
+        $this->call(RolePermissionSeeder::class);
+
     }
 }
 

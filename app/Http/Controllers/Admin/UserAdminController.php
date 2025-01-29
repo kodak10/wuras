@@ -8,14 +8,21 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserAdminController extends Controller
 {
     public function index()
     {
+
         $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
         $store_id = Auth::user()->store_id;
-        $users = User::where('role', '!=', 'user')->where('store_id', $store_id)->get();
+        $users = User::whereHas('roles', function ($query) {
+            $query->where('name', '!=', 'user'); // Récupère les utilisateurs dont le rôle n'est pas 'user'
+        })
+        ->where('store_id', $store_id)
+        ->get();
+        
         return view('backend.pages.users.index', compact('users', 'lowStockProducts'));
     }
 
@@ -39,13 +46,15 @@ class UserAdminController extends Controller
 
         // dd($request);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
             'store_id' => $request->store_id,
         ]);
+
+         // Assigner le rôle à l'utilisateur
+        $user->assignRole($request->role);
 
         return redirect()->route('admin.utilisateurs.create')->with('success', 'Utilisateur créé avec succès.');
     }
@@ -62,17 +71,24 @@ class UserAdminController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'role' => 'required',
+            'role' => 'required', // Validation du rôle
         ]);
-
+    
+        // Trouver l'utilisateur par ID
         $user = User::findOrFail($id);
+    
+        // Mettre à jour les autres informations de l'utilisateur
         $user->update([
             'name' => $request->name,
-            'role' => $request->role,
         ]);
-
+    
+        // Réassigner le rôle à l'utilisateur
+        $user->syncRoles($request->role); // Utilise syncRoles pour remplacer l'ancien rôle
+    
+        // Rediriger avec un message de succès
         return redirect()->route('admin.utilisateurs.index')->with('success', 'Utilisateur mis à jour avec succès.');
     }
+    
 
     public function destroy($id)
     {
@@ -80,5 +96,21 @@ class UserAdminController extends Controller
         $user->delete();
 
         return redirect()->route('admin.utilisateurs.index')->with('success', 'Utilisateur supprimé avec succès.');
+    }
+
+    public function assignRoleBlade() {
+
+        $store_id = Auth::user()->store_id;
+        $user = User::where('store_id', $store_id)->get();
+        $roles = Role::all();
+        return view('backend.pages.assign_role.create', compact('user', 'roles'));
+    }
+
+    public function assignRole(Request $request, User $user)
+    {
+        // Synchroniser les rôles sélectionnés
+        $user->syncRoles($request->roles);
+        
+        return redirect()->back()->with('success', 'Rôles mis à jour avec succès.');
     }
 }

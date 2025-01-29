@@ -15,7 +15,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role.check' => CheckUserRole::class,
         ]);
-        //'role.check' => \App\Http\Middleware\CheckUserRole::class, // Enregistrement du middleware personnalisé
 
                
 

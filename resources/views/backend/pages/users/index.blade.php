@@ -44,8 +44,11 @@
                 <td>{{ $user->store->name }}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
-                <td>{{ ucfirst($user->role) }}</td>
                 <td>
+                    @foreach ($user->roles as $role)
+                        <span class="badge bg-primary">{{ $role->name }}</span>
+                    @endforeach
+                </td>                <td>
                     <a href="{{ route('admin.utilisateurs.edit', $user->id) }}" class="btn btn-sm btn-warning">Modifier</a>
                     <form action="{{ route('admin.utilisateurs.destroy', $user->id) }}" method="POST" style="display:inline;">
                         @csrf

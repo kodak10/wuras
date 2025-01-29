@@ -7,8 +7,9 @@ use App\Http\Controllers\Admin\CategoryArticleController;
 use App\Http\Controllers\Admin\CommandesController;
 use App\Http\Controllers\Admin\MarketingController;
 use App\Http\Controllers\Admin\PermissionController;
-use App\Http\Controllers\Admin\StoreController;
+use App\Http\Controllers\Admin\RoleController;
 
+use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Admin\VentesController;
@@ -25,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
+
 
 
 
@@ -81,7 +83,7 @@ Route::get('order/{orderId}/receipt/download', [OrderController::class, 'downloa
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
 
-Route::middleware(['auth', 'verified','role.check'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index']);
 
     Route::resource('articles', ArticleController::class);
@@ -134,15 +136,23 @@ Route::middleware(['auth', 'verified','role.check'])->prefix('admin')->name('adm
     // });
 
     // Routes pour la gestion des permissions
-    Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
-    Route::post('/permissions/update', [PermissionController::class, 'update'])->name('permissions.update');
-    Route::get('/roles/{roleId}/permissions', [PermissionController::class, 'getPermissions']);
+    // Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
+    // Route::post('/permissions/update', [PermissionController::class, 'update'])->name('permissions.update');
+    // Route::get('/roles/{roleId}/permissions', [PermissionController::class, 'getPermissions']);
 
     
-    Route::resource('utilisateurs', UserAdminController::class);
+    Route::resource('utilisateurs', UserAdminController::class)->middleware('can:manage users');
     Route::resource('stores', StoreController::class);
     Route::resource('ventes', VentesController::class);
 
+
+    Route::resource('roles', RoleController::class)->middleware('can:manage roles');
+    Route::resource('permissions', PermissionController::class)->middleware('can:manage roles');
+
+    Route::post('/users/{user}/assign-role', [UserAdminController::class, 'assignRole'])->name('users.assignRole');
+
+    
+    
 
 });
 
@@ -163,6 +173,7 @@ Route::middleware(['auth', 'verified'])->prefix('home')->name('home.')->group(fu
 });
 
 
+
 Route::fallback(function() {
     // Récupérer toutes les catégories (ou vous pouvez ajuster la logique selon vos besoins)
     $categories = Category::all();
@@ -170,5 +181,7 @@ Route::fallback(function() {
     // Retourner la vue 404 en passant les catégories
     return view('frontend.pages.404', ['categories' => $categories]);
 });
+
+
 
 

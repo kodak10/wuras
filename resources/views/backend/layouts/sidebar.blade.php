@@ -225,7 +225,7 @@
               </li>
 
               <li class="sidebar-item">
-                <a href="/admin/permissions" class="sidebar-link">
+                <a href="#" class="sidebar-link">
                   <div class="round-16 d-flex align-items-center justify-content-center">
                     <i class="ti ti-circle"></i>
                   </div>

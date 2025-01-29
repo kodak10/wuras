@@ -12,10 +12,12 @@ class PermissionController extends Controller
 {
     public function index()
     {
+        $roles = Role::where('name', '!=', 'user')->get(); // Exclure le rôle 'user'
+
         $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
         $permissions = Permission::all();
 
-        return view('backend.pages.permissions.index', compact('permissions','lowStockProducts'));
+        return view('backend.pages.permissions.index', compact('permissions','lowStockProducts','roles'));
     }
 
     public function create()

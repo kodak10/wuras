@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Article;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -48,18 +49,38 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $lowStockProducts = Article::whereRaw('quantite <= limit_quantite')->get();
+
+        // Récupérer le rôle à éditer
+        $role = Role::findOrFail($id);
+        
+        // Récupérer toutes les permissions disponibles
+        $permissions = Permission::all();
+
+        return view('backend.pages.roles.edit', compact('role', 'permissions','lowStockProducts'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'permissions' => 'array|nullable',
+        ]);
+
+        // Trouver le rôle et mettre à jour son nom
+        $role = Role::findOrFail($id);
+        $role->update(['name' => $request->name]);
+
+        // Synchroniser les permissions sélectionnées
+        if ($request->has('permissions')) {
+            $role->permissions()->sync($request->permissions);
+        }
+
+        return redirect()->route('admin.roles.index')->with('success', 'Rôle mis à jour avec succès.');
     }
+
 
     /**
      * Remove the specified resource from storage.

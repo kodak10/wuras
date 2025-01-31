@@ -83,7 +83,8 @@ class RegisterController extends Controller
         $user->notify(new VerifyEmailNotification());
 
     // Redirection vers la page de connexion avec message de succès
-    return redirect()->route('login')->with('status', 'Inscription réussie. Vérifiez votre e-mail pour activer votre compte.');
+    return $user;
+    // return redirect()->route('login')->with('status', 'Inscription réussie. Vérifiez votre e-mail pour activer votre compte.');
     }
 
     public function showRegistrationForm()

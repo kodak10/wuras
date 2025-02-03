@@ -11,10 +11,10 @@
                 <i class="ti ti-home fs-5"></i>
               </a>
             </li>
-            <li class="breadcrumb-item" aria-current="page">Liste des commandes</li>
+            <li class="breadcrumb-item" aria-current="page">Liste des ventes</li>
           </ol>
         </nav>
-        <h2 class="mb-0 fw-bolder fs-8">Liste des commandes</h2>
+        <h2 class="mb-0 fw-bolder fs-8">Liste des ventes du magasin</h2>
       </div>
       {{-- <div class="col-lg-4 col-md-6 d-none d-md-flex align-items-center justify-content-end">
         <select class="form-select w-auto bg-primary-subtle border-0" aria-label="Default select example">
@@ -66,7 +66,7 @@
                         <th>Articles</th>
                         <th>Quantité</th>
                         <th>Total</th>
-                        <th>Actions</th>
+                        <th>Vendu par</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -93,19 +93,8 @@
                         </td>
                           
                            
-                            <td>
-                                <a class="fs-6 text-muted" href="{{ route('admin.ventes.edit', $vente->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Details">
-                                    <i class="ti ti-eye"></i>
-                                </a>
+                        <td>{{ $vente->user->name }}</td>                         
 
-                                {{-- <form action="{{ route('admin.commandes.destroy', $commande->id) }}" method="POST" class="d-inline" id="delete-form-{{ $commande->id }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" class="btn btn-link text-danger fs-6 p-0" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Supprimer" onclick="confirmDelete({{ $commande->id }})">
-                                        <i class="ti ti-trash"></i>
-                                    </button>
-                                </form> --}}
-                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -120,7 +109,7 @@
                         <th>Articles</th>
                         <th>Quantité</th>
                         <th>Total</th>
-                        <th>Actions</th>
+                        <th>Vendu par</th>
                     </tr>
                 </tfoot>
 

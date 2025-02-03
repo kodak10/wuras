@@ -85,28 +85,45 @@
                                                 @endphp
                                                 <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
                                                 <del class="old-price">{{ number_format($details['price'], 0, '', '') }} FCFA</del>
-                                            @elseif($details['promotion_type'] == 'fixed' && $details['promotion_value'])
-                                                @php
-                                                    // Calcul du prix après remise en montant fixe
-                                                    $discountedPrice = $details['price'] - $details['promotion_value'];
-                                                @endphp
-                                                <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
-                                                <del class="old-price">{{ number_format($details['price'], 0, '', '') }} FCFA</del>
-                                            @else
-                                                <ins class="new-price">{{ number_format($details['price'], 0, '', '') }} FCFA</ins>
+                                                @elseif($details['promotion_type'] == 'fixed' && $details['promotion_value'])
+                                                    @php
+                                                        // Calcul du prix après remise en montant fixe
+                                                        $discountedPrice = $details['price'] - $details['promotion_value'];
+                                                    @endphp
+                                                    <ins class="new-price">{{ number_format($discountedPrice, 0, '', '') }} FCFA</ins>
+                                                    <del class="old-price">{{ number_format($details['price'], 0, '', '') }} FCFA</del>
+                                                @else
+                                                    <ins class="new-price">{{ number_format($details['price'], 0, '', '') }} FCFA</ins>
                                             @endif
-                                            {{-- <span class="amount">{{ number_format($details['price'], 2) }} FCFA</span> --}}
                                         </td>
                                         <td class="product-quantity">
                                             <div class="input-group">
-                                                {{-- <span>{{ $details['quantite'] }}</span> --}}
                                                 <input class="quantite form-control" type="text" name="cart[{{ $product_id }}]"  value="{{ $details['quantite'] ? : 1 }}" data-product-id="{{ $product_id }}">
                                                 <button class="quantity-plus w-icon-plus"></button>
                                                 <button class="quantity-minus w-icon-minus"></button>
                                             </div>
                                         </td>
                                         <td class="product-subtotal">
-                                            <span class="amount">{{ number_format($details['price'] * $details['quantite'], 2) }} FCFA</span>
+                                            @php
+                                                // Vérification et application de la remise
+                                                $discountedPrice = $details['price'];
+
+                                                if (!empty($details['promotion_type']) && !empty($details['promotion_value'])) {
+                                                    if ($details['promotion_type'] == 'percentage') {
+                                                        $discountedPrice -= ($details['price'] * $details['promotion_value'] / 100);
+                                                    } elseif ($details['promotion_type'] == 'fixed') {
+                                                        $discountedPrice -= $details['promotion_value'];
+                                                    }
+                                                }
+
+                                                // Calcul du prix total après remise
+                                                $totalPrice = $discountedPrice * $details['quantite'];
+                                            @endphp
+
+                                            <span class="amount">{{ number_format($totalPrice, 2) }} FCFA</span>
+
+
+                                            {{-- <span class="amount">{{ number_format($details['price'] * $details['quantite'], 2) }} FCFA</span> --}}
                                         </td>
                                         <input type="hidden" name="store_id" value="{{ $details['store_id'] }}">
                                     </tr>
@@ -166,7 +183,7 @@
                                 </ul>
         
                                 <div class="shipping-calculator">
-                                    <form class="shipping-calculator-form" action="{{ route('updateTotaux') }}" method="POST"  id="shipping-form">
+                                    <form class="shipping-calculator-form" action="" method="POST"  id="shipping-form">
                                         @csrf
                                         
                                         <div class="form-group mb-3">
@@ -195,15 +212,21 @@
 
                                         {{-- <button type="submit" class="btn btn-dark btn-outline btn-rounded mt-5">Mettre à jour Totaux</button> --}}
                                     </form>
+
+                                    <p>Coût de livraison:
+                                        <span class="ls-50" id="shipping-cost">0 FCFA</span>
+                                    </p>
+                                    
                                 </div>
         
                                 <hr class="divider">
                                 
                                 <div class="order-total d-flex justify-content-between align-items-center mb-3">
-                                    <label>Totaux:</label>
-                                    
-                                    <span class="ls-50"> {{ number_format($total, 2) }} FCFA</span>
+                                    <label>Total:</label>
+                                    <span class="ls-50" id="final-total">0 FCFA</span>
+
                                 </div>
+                                
                                 <a href="{{ route('checkout') }}" class="btn btn-block btn-dark btn-icon-right btn-rounded btn-checkout">
                                     Passer à la caisse <i class="w-icon-long-arrow-right"></i>
                                 </a>
@@ -229,123 +252,22 @@
 @endsection
 
 @push('scripts') 
+
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        let freeShipping = document.getElementById("free-shipping");
-        let flatRate = document.getElementById("flat-rate");
-        let localPickup = document.getElementById("local-pickup");
-        let formFields = document.querySelectorAll(".shipping-calculator-form input, .shipping-calculator-form select");
-        let updateButton = document.querySelector('.updateButton'); // Bouton "Mettre à jour Totaux"
-        let updateCartButton = document.querySelector('.btn-update'); // Bouton "Mettre à jour le panier"
-
-        // Fonction pour activer ou désactiver les champs du formulaire
-        function toggleFormFields(disable) {
-            formFields.forEach(function(field) {
-                field.disabled = disable;
-            });
+  document.addEventListener('DOMContentLoaded', function () {
+    function updateShippingOption() {
+        let subtotalElement = document.querySelector('.cart-subtotal span'); // Sélectionne le sous-total
+        if (!subtotalElement) return; // Évite les erreurs si l'élément n'existe pas
+        
+        let totalPrice = parseFloat(subtotalElement.innerText.replace(/[^\d]/g, '')); // Extrait le montant en nombre
+        
+        // Vérifier si le total dépasse 300 000 FCFA
+        let freeShippingOption = document.getElementById('free-shipping');
+        if (totalPrice >= 300000) {
+            freeShippingOption.checked = true;
         }
+    }
 
-        // Désactiver les champs du formulaire si l'option "Au magasin" est sélectionnée
-        localPickup.addEventListener('change', function() {
-            if (localPickup.checked) {
-                toggleFormFields(true); // Désactiver les champs
-            }
-        });
-
-        // Réactiver les champs du formulaire si "Livraison gratuite" ou "Payer la livraison" est sélectionné
-        freeShipping.addEventListener('change', function() {
-            if (freeShipping.checked || flatRate.checked) {
-                toggleFormFields(false); // Réactiver les champs
-            }
-        });
-
-        flatRate.addEventListener('change', function() {
-            if (freeShipping.checked || flatRate.checked) {
-                toggleFormFields(false); // Réactiver les champs
-            }
-        });
-
-        // Vérifier si le total atteint 200000 FCFA pour activer "Livraison gratuite"
-        let total = parseFloat("{{ $total }}");
-        if (total >= 200000) {
-            freeShipping.checked = true;
-            toggleFormFields(false); // Réactiver les champs
-        }
-
-        // Écouter les champs de quantité pour activer le bouton de mise à jour
-        document.querySelectorAll('.quantity').forEach(function (input) {
-            input.addEventListener('input', function () {
-                updateCartButton.classList.remove('disabled'); // Retirer la classe disabled du bouton "Mettre à jour le panier"
-            });
-        });
-
-        // 1. Fonction pour mettre à jour les totaux (sous-total + frais de livraison)
-        if (updateButton) {
-            updateButton.addEventListener('click', function (e) {
-                e.preventDefault(); // Empêcher le rechargement de la page
-
-                updateTotal(); // Mettre à jour le total (avec frais de livraison)
-            });
-        }
-
-        // 2. Fonction pour mettre à jour le panier (quantité, éléments)
-        if (updateCartButton) {
-            updateCartButton.addEventListener('click', function (e) {
-                e.preventDefault(); // Empêcher la soumission classique
-
-                let form = document.getElementById('shipping-form');
-                let formData = new FormData(form);
-
-                // Envoi des données du panier pour mise à jour
-                fetch('{{ route('updateCart') }}', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Optionnel : Afficher un message de succès
-                        alert(data.message);
-                        // Vous pouvez aussi rafraîchir certains éléments du panier ici si nécessaire.
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur lors de la mise à jour du panier:', error);
-                });
-            });
-        }
-
-        // Fonction pour calculer et mettre à jour le total avec frais de livraison
-        function updateTotal() {
-            let total = parseFloat("{{ number_format($total, 2) }}");  // Total initial
-            let shippingCost = 0;  // Coût de la livraison
-
-            // Déterminer le coût de la livraison en fonction de l'option choisie
-            if (freeShipping.checked) {
-                shippingCost = 0;  // Livraison gratuite
-            } else if (localPickup.checked) {
-                shippingCost = 0;  // Pas de frais pour le magasin
-            } else if (flatRate.checked) {
-                shippingCost = 2000;  // Livraison payante
-            }
-
-            // Calculer le total final
-            let finalTotal = total + shippingCost;
-
-            // Mettre à jour l'affichage du total
-            document.getElementById('total-amount').textContent = finalTotal.toFixed(2) + ' FCFA'; // Affiche avec 2 décimales
-            document.getElementById('cart-total').textContent = finalTotal.toFixed(2) + ' FCFA'; // Mettre à jour le total du panier
-        }
-    });
-</script>
-
-
-
-{{-- <script>
- document.addEventListener('DOMContentLoaded', function () {
     // Écouter tous les champs de quantité
     document.querySelectorAll('.quantity').forEach(function (input) {
         input.addEventListener('input', function () {
@@ -379,18 +301,111 @@
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                //location.reload(); // Recharger la page pour afficher le panier mis à jour
+                setTimeout(updateShippingOption, 1000); // Attendre 1s pour que le DOM soit mis à jour
             }
         })
         .catch(error => {
             console.error('Erreur lors de la mise à jour du panier:', error);
         });
     });
+
+    // Vérifier au chargement de la page
+    updateShippingOption();
+});
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let localPickupRadio = document.getElementById('local-pickup'); // Option "Au magasin"
+        let shippingForm = document.getElementById('shipping-form'); // Formulaire de livraison
+        let formInputs = shippingForm.querySelectorAll('input, select, textarea'); // Tous les champs du formulaire sauf le bouton
+        let updateButton = document.querySelector('button.updateButton'); // Le bouton "Mettre à jour Totaux"
+
+        // Fonction pour activer/désactiver les champs du formulaire
+        function toggleFormFields() {
+            if (localPickupRadio.checked) {
+                formInputs.forEach(field => {
+                    field.disabled = true;
+                });
+            } else {
+                formInputs.forEach(field => {
+                    field.disabled = false;
+                });
+            }
+        }
+
+        // S'assurer que le bouton de mise à jour ne soit jamais désactivé
+        updateButton.disabled = false; // Garantir que le bouton reste activé
+
+        // Vérifier l'état au chargement de la page
+        toggleFormFields();
+
+        // Vérifier lorsque l'utilisateur change l'option de livraison
+        document.querySelectorAll('input[name="shipping"]').forEach(radio => {
+            radio.addEventListener('change', toggleFormFields);
+        });
+    });
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    let updateButton = document.querySelector('.updateButton');
+    let shippingRadios = document.querySelectorAll('input[name="shipping"]');
+    let totalDisplay = document.querySelector('.cart-subtotal span');
+    //let totalDisplay = document.querySelector('#final-total');
+    //let totalDisplay = document.querySelector('.order-total span'); // Affichage du total
+
+
+    // Événement sur le bouton "Mettre à jour Totaux"
+    updateButton.addEventListener('click', function () {
+        let selectedShipping = document.querySelector('input[name="shipping"]:checked');
+
+        if (!selectedShipping) {
+            alert('Veuillez sélectionner une option de livraison.');
+            return;
+        }
+
+        let shippingMethod = selectedShipping.value;
+        // Supprimer les virgules et récupérer la partie avant le point décimal
+        let totalText = totalDisplay.innerText.replace(/[^\d.,]/g, ''); // Supprimer tout sauf les chiffres et les virgules
+        let total = parseFloat(totalText.replace(',', '')); // Enlever la virgule et convertir en nombre
+        
+        // Prendre uniquement la partie entière
+        total = Math.floor(total); // Cela vous donne un nombre entier sans décimales
+
+        // Envoyer les données via AJAX
+        fetch('{{ route('updateTotaux') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ 
+                shipping: shippingMethod,
+                total : total,
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Mettre à jour le coût de livraison sur la page
+                document.getElementById('shipping-cost').textContent = `${data.shippingCost} FCFA`;
+
+                // Mettre à jour le total final sur la page
+                document.getElementById('final-total').textContent = `${data.finalTotal} FCFA`;
+
+                // Mettre à jour l'affichage du total après la réponse du back-end
+                // totalDisplay.textContent = `${data.finalTotal.toLocaleString()} FCFA`;
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de la mise à jour des totaux:', error);
+        });
+    });
 });
 
-
-</script> --}}
-
+</script>
 
 
 @endpush

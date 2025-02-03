@@ -21,6 +21,10 @@ class OrderController extends Controller
 
     public function index()
     {
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Vous devez être connecté pour passer une commande.');
+        }
+        
         $categories = Category::with(['articles' => function ($query) {
             $query->where('status', 'published');
         }])->take(11)->get();

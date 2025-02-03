@@ -441,80 +441,106 @@ public function addToCart(Request $request)
 // }
 
 
-public function updateCart(Request $request)
-{
-    $request->validate([
-        'cart' => 'required|array',
-        'cart.*' => 'integer|min:1', // Chaque quantité doit être un entier supérieur ou égal à 1
-    ]);
+    public function updateCart(Request $request)
+    {
+        $request->validate([
+            'cart' => 'required|array',
+            'cart.*' => 'integer|min:1', // Chaque quantité doit être un entier supérieur ou égal à 1
+        ]);
 
-    
-    $cart = session()->get('cart', []);
-    
-    $updated_product_id = null;
-    $updated_quantity = null;
-
-    foreach ($request->cart as $product_id => $quantity) {
-        if (isset($cart[$product_id])) {
-            $cart[$product_id]['quantite'] = $quantity; // Mise à jour de la quantité
-            $updated_product_id = $product_id;         // ID du produit mis à jour
-            $updated_quantity = $quantity;            // Quantité mise à jour
-        }
-    }
-
-    // Sauvegarder le panier mis à jour dans la session
-    session()->put('cart', $cart);
-
-    // Recalculer le total
-    $total = 0;
-    foreach ($cart as $details) {
-        $total += $details['price'] * $details['quantite']; // Calcul du total
-    }
-
-
-    // Retourner le nouveau total au client
-    return response()->json([
-        'success' => true,
-        'product_id' => $updated_product_id,          // ID du produit mis à jour
-        'quantite' => $updated_quantity,           
-        'total' => number_format($total, 2) . ' FCFA'
-    ]);
-
-}
-
-public function updateTotaux(Request $request)
-{
-    // Supposons que tu as déjà calculé le sous-total du panier quelque part
-    $total = session('total', 0); // Ou tu peux récupérer ce total à partir de la base de données ou d'une autre logique de panier.
-
-    // Calculer les frais de livraison
-    $shippingCost = 0;
-
-    // Vérifier la méthode de livraison choisie
-    if ($request->has('shipping')) {
-        $shippingMethod = $request->input('shipping');
         
-        if ($shippingMethod == 'free-shipping' && $total >= 200000) {
-            $shippingCost = 0; // Livraison gratuite
-        } elseif ($shippingMethod == 'flat-rate') {
-            $shippingCost = 2000; // Frais de livraison fixe
-        } elseif ($shippingMethod == 'local-pickup') {
-            $shippingCost = 0; // Livraison au magasin, donc gratuite
+        $cart = session()->get('cart', []);
+        
+        $updated_product_id = null;
+        $updated_quantity = null;
+
+        foreach ($request->cart as $product_id => $quantity) {
+            if (isset($cart[$product_id])) {
+                $cart[$product_id]['quantite'] = $quantity; // Mise à jour de la quantité
+                $updated_product_id = $product_id;         // ID du produit mis à jour
+                $updated_quantity = $quantity;            // Quantité mise à jour
+            }
         }
+
+        // Sauvegarder le panier mis à jour dans la session
+        session()->put('cart', $cart);
+
+        // Recalculer le total
+        $total = 0;
+        foreach ($cart as $details) {
+            $total += $details['price'] * $details['quantite']; // Calcul du total
+        }
+
+
+        // Retourner le nouveau total au client
+        return response()->json([
+            'success' => true,
+            'product_id' => $updated_product_id,          // ID du produit mis à jour
+            'quantite' => $updated_quantity,           
+            'total' => number_format($total, 2) . ' FCFA'
+        ]);
+
     }
 
-    // Calculer le total final
-    $finalTotal = $total + $shippingCost;
+    public function updateTotaux(Request $request)
+    {
+        // Récupérer le sous-total du panier depuis la session
+        //$total = $totalPrice;
+        $total = $request->input('total', 0); // Si aucun total n'est fourni, on prend 0 par défaut
 
-    // Retourner les résultats sous forme de réponse JSON
-    return response()->json([
-        'success' => true,
-        'finalTotal' => $finalTotal,
-        'shippingCost' => $shippingCost,
-        'message' => 'Totaux mis à jour avec succès.'
-    ]);
 
-}
+        // Calculer les frais de livraison
+        $shippingCost = 0;
+
+        // Vérifier si une méthode de livraison est choisie dans la requête
+        if ($request->has('shipping')) {
+            $shippingMethod = $request->input('shipping');
+            
+            // Appliquer les conditions en fonction de la méthode de livraison choisie
+            switch ($shippingMethod) {
+                case 'free-shipping':
+                    // Livraison gratuite si le total est supérieur à 200000
+                    if ($total >= 200000) {
+                        $shippingCost = 0; // Livraison gratuite
+                    } else {
+                        $shippingCost = 2000; // Si le total est insuffisant, appliquer une livraison payante
+                    }
+                    break;
+                case 'flat-rate':
+                    // Frais de livraison fixes
+                    $shippingCost = 2000; // Frais de livraison fixes
+                    break;
+                case 'local-pickup':
+                    // Livraison au magasin, donc gratuite
+                    $shippingCost = 0;
+                    break;
+                default:
+                    // Si aucune méthode de livraison n'est sélectionnée ou si la méthode n'est pas valide
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Méthode de livraison invalide ou non sélectionnée.'
+                    ], 400);
+            }
+        } else {
+            // Si aucune méthode de livraison n'est choisie, on renvoie une erreur
+            return response()->json([
+                'success' => false,
+                'message' => 'Veuillez sélectionner une méthode de livraison.'
+            ], 400);
+        }
+
+        // Calculer le total final en ajoutant les frais de livraison
+        $finalTotal = $total + $shippingCost;
+
+        // Retourner les résultats sous forme de réponse JSON
+        return response()->json([
+            'success' => true,
+            'finalTotal' => number_format($finalTotal, 2), // Formatage du total pour la présentation
+            'shippingCost' => number_format($shippingCost, 2), // Formatage des frais de livraison
+            'message' => 'Totaux mis à jour avec succès.'
+        ]);
+    }
+
 
 
     public function removeFromCart($product_id)

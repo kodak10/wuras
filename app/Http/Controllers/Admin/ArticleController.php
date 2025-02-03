@@ -16,9 +16,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Str;
+use Intervention\Image\Image as InterventionImage;
 use Picqer\Barcode\BarcodeGeneratorPNG;
-// use Intervention\Image\Facades\Image;
-use Intervention\Image\Laravel\Facades\Image;
 
 class ArticleController extends Controller
 {
@@ -182,65 +181,66 @@ class ArticleController extends Controller
             }
         }
 
-        // if ($request->hasFile('couverture')) {
-        //     $couverture = $request->file('couverture');
-        //     $couvertureName = $article->id . '_couverture.' . $couverture->getClientOriginalExtension();
-
-            
-
-        //     $couverturePath = $couverture->storeAs('images/articles/couverture', $couvertureName, 'public');
-            
-            
-
-        //     $article->couverture = 'images/articles/couverture/' . $couvertureName;
-        //     $article->save();
-        // }       
-        
         if ($request->hasFile('couverture')) {
             $couverture = $request->file('couverture');
-            $couverturePath = 'images/articles/couverture/' . $article->id . '_couverture.webp';
+            $couvertureName = $article->id . '_couverture.' . $couverture->getClientOriginalExtension();
 
-            // Convertir l'image en WebP
-            $image = Image::make($couverture)->encode('webp', 90); // Qualité de 90
-            Storage::disk('public')->put($couverturePath, $image);
+            
 
-            $article->couverture = $couverturePath;
+            $couverturePath = $couverture->storeAs('images/articles/couverture', $couvertureName, 'public');
+            
+            
+
+            $article->couverture = 'images/articles/couverture/' . $couvertureName;
             $article->save();
-        }
+        }       
+        
+        // if ($request->hasFile('couverture')) {
+        //     $couverture = $request->file('couverture');
+        //     $couverturePath = 'images/articles/couverture/' . $article->id . '_couverture.webp';
+        
+        //     // Redimensionner et encoder l'image en WebP
+        //     $image = InterventionImage::make($couverture)->encode('webp', 90);
+        
+        //     // Stocker l'image dans le disque public
+        //     Storage::disk('public')->put($couverturePath, $image->stream());
+        
+        //     // Sauvegarder le chemin dans la base de données
+        //     $article->couverture = $couverturePath;
+        //     $article->save();
+        // }
 
 
         if ($request->hasFile('images')) {
-            // foreach ($request->file('images') as $image) {
-            //     // Générer un nom unique pour chaque image
-            //     $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
+            foreach ($request->file('images') as $image) {
+                // Générer un nom unique pour chaque image
+                $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
                 
-            //     // Utilisez storeAs pour spécifier le nom du fichier et son emplacement
-            //     $imagePath = $image->storeAs('images/articles', $imageName, 'public');
+                // Utilisez storeAs pour spécifier le nom du fichier et son emplacement
+                $imagePath = $image->storeAs('images/articles', $imageName, 'public');
                 
-            //     DB::table('product_image')->insert([
-            //         'article_id' => $article->id,
-            //         'image_path' => 'storage/images/articles/' . $imageName, // Enregistrez le chemin relatif dans la base de données
-            //         'created_at' => now(),
-            //         'updated_at' => now(),
-            //     ]);
-            // }
-
-            foreach ($request->file('images') as $imageFile) {
-                $imagePath = 'images/articles/' . uniqid() . '.webp';
-
-                // Convertir chaque image en WebP
-                $image = Image::make($imageFile)->encode('webp', 90); // Qualité de 90
-                Storage::disk('public')->put($imagePath, $image);
-
                 DB::table('product_image')->insert([
                     'article_id' => $article->id,
-                    'image_path' => $imagePath,
+                    'image_path' => 'storage/images/articles/' . $imageName, // Enregistrez le chemin relatif dans la base de données
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
             }
-        } else {
-            return redirect()->back()->with('error', 'Aucune image n\'a été envoyée.');
+
+            // foreach ($request->file('images') as $imageFile) {
+            //     $imagePath = 'images/articles/' . uniqid() . '.webp';
+
+            //     // Convertir chaque image en WebP
+            //     $image = Image::make($imageFile)->encode('webp', 90); // Qualité de 90
+            //     Storage::disk('public')->put($imagePath, $image);
+
+            //     DB::table('product_image')->insert([
+            //         'article_id' => $article->id,
+            //         'image_path' => $imagePath,
+            //         'created_at' => now(),
+            //         'updated_at' => now(),
+            //     ]);
+            // }
         }
 
         return redirect()->route('admin.articles.create')->with('success', 'Article mis à jour avec succès!');
@@ -356,27 +356,44 @@ public function edit($id)
         ]);
 
 
+        // if ($request->hasFile('couverture')) {
+        //     $couverture = $request->file('couverture');
+
+        //     try {
+        //         // Créer un nom de fichier unique
+        //         $imageName = uniqid() . '.webp';
+
+        //         // Utilisation de Intervention Image pour ouvrir et convertir l'image au format WebP
+        //         $image = Image::make($couverture); // Crée une instance de l'image
+        //         $image->encode('webp', 90); // Convertir en WebP avec une qualité de 90
+
+        //         // Enregistrer l'image convertie dans le répertoire approprié
+        //         $imagePath = storage_path('app/public/images/articles/' . $imageName);
+        //         $image->save($imagePath);
+
+        //         // Mettre à jour l'article avec le chemin de l'image
+        //         $article->couverture = 'images/articles/' . $imageName;
+        //     } catch (\Exception $e) {
+        //         // Gérer l'exception si l'image ne peut pas être traitée
+        //         return back()->withErrors(['couverture' => 'Erreur lors du traitement de l\'image.']);
+        //     }
+        // }
+
         if ($request->hasFile('couverture')) {
-            $couverture = $request->file('couverture');
-
-            try {
-                // Créer un nom de fichier unique
-                $imageName = uniqid() . '.webp';
-
-                // Utilisation de Intervention Image pour ouvrir et convertir l'image au format WebP
-                $image = Image::make($couverture); // Crée une instance de l'image
-                $image->encode('webp', 90); // Convertir en WebP avec une qualité de 90
-
-                // Enregistrer l'image convertie dans le répertoire approprié
-                $imagePath = storage_path('app/public/images/articles/' . $imageName);
-                $image->save($imagePath);
-
-                // Mettre à jour l'article avec le chemin de l'image
-                $article->couverture = 'images/articles/' . $imageName;
-            } catch (\Exception $e) {
-                // Gérer l'exception si l'image ne peut pas être traitée
-                return back()->withErrors(['couverture' => 'Erreur lors du traitement de l\'image.']);
+            // Vérifiez si une image de couverture existe déjà et la supprimer si nécessaire
+            if ($article->couverture && Storage::exists('public/' . $article->couverture)) {
+                Storage::delete('public/' . $article->couverture);
             }
+        
+            // Générer un nom unique pour la nouvelle image de couverture
+            $imageName = uniqid() . '.' . $request->file('couverture')->getClientOriginalExtension();
+        
+            // Télécharger la nouvelle image et enregistrer son chemin
+            $imagePath = $request->file('couverture')->storeAs('images/articles', $imageName, 'public');
+        
+            // Mettre à jour l'attribut de l'article avec le nouveau chemin
+            $article->couverture = 'images/articles/' . $imageName;
+            // dd($article->couverture);
         }
 
         // Gestion des autres images supplémentaires

@@ -68,6 +68,10 @@ Route::get('/panier', [WebsiteController::class, 'cart'])->name('panier');
 Route::post('/add-to-cart', [WebsiteController::class, 'addToCart'])->name('addToCart');
 Route::post('/update-cart', [WebsiteController::class, 'updateCart'])->name('updateCart');
 Route::delete('/remove-from-cart/{product_id}', [WebsiteController::class, 'removeFromCart'])->name('removeFromCart');
+
+Route::post('/panier', [WebsiteController::class, 'updateTotaux'])->name('updateTotaux');
+
+
 // Route::get('/clear-cart', [WebsiteController::class, 'clearCart'])->name('clearCart');
 Route::post('/clear-cart', [WebsiteController::class, 'clearCart'])->name('clearCart');
 Route::get('/get-cart-count', [WebsiteController::class, 'getCartCount']);
@@ -83,151 +87,153 @@ Route::get('order/{orderId}/receipt/download', [OrderController::class, 'downloa
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
 
+
+
 // Au cas ou
-// Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
-//     Route::get('/', [AdminController::class, 'index']);
-
-//     Route::resource('articles', ArticleController::class);
-//     Route::get('articles/{id}/promotion', [ArticleController::class, 'promotion'])->name('articles.promotion');
-//     Route::post('articles/{id}/toggle-promotion', [ArticleController::class, 'togglePromotion'])->name('articles.togglePromotion');
-
-//     Route::post('categories/store', [CategoryArticleController::class, 'store'])->name('categories.store');
-//     Route::post('tags', [TagController::class, 'store'])->name('tags.store');
-//     // Route::resource('banners', BannerController::class);
-
-//     Route::delete('articles/{article}/image/{id}', [ArticleController::class, 'destroyImage'])->name('image.delete');
-
-//     // Route::resource('marketing', MarketingController::class);
-
-//     Route::resource('commandes', CommandesController::class);
-
-//     //Route::put('commandes/{id}', [CommandesController::class, 'update'])->name('commande.update');
-
-//     Route::get('stock', [AdminController::class, 'StockArticle'])->name('stock.index');
-
-//     Route::get('stock/edit/{id}', [AdminController::class, 'EditStockArticle'])->name('edit.stock.article');
-//     Route::put('stock/edit/{id}', [AdminController::class, 'Stockupdate'])->name('stock.update');
-
-//     // Route::post('/notifications/{product}/markAsRead', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
-
-//    // Route::resource('codeBarres', BarcodeController::class);
-    
-//     Route::get('codeBarres', [BarcodeController::class, 'index'])->name('codeBarres.index');
-
-//     // Route pour générer et afficher le code-barres
-//     Route::post('codeBarres', [BarcodeController::class, 'store'])->name('codeBarres.store');
-
-
-
-
-
-//     Route::get('/api/roles/{role}/permissions', function (Role $role) {
-//         return $role->permissions;
-//     });
-    
-
-//     // Groupe de routes pour les administrateurs
-//     // Route::middleware(['role:admin'])->group(function () {
-//     //     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-//     // });
-
-//     // Groupe de routes pour les managers
-//     // Route::middleware(['role:manager'])->group(function () {
-//     //     Route::get('/store/{store}/orders', [StoreController::class, 'manageOrders'])->name('store.orders');
-//     // });
-
-//     // Routes pour la gestion des permissions
-//     // Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
-//     // Route::post('/permissions/update', [PermissionController::class, 'update'])->name('permissions.update');
-//     // Route::get('/roles/{roleId}/permissions', [PermissionController::class, 'getPermissions']);
-
-    
-//     Route::resource('stores', StoreController::class);
-//     Route::resource('ventes', VentesController::class);
-
-
-//     //Route::resource('roles', RoleController::class)->middleware('can:manage roles');
-//     Route::resource('permissions', PermissionController::class)->middleware('can:manage roles');
-
-//     //Route::post('/users/{user}/assign-role', [UserAdminController::class, 'assignRole'])->name('users.assignRole');
-
-
-//     Route::resource('utilisateurs', UserAdminController::class)->middleware('can:manage users');
-
-    
-
-// });
-
-
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index']);
 
-    Route::middleware(['role:admin'])->group(function () {
-        Route::get('stores', [StoreController::class, 'index'])->name('stores.index');
-        Route::get('articles', [ArticleController::class, 'index'])->name('articles.index');
-        Route::get('stock', [AdminController::class, 'StockArticle'])->name('stock.index');
-        Route::get('ventes', [VentesController::class, 'index'])->name('ventes.index');
-        Route::get('commandes', [CommandesController::class, 'index'])->name('commandes.index');
-        //Creéation des users du magasins
-        Route::get('utilisateurs', [UserAdminController::class, 'index'])->name('utilisateurs.index');
-        Route::get('utilisateurs/create', [UserAdminController::class, 'create'])->name('utilisateurs.create');
-        Route::post('utilisateurs', [UserAdminController::class, 'store'])->name('utilisateurs.store');
+    Route::resource('articles', ArticleController::class);
+    Route::get('articles/{id}/promotion', [ArticleController::class, 'promotion'])->name('articles.promotion');
+    Route::post('articles/{id}/toggle-promotion', [ArticleController::class, 'togglePromotion'])->name('articles.togglePromotion');
 
+    Route::post('categories/store', [CategoryArticleController::class, 'store'])->name('categories.store');
+    Route::post('tags', [TagController::class, 'store'])->name('tags.store');
+    // Route::resource('banners', BannerController::class);
+
+    Route::delete('articles/{article}/image/{id}', [ArticleController::class, 'destroyImage'])->name('image.delete');
+
+    // Route::resource('marketing', MarketingController::class);
+
+    Route::resource('commandes', CommandesController::class);
+
+    //Route::put('commandes/{id}', [CommandesController::class, 'update'])->name('commande.update');
+
+    Route::get('stock', [AdminController::class, 'StockArticle'])->name('stock.index');
+
+    Route::get('stock/edit/{id}', [AdminController::class, 'EditStockArticle'])->name('edit.stock.article');
+    Route::put('stock/edit/{id}', [AdminController::class, 'Stockupdate'])->name('stock.update');
+
+    // Route::post('/notifications/{product}/markAsRead', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+
+   // Route::resource('codeBarres', BarcodeController::class);
+    
+    Route::get('codeBarres', [BarcodeController::class, 'index'])->name('codeBarres.index');
+
+    // Route pour générer et afficher le code-barres
+    Route::post('codeBarres', [BarcodeController::class, 'store'])->name('codeBarres.store');
+
+
+
+
+
+    Route::get('/api/roles/{role}/permissions', function (Role $role) {
+        return $role->permissions;
     });
+    
 
-    // Routes accessibles uniquement par les managers
-    Route::middleware(['role:manager'])->group(function () {
-        Route::resource('stores', StoreController::class);
-        Route::resource('utilisateurs', UserAdminController::class)->middleware('can:manage users');
-        
-        // Gestion des articles
-        Route::resource('articles', ArticleController::class);
-        Route::get('articles/{id}/promotion', [ArticleController::class, 'promotion'])->name('articles.promotion');
-        Route::post('articles/{id}/toggle-promotion', [ArticleController::class, 'togglePromotion'])->name('articles.togglePromotion');
-        
-        // Stock articles
-        Route::get('stock', [AdminController::class, 'StockArticle'])->name('stock.index');
-        Route::get('stock/edit/{id}', [AdminController::class, 'EditStockArticle'])->name('edit.stock.article');
-        Route::put('stock/edit/{id}', [AdminController::class, 'Stockupdate'])->name('stock.update');
+    // Groupe de routes pour les administrateurs
+    // Route::middleware(['role:admin'])->group(function () {
+    //     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    // });
 
-        // Génération de code-barres
-        Route::get('codeBarres', [BarcodeController::class, 'index'])->name('codeBarres.index');
-        Route::post('codeBarres', [BarcodeController::class, 'store'])->name('codeBarres.store');
+    // Groupe de routes pour les managers
+    // Route::middleware(['role:manager'])->group(function () {
+    //     Route::get('/store/{store}/orders', [StoreController::class, 'manageOrders'])->name('store.orders');
+    // });
 
-        Route::resource('ventes', VentesController::class);
+    // Routes pour la gestion des permissions
+    // Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
+    // Route::post('/permissions/update', [PermissionController::class, 'update'])->name('permissions.update');
+    // Route::get('/roles/{roleId}/permissions', [PermissionController::class, 'getPermissions']);
 
-        // Gestion des commandes
-        Route::resource('commandes', CommandesController::class);
-        
-    });
-
-    // Routes accessibles uniquement par les employés
-    Route::middleware(['role:employee'])->group(function () {
-        // Route::get('dashboard', [EmployeeController::class, 'index'])->name('employee.dashboard');
-        Route::resource('orders', OrderController::class);
+    
+    Route::resource('stores', StoreController::class);
+    Route::resource('ventes', VentesController::class);
 
 
-        // Gestion des commandes
-        Route::resource('commandes', CommandesController::class);
+    //Route::resource('roles', RoleController::class)->middleware('can:manage roles');
+    Route::resource('permissions', PermissionController::class)->middleware('can:manage roles');
 
-        // Gestion des articles
-        Route::resource('articles', ArticleController::class);
-        Route::get('articles/{id}/promotion', [ArticleController::class, 'promotion'])->name('articles.promotion');
-        Route::post('articles/{id}/toggle-promotion', [ArticleController::class, 'togglePromotion'])->name('articles.togglePromotion');
-         
-        // Stock articles
-        Route::get('stock', [AdminController::class, 'StockArticle'])->name('stock.index');
-        Route::get('stock/edit/{id}', [AdminController::class, 'EditStockArticle'])->name('edit.stock.article');
-        Route::put('stock/edit/{id}', [AdminController::class, 'Stockupdate'])->name('stock.update');
- 
-        // Génération de code-barres
-        Route::get('codeBarres', [BarcodeController::class, 'index'])->name('codeBarres.index');
-        Route::post('codeBarres', [BarcodeController::class, 'store'])->name('codeBarres.store');
- 
-        Route::resource('ventes', VentesController::class);
+    //Route::post('/users/{user}/assign-role', [UserAdminController::class, 'assignRole'])->name('users.assignRole');
 
-    });
+
+    Route::resource('utilisateurs', UserAdminController::class)->middleware('can:manage users');
+
+    
+
 });
+
+
+// Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+//     Route::get('/', [AdminController::class, 'index']);
+
+//     Route::middleware(['role:admin'])->group(function () {
+//         Route::get('stores', [StoreController::class, 'index'])->name('stores.index');
+//         Route::get('articles', [ArticleController::class, 'index'])->name('articles.index');
+//         Route::get('stock', [AdminController::class, 'StockArticle'])->name('stock.index');
+//         Route::get('ventes', [VentesController::class, 'index'])->name('ventes.index');
+//         Route::get('commandes', [CommandesController::class, 'index'])->name('commandes.index');
+//         //Creéation des users du magasins
+//         Route::get('utilisateurs', [UserAdminController::class, 'index'])->name('utilisateurs.index');
+//         Route::get('utilisateurs/create', [UserAdminController::class, 'create'])->name('utilisateurs.create');
+//         Route::post('utilisateurs', [UserAdminController::class, 'store'])->name('utilisateurs.store');
+
+//     });
+
+//     // Routes accessibles uniquement par les managers
+//     Route::middleware(['role:manager'])->group(function () {
+//         Route::resource('stores', StoreController::class);
+//         Route::resource('utilisateurs', UserAdminController::class)->middleware('can:manage users');
+        
+//         // Gestion des articles
+//         Route::resource('articles', ArticleController::class);
+//         Route::get('articles/{id}/promotion', [ArticleController::class, 'promotion'])->name('articles.promotion');
+//         Route::post('articles/{id}/toggle-promotion', [ArticleController::class, 'togglePromotion'])->name('articles.togglePromotion');
+        
+//         // Stock articles
+//         Route::get('stock', [AdminController::class, 'StockArticle'])->name('stock.index');
+//         Route::get('stock/edit/{id}', [AdminController::class, 'EditStockArticle'])->name('edit.stock.article');
+//         Route::put('stock/edit/{id}', [AdminController::class, 'Stockupdate'])->name('stock.update');
+
+//         // Génération de code-barres
+//         Route::get('codeBarres', [BarcodeController::class, 'index'])->name('codeBarres.index');
+//         Route::post('codeBarres', [BarcodeController::class, 'store'])->name('codeBarres.store');
+
+//         Route::resource('ventes', VentesController::class);
+
+//         // Gestion des commandes
+//         Route::resource('commandes', CommandesController::class);
+        
+//     });
+
+//     // Routes accessibles uniquement par les employés
+//     Route::middleware(['role:employee'])->group(function () {
+//         // Route::get('dashboard', [EmployeeController::class, 'index'])->name('employee.dashboard');
+//         Route::resource('orders', OrderController::class);
+
+
+//         // Gestion des commandes
+//         Route::resource('commandes', CommandesController::class);
+
+//         // Gestion des articles
+//         Route::resource('articles', ArticleController::class);
+//         Route::get('articles/{id}/promotion', [ArticleController::class, 'promotion'])->name('articles.promotion');
+//         Route::post('articles/{id}/toggle-promotion', [ArticleController::class, 'togglePromotion'])->name('articles.togglePromotion');
+         
+//         // Stock articles
+//         Route::get('stock', [AdminController::class, 'StockArticle'])->name('stock.index');
+//         Route::get('stock/edit/{id}', [AdminController::class, 'EditStockArticle'])->name('edit.stock.article');
+//         Route::put('stock/edit/{id}', [AdminController::class, 'Stockupdate'])->name('stock.update');
+ 
+//         // Génération de code-barres
+//         Route::get('codeBarres', [BarcodeController::class, 'index'])->name('codeBarres.index');
+//         Route::post('codeBarres', [BarcodeController::class, 'store'])->name('codeBarres.store');
+ 
+//         Route::resource('ventes', VentesController::class);
+
+//     });
+// });
 
 
 // Auth::routes();

@@ -482,6 +482,40 @@ public function updateCart(Request $request)
 
 }
 
+public function updateTotaux(Request $request)
+{
+    // Supposons que tu as déjà calculé le sous-total du panier quelque part
+    $total = session('total', 0); // Ou tu peux récupérer ce total à partir de la base de données ou d'une autre logique de panier.
+
+    // Calculer les frais de livraison
+    $shippingCost = 0;
+
+    // Vérifier la méthode de livraison choisie
+    if ($request->has('shipping')) {
+        $shippingMethod = $request->input('shipping');
+        
+        if ($shippingMethod == 'free-shipping' && $total >= 200000) {
+            $shippingCost = 0; // Livraison gratuite
+        } elseif ($shippingMethod == 'flat-rate') {
+            $shippingCost = 2000; // Frais de livraison fixe
+        } elseif ($shippingMethod == 'local-pickup') {
+            $shippingCost = 0; // Livraison au magasin, donc gratuite
+        }
+    }
+
+    // Calculer le total final
+    $finalTotal = $total + $shippingCost;
+
+    // Retourner les résultats sous forme de réponse JSON
+    return response()->json([
+        'success' => true,
+        'finalTotal' => $finalTotal,
+        'shippingCost' => $shippingCost,
+        'message' => 'Totaux mis à jour avec succès.'
+    ]);
+
+}
+
 
     public function removeFromCart($product_id)
     {

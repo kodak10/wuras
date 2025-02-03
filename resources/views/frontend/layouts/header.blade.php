@@ -39,6 +39,10 @@
     text-align: center;
 }
 
+.header-bottom .header a:not(.btn){
+    color: #fff !important;
+}
+
 </style>
 
 
@@ -92,8 +96,7 @@
     <div class="header-middle">
         <div class="container">
             <div class="header-left mr-md-4">
-                <a href="#" class="mobile-menu-toggle  w-icon-hamburger" aria-label="menu-toggle" style="border: 2px solid #5f5c5c; padding:5px;
-">
+                <a href="#" class="mobile-menu-toggle  w-icon-hamburger" aria-label="menu-toggle" style="border: 2px solid #5f5c5c; padding:5px;">
                 </a>
                 <a href="/" class="logo ml-lg-0">
                     <img src="{{asset('assets/images/logo.webp')}}" alt="logo" width="144" height="45" />

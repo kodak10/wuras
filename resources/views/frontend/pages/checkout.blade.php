@@ -226,7 +226,7 @@
                                                 <b>Total</b>
                                             </th>
                                             <td>
-                                                <b>{{ number_format($subtotal + 5, 2) }} FCFA</b> <!-- Ajoutez le coût de l'expédition -->
+                                                <b>{{ number_format($subtotal, 2) }} FCFA</b> <!-- Ajoutez le coût de l'expédition -->
                                             </td>
                                         </tr>
                                     </tfoot>

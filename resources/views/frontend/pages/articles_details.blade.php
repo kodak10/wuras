@@ -658,7 +658,7 @@
                                 </span>
                                 <div class="icon-box-content">
                                     <h4 class="icon-box-title">Livraison gratuite à Abidjan</h4>
-                                    <p>Pour tout achat de plus de 200.000F
+                                    <p>Pour tout achat de plus de 300.000F
                                     </p>
                                 </div>
                             </div>

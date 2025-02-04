@@ -10,8 +10,7 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'firstname',
-        'lastname',
+        'name',
         'pays',
         'phone01',
         'phone02',
@@ -23,7 +22,7 @@ class Order extends Model
         'admin_id',
         'status',
         'created_at',
-        'store_id'
+        'store_id',
     ];
 
     public function orderDetails()

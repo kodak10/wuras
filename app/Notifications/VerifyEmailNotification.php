@@ -35,15 +35,7 @@ class VerifyEmailNotification extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    // public function toMail($notifiable)
-    // {
-    //     return (new MailMessage)
-    //             ->subject('Vérification de votre email')
-    //             ->line('Merci de vous être inscrit sur notre site.')
-    //             // ->action('Vérifiez votre adresse e-mail', $notifiable->verificationUrl())
-    //             ->action('Vérifiez votre adresse e-mail', $this->verificationUrl($notifiable))
-    //             ->line('Si vous n\'êtes pas à l\'origine de cette inscription, vous pouvez ignorer cet e-mail.');
-    // }
+  
 
     public function toMail($notifiable)
     {

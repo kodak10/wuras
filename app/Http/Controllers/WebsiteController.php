@@ -531,13 +531,21 @@ public function addToCart(Request $request)
 
         // Calculer le total final en ajoutant les frais de livraison
         $finalTotal = $total + $shippingCost;
+        $shippingMethod = $request->input('shipping', ''); 
+
+        // Stocker les infos dans la session
+        session([
+            'shipping_cost' => $shippingCost,
+            'shipping_method' => $shippingMethod
+        ]);
 
         // Retourner les résultats sous forme de réponse JSON
         return response()->json([
             'success' => true,
             'finalTotal' => number_format($finalTotal, 2), // Formatage du total pour la présentation
             'shippingCost' => number_format($shippingCost, 2), // Formatage des frais de livraison
-            'message' => 'Totaux mis à jour avec succès.'
+            'shippingMethod' => $shippingMethod,
+            'message' => 'Totaux mis à jour avec succès.',
         ]);
     }
 

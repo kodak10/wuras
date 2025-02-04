@@ -43,4 +43,40 @@ class UserController extends Controller
         // Rediriger avec un message de succès
         return redirect()->back()->with('success', 'Les informations ont été mises à jour avec succès.');
     }
+
+    public function updateAddress(Request $request)
+    {
+        $request->validate([
+            'commune' => 'required|string',
+            'lieu_livraison' => 'required|string',
+            'phone01' => 'nullable|string',
+            'phone02' => 'nullable|string',
+        ]);
+        
+        $user = Auth::user();
+        
+        if ($user->address) {
+            $user->address->update([
+                'commune' => $request->commune,
+                'lieu_livraison' => $request->lieu_livraison, // Correction de l'espace en trop
+                'phone01' => $request->phone01,
+                'phone02' => $request->phone01,
+                'email' => Auth::user()->email,
+            ]);
+        } else {
+            $user->address()->create([
+                'commune' => $request->commune,
+                'lieu_livraison' => $request->lieu_livraison,
+                'phone01' => $request->phone01,
+                'phone02' => $request->phone02,
+                'user_id' => $user->id, // Correction Auth::id() reste correct, mais plus clair avec $user->id
+                'email' => Auth::user()->email,
+            ]);
+        }
+        
+
+        return redirect()->back()->with('success', 'Les informations ont été mises à jour avec succès.');
+
+    }
+
 }

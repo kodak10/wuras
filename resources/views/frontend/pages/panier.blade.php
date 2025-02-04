@@ -183,7 +183,7 @@
                                 </ul>
         
                                 <div class="shipping-calculator">
-                                    <form class="shipping-calculator-form" action="" method="POST"  id="shipping-form">
+                                    {{-- <form class="shipping-calculator-form" action="" method="POST"  id="shipping-form">
                                         @csrf
                                         
                                         <div class="form-group mb-3">
@@ -210,8 +210,9 @@
         
                                         <button type="button" class="btn btn-dark btn-outline btn-rounded mt-5 updateButton">Mettre à jour Totaux</button>
 
-                                        {{-- <button type="submit" class="btn btn-dark btn-outline btn-rounded mt-5">Mettre à jour Totaux</button> --}}
-                                    </form>
+                                    </form> --}}
+                                    <button type="button" class="mb-3 btn btn-dark btn-outline btn-rounded mt-5 updateButton">Mettre à jour Totaux</button>
+
 
                                     <p>Coût de livraison:
                                         <span class="ls-50" id="shipping-cost">0 FCFA</span>

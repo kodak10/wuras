@@ -28,7 +28,15 @@
            
            
             
-            
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form  method="POST" action="{{ route('order.store') }}">
                 @csrf
                 <div class="row mb-9">
@@ -37,143 +45,79 @@
                             Détails de facturation
                         </h3>
                         <div class="row gutter-sm">
-                            <div class="col-xs-6">
+                            <div class="col-xs-12">
                                 <div class="form-group">
-                                    <label>Prénoms *</label>
-                                    <input type="text" class="form-control form-control-md" name="firstname"
-                                       value="kodak" required>
+                                    <label>Nom et Prénoms *</label>
+                                    <input type="text" class="form-control form-control-md" name="name"
+                                           value="{{ old('name', isset($user) ? $user->name : '') }}" required>
                                 </div>
                             </div>
-                            <div class="col-xs-6">
-                                <div class="form-group">
-                                    <label>Nom *</label>
-                                    <input type="text" class="form-control form-control-md" name="lastname"
-                                    value="kodak" required>
-                                </div>
-                            </div>
+                            
+                            
                         </div>
                         
                         <div class="form-group mb-3">
                             <label>Pays/Région * <strong>Côte D'Ivoire</strong></label>
                             <input type="hidden" name="pays" value="Côte D'Ivoire">
                         </div>
+                        
                         <div class="form-group mb-3">
                             <label>Commune *</label>
                             <div class="select-box">
-                                <select name="" class="form-control form-control-md">
-                                    <option value="default" selected="selected">Commune</option>
-                                    <option value="Abobo">Abobo</option>
-                                    <option value="Adjame">Adjamé</option>
-                                    <option value="Attécoube">Attécoubé</option>
-                                    <option value="Ayaman">Ayaman</option>
-                                    <option value="Cocody">Cocody</option>
-                                    <option value="Koumassi">Koumassi</option>
-                                    <option value="Marcory">Marcory</option>
-                                    <option value="Treichville">Treichville</option>
-                                    <option value="Port-Bouet">Port-Bouet</option>
-                                    <option value="interieur">Intérieur de Pays</option>
+                                <select name="commune" class="form-control form-control-md">
+                                    <option value="" selected="selected">Commune</option>
+                                    <option value="Abobo" {{ old('commune', $user->address->commune ?? '') == 'Abobo' ? 'selected' : '' }}>Abobo</option>
+                                    <option value="Adjame" {{ old('commune', $user->address->commune ?? '') == 'Adjame' ? 'selected' : '' }}>Adjamé</option>
+                                    <option value="Attécoube" {{ old('commune', $user->address->commune ?? '') == 'Attécoube' ? 'selected' : '' }}>Attécoubé</option>
+                                    <option value="Ayaman" {{ old('commune', $user->address->commune ?? '') == 'Ayaman' ? 'selected' : '' }}>Ayaman</option>
+                                    <option value="Cocody" {{ old('commune', $user->address->commune ?? '') == 'Cocody' ? 'selected' : '' }}>Cocody</option>
+                                    <option value="Koumassi" {{ old('commune', $user->address->commune ?? '') == 'Koumassi' ? 'selected' : '' }}>Koumassi</option>
+                                    <option value="Marcory" {{ old('commune', $user->address->commune ?? '') == 'Marcory' ? 'selected' : '' }}>Marcory</option>
+                                    <option value="Treichville" {{ old('commune', $user->address->commune ?? '') == 'Treichville' ? 'selected' : '' }}>Treichville</option>
+                                    <option value="Port-Bouet" {{ old('commune', $user->address->commune ?? '') == 'Port-Bouet' ? 'selected' : '' }}>Port-Bouet</option>
+                                    <option value="interieur" {{ old('commune', $user->address->commune ?? '') == 'interieur' ? 'selected' : '' }}>Intérieur de Pays</option>
                                 </select>
                             </div>
                         </div>
+                        
                         <div class="form-group mb-3">
                             <label>Lieu de livraison *</label>
-                            <input type="text" class="form-control form-control-md" name="town" value="kodak" required>
+                            <input type="text" class="form-control form-control-md" name="lieu_livraison"
+                                   value="{{ old('lieu_livraison', $user->address->lieu_livraison ?? '') }}" required>
                         </div>
                         
+                    
                         <div class="row mb-3">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Téléphone 01 *</label>
-                                    <input type="phone" class="form-control form-control-md" name="phone01" value="0101010101" required>
+                                    <input type="phone" class="form-control form-control-md" name="phone01"
+                                           value="{{ old('phone01', $user->phone ?? '') }}" required>
                                 </div>
                             </div>
-
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Téléphone 02 *</label>
-                                    <input type="phone" class="form-control form-control-md" name="phone02" value="0202020202" required>
+                                    <input type="phone" class="form-control form-control-md" name="phone02"
+                                           value="{{ old('lieu_livraison', $user->address->phone02 ?? '') }}" required>
                                 </div>
                             </div>
                         </div>
-
+                    
                         <div class="form-group">
                             <label>Email *</label>
-                            <input type="email" class="form-control form-control-md" name="email" value="kodak@gmail.com" required>
+                            <input type="email" class="form-control form-control-md" name="email"
+                                   value="{{ old('email', $user->email ?? '') }}" required readonly>
                         </div>
-                        {{-- <div class="form-group checkbox-toggle pb-2">
-                            <input type="checkbox" class="custom-checkbox" id="shipping-toggle"
-                                name="shipping-toggle">
-                            <label for="shipping-toggle">Ship to a different address?</label>
-                        </div> --}}
-                        {{-- <div class="checkbox-content">
-                            <div class="row gutter-sm">
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label>First name *</label>
-                                        <input type="text" class="form-control form-control-md" name="firstname" 
-                                            required>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label>Last name *</label>
-                                        <input type="text" class="form-control form-control-md" name="lastname"
-                                            required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Company name (optional)</label>
-                                <input type="text" class="form-control form-control-md" name="company-name">
-                            </div>
-                            <div class="form-group">
-                                <label>Country / Region *</label>
-                                <div class="select-box">
-                                    <select name="country" class="form-control form-control-md">
-                                        <option value="default" selected="selected">United States
-                                            (US)
-                                        </option>
-                                        <option value="uk">United Kingdom (UK)</option>
-                                        <option value="us">United States</option>
-                                        <option value="fr">France</option>
-                                        <option value="aus">Australia</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Street address *</label>
-                                <input type="text" placeholder="House number and street name"
-                                    class="form-control form-control-md mb-2" name="street-address-1" required>
-                                <input type="text" placeholder="Apartment, suite, unit, etc. (optional)"
-                                    class="form-control form-control-md" name="street-address-2" required>
-                            </div>
-                            <div class="row gutter-sm">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Town / City *</label>
-                                        <input type="text" class="form-control form-control-md" name="town" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Postcode *</label>
-                                        <input type="text" class="form-control form-control-md" name="postcode" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Country (optional)</label>
-                                        <input type="text" class="form-control form-control-md" name="zip" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
-
+                    
                         <div class="form-group mt-3">
                             <label for="order-notes">Notes de commande (facultatif)</label>
                             <textarea class="form-control mb-0" id="order-notes" name="order-notes" cols="30"
-                                rows="4"
-                                placeholder="Notes concernant votre commande, par exemple des notes spéciales pour la livraison. ex: consignes"></textarea>
+                                      rows="4"
+                                      placeholder="Notes concernant votre commande, par exemple des notes spéciales pour la livraison. ex: consignes"></textarea>
                         </div>
                     </div>
+                    
                     <div class="col-lg-5 mb-4 sticky-sidebar-wrapper">
                         <div class="order-summary-wrapper sticky-sidebar">
                             <h3 class="title text-uppercase ls-10">Panier</h3>
@@ -218,7 +162,8 @@
                                         <tr class="shipping-methods">
                                             <td colspan="2" class="text-left">
                                                 <h4 class="title title-simple bb-no mb-1 pb-0 pt-3">Livraison</h4>
-                                                <span>Afficher le cout de la livraison s'il a choisi. sinon afficher a passer au magasin</span>
+                                                <p id="shipping-cost">{{ session('shipping_cost', 0) }} FCFA</p>
+                                                <span id="shipping-type">{{ session('shipping_method', 'Non spécifié') }}</span>
                                             </td>
                                         </tr>
                                         <tr class="order-total">

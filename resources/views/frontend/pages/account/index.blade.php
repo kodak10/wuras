@@ -261,92 +261,101 @@
                             <i class="w-icon-map-marker"></i>
                         </span>
                         <div class="icon-box-content">
-                            <h4 class="icon-box-title mb-0 ls-normal">Adresses</h4>
+                            <h4 class="icon-box-title mb-0 ls-normal">Adresse</h4>
                         </div>
                     </div>
                     <p>Les adresses suivantes seront utilisées par défaut sur la page de paiement.</p>
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    <!-- Adresse de Livraison -->
                     <div class="row">
                         <div class="col-sm-6 mb-6">
                             <div class="ecommerce-address billing-address pr-lg-8">
-                                <h4 class="title title-underline ls-25 font-weight-bold">Adresse de facturation</h4>
-                                <address class="mb-4">
-                                    <table class="address-table">
-                                        <tbody>
-                                            <tr>
-                                                <th>Name:</th>
-                                                <td>John Doe</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Company:</th>
-                                                <td>Conia</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Address:</th>
-                                                <td>Wall Street</td>
-                                            </tr>
-                                            <tr>
-                                                <th>City:</th>
-                                                <td>California</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Country:</th>
-                                                <td>United States (US)</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Postcode:</th>
-                                                <td>92020</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Phone:</th>
-                                                <td>1112223334</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </address>
-                                <a href="#"
-                                    class="btn btn-link btn-underline btn-icon-right text-primary">Modifier
-                                    votre adresse de facturation<i class="w-icon-long-arrow-right"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 mb-6">
-                            <div class="ecommerce-address shipping-address pr-lg-8">
                                 <h4 class="title title-underline ls-25 font-weight-bold">Adresse de livraison</h4>
                                 <address class="mb-4">
                                     <table class="address-table">
                                         <tbody>
                                             <tr>
-                                                <th>Name:</th>
-                                                <td>John Doe</td>
+                                                <th>Nom :</th>
+                                                <td>{{ Auth::user()->name }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Company:</th>
-                                                <td>Conia</td>
+                                                <th>Commune :</th>
+                                                <td id="communeText">{{ Auth::user()->address->commune ?? 'Non défini' }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Address:</th>
-                                                <td>Wall Street</td>
+                                                <th>Lieu de livraison :</th>
+                                                <td id="townText">{{ Auth::user()->address->lieu_livraison ?? 'Non défini' }}</td>
                                             </tr>
                                             <tr>
-                                                <th>City:</th>
-                                                <td>California</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Country:</th>
-                                                <td>United States (US)</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Postcode:</th>
-                                                <td>92020</td>
+                                                <th>Téléphone :</th>
+                                                <td>{{ Auth::user()->phone ?? 'Non défini' }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </address>
-                                <a href="#"
-                                    class="btn btn-link btn-underline btn-icon-right text-primary">Modifiez votre
-                                    adresse de livraison<i class="w-icon-long-arrow-right"></i></a>
+                                <button class="btn btn-link btn-underline btn-icon-right text-primary" data-bs-toggle="modal"
+                                    data-bs-target="#editAddressModal">
+                                    Modifier votre adresse<i class="w-icon-long-arrow-right"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Modal de modification de l'adresse -->
+                    <div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editAddressModalLabel">Modifier l'adresse</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ route('home.update.address') }}" method="POST">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label>Commune *</label>
+                                            <select name="commune" class="form-control" id="commune">
+                                                <option value="">Sélectionner une commune</option>
+                                                @foreach (['Abobo', 'Adjame', 'Attécoube', 'Ayaman', 'Cocody', 'Koumassi', 'Marcory', 'Treichville', 'Port-Bouet', 'interieur'] as $commune)
+                                                    <option value="{{ $commune }}" 
+                                                        {{ old('commune', Auth::user()->address->commune ?? '') == $commune ? 'selected' : '' }}>
+                                                        {{ $commune }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label>Lieu de livraison *</label>
+                                            <input type="text" class="form-control" name="lieu_livraison" id="lieu_livraison" 
+                                                value="{{ old('lieu_livraison', Auth::user()->address->lieu_livraison ?? '') }}" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Téléphone 1</label>
+                                            <input type="text" class="form-control" id="phone01" name="phone01"
+                                            value="{{ old('lieu_livraison', Auth::user()->address->phone01 ?? '') }}" required>
+
+                                            
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Téléphone 2</label>
+                                            <input type="text" class="form-control" id="phone02" name="phone02"
+                                            value="{{ old('lieu_livraison', Auth::user()->address->phone02 ?? '') }}" required>
+
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary w-100">Enregistrer</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="tab-pane" id="account-details">
@@ -419,3 +428,4 @@
                 <!-- End of PageContent -->
 
 @endsection
+

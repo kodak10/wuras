@@ -250,6 +250,9 @@ Route::middleware(['auth', 'verified'])->prefix('home')->name('home.')->group(fu
 
     Route::post('/account', [UserController::class, 'updateAccount'])->name('account.update');
 
+    Route::post('/update-address', [UserController::class, 'updateAddress'])->name('update.address');
+
+
 });
 
 

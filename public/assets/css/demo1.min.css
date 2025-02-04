@@ -13092,6 +13092,7 @@ aside .sp-sidebar-banner span {
   white-space: nowrap;
   padding: 14px 0;
   text-transform: uppercase;
+  font-weight: 600;
 }
 
 .header-middle {
@@ -13543,6 +13544,7 @@ aside .sp-sidebar-banner span {
   .header-top .header-left {
     position: relative;
     overflow: hidden;
+    width: 100%;
   }
 
   .welcome-msg {

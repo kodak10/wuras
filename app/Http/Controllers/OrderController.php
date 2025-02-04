@@ -21,6 +21,8 @@ class OrderController extends Controller
 
     public function index()
     {
+$user = Auth::user();
+
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'Vous devez être connecté pour passer une commande.');
         }
@@ -28,7 +30,7 @@ class OrderController extends Controller
         $categories = Category::with(['articles' => function ($query) {
             $query->where('status', 'published');
         }])->take(11)->get();
-        return view('frontend.pages.checkout', compact('categories'));
+        return view('frontend.pages.checkout', compact('categories', 'user'));
     }
 
     public function store(Request $request)
@@ -38,16 +40,34 @@ class OrderController extends Controller
         }
 
         $validatedData = $request->validate([
-            'firstname' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'pays' => 'required|string',
             'phone01' => 'required|string',
             'phone02' => 'nullable|string',
             'email' => 'required|email',
             'order_notes' => 'nullable|string',
             'store_id' => 'required',
-
-            ]);
+        ], [
+            'name.required' => 'Le champ "Nom et Prénoms" est obligatoire.',
+            'name.string' => 'Le champ "Nom et Prénoms" doit être une chaîne de caractères.',
+            'name.max' => 'Le champ "Nom et Prénoms" ne doit pas dépasser 255 caractères.',
+        
+            'pays.required' => 'Le pays est obligatoire.',
+            'pays.string' => 'Le pays doit être une chaîne de caractères valide.',
+        
+            'phone01.required' => 'Le champ "Téléphone 01" est obligatoire.',
+            'phone01.string' => 'Le numéro de téléphone doit être valide.',
+        
+            'phone02.string' => 'Le champ "Téléphone 02" doit être valide.',
+        
+            'email.required' => 'Le champ "Email" est obligatoire.',
+            'email.email' => 'Veuillez entrer une adresse email valide.',
+        
+            'order_notes.string' => 'Les notes de commande doivent être sous forme de texte.',
+        
+            'store_id.required' => 'Le champ "store_id" est obligatoire.',
+        ]);
+        
         
         $cartItems = session('cart', []);
         $subtotal = collect($cartItems)->sum(fn($item) => $item['price'] * $item['quantite']);

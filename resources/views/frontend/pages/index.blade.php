@@ -94,7 +94,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
         <div class="swiper-wrapper row gutter-no cols-1">
             <!-- Slide 1 -->
             <div class="swiper-slide banner banner-fixed intro-slide intro-slide3"
-            style="background-image: url(assets/images/demos/demo9/slides/slide-3.jpg); background-color: #D4D6D5; ">
+            style="background-image: url(assets/images/bannerpng); background-color: #D4D6D5; ">
                 <div class="banner-content y-50 mx-3">
                     <div class="content-left mr-auto slide-animate mb-4 mb-lg-0" data-animation-options="{
                         'name': 'fadeInUpShorter', 'duration': '1s'

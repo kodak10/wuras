@@ -43,6 +43,9 @@
     color: #fff !important;
 }
 
+.header-top a:not(.btn){
+    color: #000 !important;
+}
 </style>
 
 

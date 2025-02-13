@@ -76,6 +76,9 @@ a.btn-product-icon.btn-cart.w-icon-cart {
     color: #383839 !important
 
 }
+.accessoires .tab-nav-outline .nav-link{
+    color: #fff;
+}
 </style>
 
 @include(('frontend.layouts.header-Categorie'))
@@ -1483,19 +1486,17 @@ a.btn-product-icon.btn-cart.w-icon-cart {
             <div class="banner-content align-items-center">
                 <div class="content-left d-flex align-items-center mb-3">
                     <div class="banner-price-info font-weight-bolder text-secondary text-uppercase lh-1 ls-25">
-                        25
-                        <sup class="font-weight-bold">%</sup><sub class="font-weight-bold ls-25">de red.</sub>
+                        BON PLAN
                     </div>
                     <hr class="banner-divider bg-white mt-0 mb-0 mr-8">
                 </div>
                 <div class="content-right d-flex align-items-center flex-1 flex-wrap">
                     <div class="banner-info mb-0 mr-auto pr-4 mb-3">
-                        <h3 class="banner-title text-white font-weight-bolder text-uppercase ls-25">For Today's
-                            Fashion</h3>
-                        <p class="text-white mb-0">Use code
+                        <h3 class="banner-title text-white font-weight-bolder text-uppercase ls-25">Livraison Gratuite</h3>
+                        <p class="text-white mb-0">Pour une commande de plus
                             <span
-                                class="text-dark bg-white font-weight-bold ls-50 pl-1 pr-1 d-inline-block">Black
-                                <strong>12345</strong></span> to get best offer.</p>
+                                class="text-dark bg-white font-weight-bold ls-50 pl-1 pr-1 d-inline-block">
+                                <strong>200.000 fcfa</strong></span> </p>
                     </div>
                     <a href="/magasin"
                         class="btn btn-white btn-outline btn-rounded btn-icon-right mb-3">Decouvrir<i

@@ -174,7 +174,7 @@
                                             <label class="product-label label-discount">-{{ number_format($categories_shop->promotion_value, 2) }} FCFA</label>
                                         @endif
                                         @if($categories_shop->created_at >= now()->subMonths(3))
-                                            <label class="product-label label-new">New</label>
+                                            <label class="product-label label-new">Nouveauté</label>
                                         @endif
                                     </div>
                                 </figure>
@@ -495,7 +495,7 @@
                                                             <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
                                                         @endif
                                                     @if($article->created_at >= now()->subMonths(3))
-                                                        <label class="product-label label-new">New</label>
+                                                        <label class="product-label label-new">Nouveauté</label>
                                                     @endif
                                                 </div>
                                             </figure>

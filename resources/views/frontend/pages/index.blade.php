@@ -26,7 +26,7 @@
     border: none !important ;
 }
 a.btn-product-icon.btn-cart.w-icon-cart {
-    background: #00657c !important;
+    background: #290cc8 !important;
     color: #E3E7EA !important
 }
 
@@ -61,6 +61,20 @@ a.btn-product-icon.btn-cart.w-icon-cart {
 
 .accessoires .tab-content{
     background-color: transparent !important
+}
+.accessoires .product-media{
+    border: 1px solid #fff;
+    background-color: transparent !important;
+}
+
+.accessoires .title {
+    color: #ffffff;
+}
+.accessoires .tab-nav-outline .nav-item .nav-link.active{
+    background-color:#fff !important;
+    border: 2px solid #fff !important;
+    color: #383839 !important
+
 }
 </style>
 
@@ -561,7 +575,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                             <label class="product-label label-discount">-{{ number_format($article->promotion_value, 2) }} FCFA</label>
                                                         @endif
                                                         @if($article->created_at >= now()->subMonths(3))
-                                                            <label class="product-label label-new">New</label>
+                                                            <label class="product-label label-new">Nouveauté</label>
                                                         @endif
                                                     </div>
                                                     
@@ -677,7 +691,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                             <label class="product-label label-discount">-{{ number_format($article->promotion_value, 2) }} FCFA</label>
                                                         @endif
                                                         @if($article->created_at >= now()->subMonths(3))
-                                                            <label class="product-label label-new">New</label>
+                                                            <label class="product-label label-new">Nouveauté</label>
                                                         @endif
                                                     </div>
                                                    
@@ -791,7 +805,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                             <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
                                                         @endif
                                                         @if($article->created_at >= now()->subMonths(3))
-                                                            <label class="product-label label-new">New</label>
+                                                            <label class="product-label label-new">Nouveauté</label>
                                                         @endif
                                                     </div>
                                                     
@@ -935,7 +949,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                             <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
                                                         @endif
                                                     @if($article->created_at >= now()->subMonths(3))
-                                                        <label class="product-label label-new">New</label>
+                                                        <label class="product-label label-new">Nouveauté</label>
                                                     @endif
                                                 </div>
                                                 
@@ -1077,7 +1091,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                             <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
                                                         @endif
                                                     @if($article->created_at >= now()->subMonths(3))
-                                                        <label class="product-label label-new">New</label>
+                                                        <label class="product-label label-new">Nouveauté</label>
                                                     @endif
                                                 </div>
                                                
@@ -1188,7 +1202,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                             <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
                                                         @endif
                                             @if($article->created_at >= now()->subMonths(3))
-                                                <label class="product-label label-new">New</label>
+                                                <label class="product-label label-new">Nouveauté</label>
                                             @endif
                                         </div>
                                     </figure>
@@ -1257,7 +1271,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                             <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
                                                         @endif
                                             @if($article->created_at >= now()->subMonths(3))
-                                                <label class="product-label label-new">New</label>
+                                                <label class="product-label label-new">Nouveauté</label>
                                             @endif
                                         </div>
                                     </figure>
@@ -1325,7 +1339,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                             <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
                                                         @endif
                                             @if($article->created_at >= now()->subMonths(3))
-                                                <label class="product-label label-new">New</label>
+                                                <label class="product-label label-new">Nouveauté</label>
                                             @endif
                                         </div>
                                     </figure>
@@ -1393,13 +1407,13 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                             <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
                                                         @endif
                                             @if($article->created_at >= now()->subMonths(3))
-                                                <label class="product-label label-new">New</label>
+                                                <label class="product-label label-new">Nouveauté</label>
                                             @endif
                                         </div>
                                     </figure>
                                     
                                     <div class="product-details">
-                                        <h4 class="product-name"><a href="#">{{ $article->name }}</a></h4>
+                                        <h4 class="product-name"><a href="{{ route('article.show', ['slug' => $article->slug]) }}">{{ $article->name }}</a></h4>
                                         <div class="product-price">
                                             @if($article->promotion_type == 'percentage' && $article->promotion_value)
                                                 @php
@@ -1476,12 +1490,12 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                 </div>
                 <div class="content-right d-flex align-items-center flex-1 flex-wrap">
                     <div class="banner-info mb-0 mr-auto pr-4 mb-3">
-                        {{-- <h3 class="banner-title text-white font-weight-bolder text-uppercase ls-25">For Today's
-                            Fashion</h3> --}}
-                        {{-- <p class="text-white mb-0">Use code
+                        <h3 class="banner-title text-white font-weight-bolder text-uppercase ls-25">For Today's
+                            Fashion</h3>
+                        <p class="text-white mb-0">Use code
                             <span
                                 class="text-dark bg-white font-weight-bold ls-50 pl-1 pr-1 d-inline-block">Black
-                                <strong>12345</strong></span> to get best offer.</p> --}}
+                                <strong>12345</strong></span> to get best offer.</p>
                     </div>
                     <a href="/magasin"
                         class="btn btn-white btn-outline btn-rounded btn-icon-right mb-3">Decouvrir<i
@@ -1781,7 +1795,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                                 <label class="product-label label-discount">-{{ number_format($discountPercentage, 0) }}%</label>
                                                             @endif
                                                         @if($article->created_at >= now()->subMonths(3))
-                                                            <label class="product-label label-new">New</label>
+                                                            <label class="product-label label-new">Nouveauté</label>
                                                         @endif
                                                     </div>
                                                 </figure>

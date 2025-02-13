@@ -53,9 +53,9 @@
                             <li><a href="#">Termes et conditions</a></li>
                             <li><a href="#">Politique de confidentialité</a></li>
                             <li><a href="#">Faqs</a></li>
-                           
-                            <li>
-                                <span>Reseau Sociaux</span> <br>
+                            <br><br>
+                            <li class="d-flex align-items-center">
+                                <span class="mr-3">Réseau Sociaux :</span> 
                                 <div class="social-icons social-icons-colored">
                                     <a href="https://www.facebook.com/p/WURAS-Services-100091904923429/?locale=tl_PH" class="social-icon social-facebook w-icon-facebook"></a>
                                 </div>

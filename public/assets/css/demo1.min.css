@@ -8896,7 +8896,7 @@ body .product-popup {
   width: 3.6rem;
   height: 3.6rem;
   margin-bottom: 0.5rem;
-  background-color: #fff;
+  background-color: transparent;
   border: 1px solid #eee;
   color: #999;
   font-size: 1.8em;
@@ -8972,7 +8972,7 @@ body .product-popup {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  background-color: #fff;
+  background-color: #290cc8;
   -webkit-box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.08);
           box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.08);
   left: 50%;
@@ -8991,7 +8991,7 @@ body .product-popup {
 .product-action-horizontal .btn-product-icon {
   margin-bottom: 0;
   border: none;
-  color: #333;
+  color: #ffffff;
 }
 .product-action-horizontal .btn-product-icon.btn-wishlist {
   font-size: 1.7em;

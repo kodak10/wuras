@@ -182,7 +182,7 @@
                         <a href="#main-menu" class="nav-link active">Menu</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#categories" class="nav-link">Categories</a>
+                        <a href="#categories" class="nav-link">Catégories</a>
                     </li>
                 </ul>
             </div>
@@ -191,19 +191,9 @@
                     <ul class="mobile-menu">
                         <li><a href="/">Accueil</a></li>
                         <li><a href="/magasin">Magasin</a></li>
-                        
-                       
-                        
-                        <li>
-                            <a href="#">Pages</a>
-                            <ul>
-
-                                {{-- <li><a href="#">À propos de nous</a></li> --}}
-                                <li><a href="#">Contactez-nous</a></li>
-                                <li><a href="#">FAQs</a></li>
-                               
-                            </ul>
-                        </li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Contactez-nous</a></li>
+  
                         @auth
                             <li>
                                 @if (Auth::user()->role == 'admin')

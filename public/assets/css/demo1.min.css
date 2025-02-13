@@ -1,21 +1,13 @@
 @charset "UTF-8";
-/*
-1. config
-2. mixins
-3. plugins
-4. base
-5. components
-6. header
-7. footer
-8. demo
-*/
-/* 1. color */
-/* 2. config */
-/*----------------------------------------
-    Variables
------------------------------------------*/
-/* 3. mixins */
-/* 4. plugins */
+
+:root {
+  --primary-color: #2F0DC0;  /* Bleu foncé - Navigation, titres */
+  --secondary-color: #006880; /* Bleu sarcelle - Boutons, hover */
+  --accent-color: #F9E955;    /* Jaune clair - Promotions, highlights */
+  --text-color: #292931;      /* Gris foncé - Texte principal */
+  --background-color: #F8F8F8; /* Blanc cassé - Fond principal */
+}
+
 .custom-dots {
   position: relative;
   text-align: center;
@@ -12918,7 +12910,7 @@ aside .sp-sidebar-banner span {
   width: 100%;
 }
 .header a:not(.btn) {
-  color: #000;
+  color: #fff;
 }
 .header a:not(.btn):hover {
   color: #336699;
@@ -13039,7 +13031,7 @@ aside .sp-sidebar-banner span {
 
 .header-bottom {
   color: #333;
-  background: #00657c;
+  background: #333333;
   font-size: 1.4rem;
   font-weight: 600;
   letter-spacing: -0.025em;
@@ -13093,13 +13085,15 @@ aside .sp-sidebar-banner span {
   padding: 14px 0;
   text-transform: uppercase;
   font-weight: 600;
+  color: #333;
 }
+
 
 .header-middle {
   padding-top: 3.2rem;
   padding-bottom: 3.2rem;
   color: #e3e3e3;
-  background: #ffffff;
+  background: #333333;
   font-size: 1.2rem;
   border-bottom: 1px solid #eee;
 }
@@ -13161,7 +13155,7 @@ aside .sp-sidebar-banner span {
           flex: 1;
   min-width: 40px;
   padding: 0.9rem;
-  border: 2px solid #2266cc;
+  border: 2px solid #F2F3F5;
   border-right: 0;
   font-size: 1.2rem;
   letter-spacing: 0;
@@ -13188,7 +13182,7 @@ aside .sp-sidebar-banner span {
   min-width: 5.1rem;
   color: #333;
   border-left: 0;
-  border-color: #2266cc;
+  border-color: #fff;
   font-size: 1.5rem;
   font-weight: normal;
   letter-spacing: -0.025em;
@@ -13201,8 +13195,8 @@ aside .sp-sidebar-banner span {
   font-weight: 500;
 }
 .header-search .btn-search:hover, .header-search .btn-search:active, .header-search .btn-search:focus {
-  color: #336699;
-  background-color: transparent;
+  color: #ffffff;
+  background-color: #290cca;
 }
 .header-search .select-box::before {
   right: 1.2rem;
@@ -13283,7 +13277,7 @@ aside .sp-sidebar-banner span {
 }
 .header-search.hs-expanded .select-box {
   width: 14.6rem;
-  border: 2px solid #2266cc;
+  border: 2px solid #f4f4f4;
   border-right: none;
   color: #666666;
 }
@@ -15042,7 +15036,7 @@ aside .sp-sidebar-banner span {
       -ms-flex-align: center;
           align-items: center;
   padding: 0 4rem;
-  background: #fff;
+  background: var(--secondary-color);
 }
 .sticky-footer > * {
   -webkit-box-flex: 1;
@@ -15093,12 +15087,12 @@ aside .sp-sidebar-banner span {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  color: #666;
+  color: var(--background-color);
   margin: 1.4rem 0 1.3rem;
 }
 .sticky-link i, .cart-dropdown .sticky-link i {
   font-size: 2.3rem;
-  color: #666;
+  color: var(--background-color);
 }
 .sticky-link p {
   margin-top: 0.9rem;

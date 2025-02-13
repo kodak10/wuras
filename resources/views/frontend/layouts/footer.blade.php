@@ -1,4 +1,4 @@
-<footer class="footer appear-animate" data-animation-options="{
+<footer class="footer footer-dark appear-animate" data-animation-options="{
     'name': 'fadeIn'
 }">
     <div class="footer-newsletter bg-primary">
@@ -58,7 +58,6 @@
                                 <span>Reseau Sociaux</span> <br>
                                 <div class="social-icons social-icons-colored">
                                     <a href="https://www.facebook.com/p/WURAS-Services-100091904923429/?locale=tl_PH" class="social-icon social-facebook w-icon-facebook"></a>
-                                    <a href="#" class="social-icon social-instagram w-icon-instagram"></a>
                                 </div>
                             </li>
                         </ul>

@@ -225,16 +225,14 @@
                             <li class="" >
                                 <a href="{{route('shop')}}">Magasin</a>
                             </li>
-                            <li>
-                                <a href="#">Pages</a>
-                                <ul>
-
-                                    {{-- <li ><a href="#" style="color: #000000 !important">À propos de nous</a></li> --}}
-                                    <li ><a href="#">Contactez-nous</a></li>
-                                    <li ><a href="#">FAQs</a></li>
-                                    
-                                </ul>
+                            <li class="">
+                                <a href="#">FAQs</a>
                             </li>
+                            <li class="" >
+                                <a href="#">Contactez-nous</a>
+                            </li>
+                            
+                            
                             @auth
                                 <li>
                                     @if (Auth::user()->role == 'admin')

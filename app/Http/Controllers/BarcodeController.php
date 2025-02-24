@@ -8,6 +8,7 @@ use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Picqer\Barcode\BarcodeGeneratorHTML; 
 use Picqer\Barcode\BarcodeGeneratorPNG;
 
@@ -64,14 +65,16 @@ class BarcodeController extends Controller
                 'price' => $product->price, // Prix de l'article actuel
                 'promotion_type' => $product->promotion_type, // Type de promotion actuel
                 'promotion_value' => $product->promotion_value, // Valeur de la promotion actuelle
+                'article' => $product, // Ajouter l'objet article
+
             ];
         }
     
+        // Générer un nom de fichier unique basé sur le nom de l'article et la date/heure
+        $fileName = 'code-barres-' . Str::slug($product->name) . '-' . now()->format('Ymd-His') . '.pdf';
+    
         // Charger la vue pour générer le PDF
         $pdf = Pdf::loadView('backend.pages.codeBarres.pdf', compact('barcodes', 'quantity'));
-    
-        // Générer un nom de fichier unique basé sur la date et l'heure
-        $fileName = 'code-barres-' . now()->format('Ymd-His') . '.pdf';
     
         // Télécharger le PDF généré avec un nom unique
         return $pdf->download($fileName);

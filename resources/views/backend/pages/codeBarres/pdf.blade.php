@@ -74,21 +74,19 @@
                         <!-- Afficher l'image du code-barres -->
                         <img src="{{ $barcodeData['barcode'] }}" alt="Code-barres">
 
-                        @if($barcodeData['show_name'])
+                        @if($barcodeData['name'])
                             <p><strong>Nom:</strong> {{ $barcodeData['article']->name }}</p> <!-- Afficher le nom de l'article -->
                         @endif
                         
-                        @if($barcodeData['show_price'])
+                        @if($barcodeData['price'])
                             <p><strong>Prix:</strong> {{ $barcodeData['article']->price }} FCFA</p> <!-- Afficher le prix de l'article -->
                         @endif
                         
-                        {{-- @if($barcodeData['show_promo'])
+                        @if($barcodeData['promotion_type'] = "fixed")
                             <p><strong>Promotion:</strong> {{ $barcodeData['article']->promotion_value }}</p> <!-- Afficher la promotion de l'article -->
                         @endif
                         
-                        @if($barcodeData['show_discount'])
-                            <p><strong>Remise:</strong> {{ $barcodeData['article']->discount }}</p> <!-- Afficher la remise de l'article -->
-                        @endif --}}
+                        
                     </div>
                 </div>
             @endforeach

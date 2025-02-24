@@ -1033,9 +1033,9 @@ table {
 .text-primary {
   color: #336699 !important;
 }
-#290cc8
+#f70503
 .text-secondary {
-  color: #290cc8 !important;
+  color: #f70503 !important;
 }
 
 .text-dark {
@@ -1100,7 +1100,7 @@ table {
 }
 
 .bg-secondary {
-  background-color: #290cc8 !important;
+  background-color: #f70503 !important;
 }
 
 .bg-grey {
@@ -5171,8 +5171,8 @@ blockquote {
 
 .btn-secondary {
   color: #fff;
-  border-color: #290cc8;
-  background-color: #290cc8;
+  border-color: #f70503;
+  background-color: #f70503;
 }
 .btn-secondary:hover, .btn-secondary:active, .btn-secondary:focus {
   color: #fff;
@@ -5180,35 +5180,35 @@ blockquote {
   background-color: #f8914b;
 }
 .btn-secondary.btn-solid {
-  color: #290cc8;
+  color: #f70503;
   border-color: #fff;
   background-color: #fff;
 }
 .btn-secondary.btn-solid:hover, .btn-secondary.btn-solid:active, .btn-secondary.btn-solid:focus {
-  border-color: #290cc8;
-  background-color: #290cc8;
+  border-color: #f70503;
+  background-color: #f70503;
   color: #fff;
 }
 .btn-secondary.btn-outline {
-  color: #290cc8;
-  border-color: #290cc8;
+  color: #f70503;
+  border-color: #f70503;
   background-color: transparent;
 }
 .btn-secondary.btn-outline:hover, .btn-secondary.btn-outline:active, .btn-secondary.btn-outline:focus {
-  background-color: #290cc8;
+  background-color: #f70503;
   color: #fff;
 }
 .btn-secondary.btn-link {
   background-color: transparent;
-  color: #290cc8;
-  border-color: #290cc8;
+  color: #f70503;
+  border-color: #f70503;
 }
 .btn-secondary.btn-link:hover, .btn-secondary.btn-link:active, .btn-secondary.btn-link:focus {
-  color: #290cc8;
+  color: #f70503;
   background-color: transparent;
 }
 .btn-secondary.btn-underline:hover, .btn-secondary.btn-underline:active, .btn-secondary.btn-underline:focus {
-  color: #290cc8;
+  color: #f70503;
 }
 
 .btn-error {
@@ -7075,7 +7075,7 @@ textarea {
   color: #336699;
 }
 .icon-box-secondary .icon-box-icon i {
-  color: #290cc8;
+  color: #f70503;
 }
 .icon-box-white .icon-box-icon svg {
   fill: #fff;
@@ -8198,7 +8198,7 @@ body .product-popup {
 .rating-stars a.active:before,
 .rating-stars a:hover:before {
   content: "";
-  color: #290cc8;
+  color: #f70503;
 }
 .rating-stars .star-1 {
   z-index: 10;
@@ -8327,7 +8327,7 @@ body .product-popup {
   color: rgba(0, 0, 0, 0.2);
 }
 .product-single .ratings::before {
-  color: #290cc8;
+  color: #f70503;
 }
 .product-single .ratings-full, .product-single .ratings {
   letter-spacing: 0.18em;
@@ -8793,7 +8793,7 @@ body .product-popup {
   padding: 0.6rem 1rem;
 }
 .product-label.label-discount {
-  background: #290cc8;
+  background: #f70503;
 }
 .product-label.label-hot {
   background: #799b5a;
@@ -8972,7 +8972,7 @@ body .product-popup {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  background-color: #290cc8;
+  background-color: #f70503;
   -webkit-box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.08);
           box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.08);
   left: 50%;
@@ -9198,7 +9198,7 @@ body .product-popup {
 }
 .ratings::before {
   content: "" "" "" "" "";
-  color: #290cc8;
+  color: #f70503;
 }
 
 .rating-reviews {
@@ -12913,7 +12913,7 @@ aside .sp-sidebar-banner span {
   color: #fff;
 }
 .header a:not(.btn):hover {
-  color: #336699;
+  color: #f70503;
 }
 
 .header-top,
@@ -13031,7 +13031,7 @@ aside .sp-sidebar-banner span {
 
 .header-bottom {
   color: #333;
-  background: #0790af;
+  background: #333333;
   font-size: 1.4rem;
   font-weight: 600;
   letter-spacing: -0.025em;
@@ -13093,7 +13093,7 @@ aside .sp-sidebar-banner span {
   padding-top: 3.2rem;
   padding-bottom: 3.2rem;
   color: #e3e3e3;
-  background: #0790af;
+  background: #333333;
   font-size: 1.2rem;
   border-bottom: 1px solid #eee;
 }
@@ -14018,7 +14018,7 @@ aside .sp-sidebar-banner span {
   color: inherit;
 }
 .menu a:hover {
-  color: #336699;
+  color: #f70503;
 }
 .menu .menu-title {
   margin-bottom: 2rem;
@@ -14111,7 +14111,7 @@ aside .sp-sidebar-banner span {
   left: -1.5rem;
 }
 .menu > li:hover > a:not(.menu-title), .menu > li.active > a:not(.menu-title) {
-  color: #336699;
+  color: #f70503;
 }
 .menu > li:hover > .submenu,
 .menu > li:hover .megamenu, .menu > li.show > .submenu,
@@ -14484,8 +14484,8 @@ aside .sp-sidebar-banner span {
   transition: color 0.3s;
 }
 .mobile-menu > li:hover svg, .mobile-menu > li.active svg {
-  stroke: #290cc8;
-  fill: #290cc8;
+  stroke: #f70503;
+  fill: #f70503;
 }
 .mobile-menu > li:last-child {
   padding-bottom: 0.5rem;
@@ -15314,7 +15314,7 @@ aside .sp-sidebar-banner span {
   content: "";
   width: 2.8em;
   height: 0.3rem;
-  background-color: #290cc8;
+  background-color: #f70503;
 }
 .intro-slide1 .slide-image {
   right: 36%;
@@ -15350,7 +15350,7 @@ aside .sp-sidebar-banner span {
 .intro-slide3 .banner-title::before, .intro-slide3 .banner-title::after {
   position: absolute;
   content: "";
-  background-color: #290cc8;
+  background-color: #f70503;
 }
 .intro-slide3 .banner-title::before {
   top: 50%;

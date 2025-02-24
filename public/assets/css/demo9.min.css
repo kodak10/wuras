@@ -13683,7 +13683,7 @@ body .product-popup {
   color: inherit;
 }
 .header a:not(.btn):hover {
-  color: #2266cc;
+  color: #f70503;
 }
 
 .header-top,
@@ -14784,7 +14784,7 @@ body .product-popup {
   color: inherit;
 }
 .menu a:hover {
-  color: #2266cc;
+  color: #f70503;
 }
 .menu .menu-title {
   margin-bottom: 2rem;
@@ -14877,7 +14877,7 @@ body .product-popup {
   left: -1.5rem;
 }
 .menu > li:hover > a:not(.menu-title), .menu > li.active > a:not(.menu-title) {
-  color: #2266cc;
+  color: #f70503;
 }
 .menu > li:hover > .submenu,
 .menu > li:hover .megamenu, .menu > li.show > .submenu,

@@ -26,7 +26,7 @@
     border: none !important ;
 }
 a.btn-product-icon.btn-cart.w-icon-cart {
-    background: #290cc8 !important;
+    background: #f70503 !important;
     color: #E3E7EA !important
 }
 

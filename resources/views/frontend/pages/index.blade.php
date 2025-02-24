@@ -1508,7 +1508,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
 </section>
 
 
-<section class="articlePromotionTopVentes">
+<section class="articlePromotionTopVentes" id="articlePromotion">
     <div class="container">
         <div class="row deals-wrapper appear-animate mb-8">
             <div class="col-lg-9 mb-4">

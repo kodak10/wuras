@@ -248,7 +248,7 @@
 
 
 
-<div class="container">
+<div class="container" id="articlePromotion">
     <div class="row deals-wrapper appear-animate mb-8">
         <div class="col-lg-9 mb-4">
             <div class="single-product h-100 br-sm">

@@ -253,7 +253,7 @@
                 </div>
                 <div class="header-right">
                     <a href="#" class="d-xl-show"><i class="w-icon-map-marker mr-1"></i>Suivre sa Commande</a>
-                    <a href="#"><i class="w-icon-sale"></i>Articles en Promotion</a>
+                    <a href="#articlePromotion"><i class="w-icon-sale"></i>Articles en Promotion</a>
                 </div>
             </div>
         </div>

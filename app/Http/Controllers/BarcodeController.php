@@ -32,57 +32,49 @@ class BarcodeController extends Controller
   
     public function store(Request $request)
     {
-        $code = $request->input('code');
         $quantity = $request->input('quantity');
         $productId = $request->input('product_id'); // ID de l'article
-        
+    
+        // Récupérer l'article
         $product = Article::find($productId);
-
+    
         if (!$product) {
-            // Si l'article n'existe pas, retournez une erreur ou une page avec un message
             return redirect()->back()->withErrors(['Aucun article sélectionné']);
         }
-
-
-        if (empty($code)) {
-            $code = 'DEFAULTCODE'; // Utiliser un code par défaut
-            }
+    
+        // Générer des codes-barres uniques
+        $barcodes = [];
+        for ($i = 0; $i < $quantity; $i++) {
+            // Générer un code unique (exemple : ID de l'article + timestamp + index)
+            $uniqueCode = $productId . '-' . now()->timestamp . '-' . $i;
+    
             // Générer le code-barres
-            $barcode = $this->generateBarcode($code);
-
-            $additionalInfo = $request->input('additional_info', []);
-
-            $barcodes = [];
-            for ($i = 0; $i < $quantity; $i++) {
-                // Recherche de l'article et récupération des informations
-                $product = Article::find($productId); 
-            
-            if (!$product) {
-                return redirect()->back()->withErrors(['Erreur de recherche de l\'article']);
-            }
-
-            $barcodeData = [
-                'barcode' => $barcode,
-                'show_name' => $product->name, // Nom de l'article
-                'show_price' => $product->price, // Prix de l'article
-                'promotion_type' => $product->promotion_type, // Type de promotion de l'article
-                'promotion_value' => $product->promotion_value, // Valeur de la promotion
-                'article' => $product, // Objet de l'article complet
-                'additional_info' => $additionalInfo, // Informations supplémentaires
+            $barcodeImage = $this->generateBarcode($uniqueCode);
+    
+            // Enregistrer le lien entre le code-barres et l'article
+            $barcodeRecord = \App\Models\ArticleBarcode::create([
+                'article_id' => $product->id,
+                'barcode_path' => $barcodeImage, // Chemin ou URL du code-barres
+            ]);
+    
+            // Ajouter les informations au tableau pour le PDF
+            $barcodes[] = [
+                'barcode' => $barcodeImage,
+                'name' => $product->name, // Nom de l'article actuel
+                'price' => $product->price, // Prix de l'article actuel
+                'promotion_type' => $product->promotion_type, // Type de promotion actuel
+                'promotion_value' => $product->promotion_value, // Valeur de la promotion actuelle
             ];
-
-            $barcodes[] = $barcodeData;
         }
-
+    
         // Charger la vue pour générer le PDF
-        $pdf = Pdf::loadView('backend.pages.codeBarres.pdf', compact('code',  'quantity',  'barcodes'));
-
-       // Générer un nom de fichier unique basé sur la date et l'heure
+        $pdf = Pdf::loadView('backend.pages.codeBarres.pdf', compact('barcodes', 'quantity'));
+    
+        // Générer un nom de fichier unique basé sur la date et l'heure
         $fileName = 'code-barres-' . now()->format('Ymd-His') . '.pdf';
-
+    
         // Télécharger le PDF généré avec un nom unique
         return $pdf->download($fileName);
-
     }
 
     private function generateBarcode($code)

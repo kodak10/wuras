@@ -56,7 +56,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
 }
 
 .accessoires{
-    background-color: #290cca;
+    background-color: #00657c;
 }
 
 .accessoires .tab-content{

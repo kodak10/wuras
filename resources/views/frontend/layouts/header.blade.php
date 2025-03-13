@@ -59,7 +59,6 @@
                 
               
                 <span class="divider d-lg-show"></span>
-                <a href="#" class="text-normal d-lg-show">FAQs</a>
                 {{-- <a href="#" class="d-lg-show login sign-in" data-bs-toggle="modal" data-bs-target="#loginModal">
                     <i class="w-icon-account"></i>Connexion
                 </a>
@@ -228,9 +227,7 @@
                             <li class="" >
                                 <a href="{{route('shop')}}">Magasin</a>
                             </li>
-                            <li class="">
-                                <a href="#">FAQs</a>
-                            </li>
+                            
                             <li class="" >
                                 <a href="#">Contactez-nous</a>
                             </li>

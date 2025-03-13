@@ -52,7 +52,6 @@
                             {{-- <li><a href="#">À propos de nous</a></li> --}}
                             <li><a href="#">Termes et conditions</a></li>
                             <li><a href="#">Politique de confidentialité</a></li>
-                            <li><a href="#">Faqs</a></li>
                             <br><br>
                             <li class="d-flex align-items-center">
                                 <span class="mr-3">Réseau Sociaux :</span> 

@@ -191,7 +191,6 @@
                     <ul class="mobile-menu">
                         <li><a href="/">Accueil</a></li>
                         <li><a href="/magasin">Magasin</a></li>
-                        <li><a href="#">FAQs</a></li>
                         <li><a href="#">Contactez-nous</a></li>
   
                         @auth

@@ -69,7 +69,7 @@ class VentesController extends Controller
                     return response()->json(['error' => 'Stock insuffisant pour l\'article ' . $product->name], 400);
                 }
             }
-            }
+        }
     
         return response()->json(['message' => 'Vente enregistrée avec succès!']);
     }

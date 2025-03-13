@@ -79,7 +79,7 @@
                                         <a href="{{ route('admin.') }}">Tableau de Bord</a>
                                     @elseif (Auth::user()->role == 'user')
                                         <li><a href="/home">Mon compte</a></li>
-                                        <li><a href="/home">Suivre sa commande</a></li>
+                                        <li><a href="/home#account-orders">Suivre sa commande</a></li>
                                         <li><a href="#">Mes souhaits</a></li>
                                     @endif
                                 </li>

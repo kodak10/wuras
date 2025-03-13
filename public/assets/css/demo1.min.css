@@ -15338,7 +15338,7 @@ aside .sp-sidebar-banner span {
 }
 
 .intro-slide3 .banner-content {
-  right: 4.6%;
+  left: 4.6%;
   margin-top: -0.7rem;
 }
 .intro-slide3 .banner-subtitle {
@@ -15727,7 +15727,7 @@ aside .sp-sidebar-banner span {
   }
 
   .intro-slide3 .banner-content {
-    right: 0;
+    left: 0;
   }
 
   .product-wrapper-1 .banner,

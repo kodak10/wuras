@@ -7,7 +7,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb align-items-center">
             <li class="breadcrumb-item">
-              <a class="text-muted text-decoration-none" href="index.html">
+              <a class="text-muted text-decoration-none" href="/admin">
                 <i class="ti ti-home fs-5"></i>
               </a>
             </li>

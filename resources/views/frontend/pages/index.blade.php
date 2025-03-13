@@ -96,7 +96,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
             <div class="swiper-slide banner banner-fixed intro-slide intro-slide3"
             style="background-image: url(assets/images/bannerpng); background-color: #D4D6D5; ">
                 <div class="banner-content y-50 mx-3">
-                    <div class="content-left mr-auto slide-animate mb-4 mb-lg-0" data-animation-options="{
+                    <div class="content-right mr-auto slide-animate mb-4 mb-lg-0" data-animation-options="{
                         'name': 'fadeInUpShorter', 'duration': '1s'
                     }">
                         <h5 class="banner-subtitle text-white br-xs">Matériels de Qualité Supérieure</h5>
@@ -119,7 +119,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
             </div>
            
             <!-- Slide 2 -->
-            {{-- <div class="swiper-slide banner banner-fixed intro-slide intro-slide1"
+            <div class="swiper-slide banner banner-fixed intro-slide intro-slide1"
                 style="background-image: url(assets/images/demos/demo9/slides/slide-2.jpg); background-color: #EDEEF0;">
                 <div class="banner-content d-inline-block y-50 mx-3">
                     <div class="slide-animate" data-animation-options="{
@@ -138,9 +138,9 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                         </a>
                     </div>
                 </div>
-            </div> --}}
+            </div>
             <!-- Slide 3 -->
-            {{-- <div class="swiper-slide banner banner-fixed content-center intro-slide intro-slide1"
+            <div class="swiper-slide banner banner-fixed content-center intro-slide intro-slide1"
             style="background-image: url(assets/images/demos/demo9/slides/slide-1.jpg); background-color: #EEF4F4;">
                 <div class="banner-content d-inline-block y-50 mx-3">
                     <div class="slide-animate" data-animation-options="{
@@ -156,7 +156,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                         </a>
                     </div>
                 </div>
-            </div> --}}
+            </div>
            
         </div>
     
@@ -1667,10 +1667,7 @@ a.btn-product-icon.btn-cart.w-icon-cart {
                                                             <div class="social-links">
                                                                 <div class="social-icons social-no-color border-thin">
                                                                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank" class="social-icon social-facebook w-icon-facebook"></a>
-                                            <a href="https://twitter.com/intent/tweet?url={{ url()->current() }}" target="_blank" class="social-icon social-twitter w-icon-twitter"></a>
-                                            <a href="https://www.pinterest.com/pin/create/button/?url={{ url()->current() }}" target="_blank" class="social-icon social-pinterest fab fa-pinterest-p"></a>
                                             <a href="https://wa.me/?text={{ urlencode(url()->current()) }}" target="_blank" class="social-icon social-whatsapp fab fa-whatsapp"></a>
-                                            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ url()->current() }}" target="_blank" class="social-icon social-youtube fab fa-linkedin-in"></a>
                                                                 </div>
                                                             </div>
                                                             <span class="divider d-xs-show"></span>

@@ -243,25 +243,24 @@ class ArticleController extends Controller
             // }
         }
 
-        return redirect()->route('admin.articles.create')->with('success', 'Article mis à jour avec succès!');
+        return redirect()->route('admin.articles.create')->with('success', 'Article ajouté avec succès!');
 
     } catch (\Exception $e) {
         return response()->json(['error' => 'Une erreur est survenue : ' . $e->getMessage()], 500);
     }
 }
 
-// public function destroy($id)
-// {
-//     // Trouver l'article par son ID
-//     $article = Article::findOrFail($id);
+public function destroy(Article $article)
+{
+    try {
+        $article->delete();
+        return redirect()->route('admin.articles.index')->with('success', 'L\'article a été supprimé avec succès.');
+    } catch (\Exception $e) {
+        return redirect()->route('admin.articles.index')->with('error', 'Erreur lors de la suppression de l\'article.');
+    }
+}
 
-//     // Supprimer l'article
-//     $article->delete();
-    
 
-//     // Rediriger avec un message de succès
-//     return redirect()->route('admin.articles.index')->with('success', 'L\'article a été supprimé avec succès.');
-// }
 
 public function edit($id)
     {

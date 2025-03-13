@@ -131,10 +131,10 @@
                         <a href="tel:+2250749667007" class="phone-number font-weight-bolder ls-50">07 49 66 70 07</a>
                     </div>
                 </div>
-                <a class="wishlist label-down link d-xs-show" href="#">
+                {{-- <a class="wishlist label-down link d-xs-show" href="#">
                     <i class="w-icon-heart"></i>
                     <span class="wishlist-label d-lg-show">Liste de souhaits</span>
-                </a>
+                </a> --}}
                 {{-- <a class="compare label-down link d-xs-show" href="#">
                     <i class="w-icon-compare"></i>
                     <span class="compare-label d-lg-show">Comparaison</span>
@@ -252,8 +252,8 @@
                     </nav>
                 </div>
                 <div class="header-right">
-                    <a href="#" class="d-xl-show"><i class="w-icon-map-marker mr-1"></i>Suivre sa Commande</a>
-                    <a href="#articlePromotion"><i class="w-icon-sale"></i>Articles en Promotion</a>
+                    <a href="/home#account-orders" class="d-xl-show"><i class="w-icon-map-marker mr-1"></i>Suivre sa Commande</a>
+                    <a href="/magasin#articlePromotion"><i class="w-icon-sale"></i>Articles en Promotion</a>
                 </div>
             </div>
         </div>

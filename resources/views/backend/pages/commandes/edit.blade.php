@@ -150,13 +150,13 @@
                   <div class="col-lg-4">
                     <div class="card shadow-none border">
                       <div class="card-body p-4">
-                        <h6 class="mb-3 fs-4 fw-semibold">{{ $commande->user->name }}</h6>
-                        <p class="mb-1 fs-2">{{ $commande->user->address ?? 'Adresse non disponible' }}</p>
+                        <h6 class="mb-3 fs-4 fw-semibold">Client</h6>
+                        <p class="mb-1 fs-2">{{ $commande->user->name ?? '' }}</p>
                         <p class="mb-1 fs-2">{{ $commande->user->email ?? 'Email non disponible' }}</p>
                         <p class="mb-1 fs-2">Membre depuis :{{ $commande->user->created_at ?? 'Erreur' }}</p>
 
                         <h6 class="d-flex align-items-center gap-2 my-4 fw-semibold fs-4">
-                            <i class="ti ti-device-mobile fs-7"></i>{{ $commande->user->phone }}
+                            <i class="ti ti-device-mobile fs-7"></i>{{ $commande->user->phone ?? '' }}
                         </h6>
                         {{-- <a href="javascript:void(0)" class="btn btn-outline-primary  billing-address">Deliver To
                           this address</a> --}}
@@ -167,9 +167,9 @@
                     <div class="card shadow-none border">
                       <div class="card-body p-4">
                         <h6 class="mb-3 fs-4 fw-semibold">Adresse principale</h6>
-                        <p class="mb-1 fs-2">{{ $commande->user->address ?? 'Adresse non disponible' }}</p>
+                        <p class="mb-1 fs-2">{{ $commande->user->address->commune  ?? 'Adresse non disponible'}}</p>
                         <h6 class="d-flex align-items-center gap-2 my-4 fw-semibold fs-4">
-                          <i class="ti ti-device-mobile fs-7"></i>9999501050
+                          <i class="ti ti-device-mobile fs-7"></i>{{ $commande->user->address->phone01 ?? '' }}
                         </h6>
                         {{-- <a href="javascript:void(0)" class="btn btn-outline-primary  billing-address">Deliver To
                           this address</a> --}}
@@ -180,9 +180,9 @@
                     <div class="card shadow-none border">
                       <div class="card-body p-4">
                         <h6 class="mb-3 fs-4 fw-semibold">Adresse de livraison</h6>
-                        <p class="mb-1 fs-2">{{ $commande->user->address ?? 'Adresse non disponible' }}</p>
+                        <p class="mb-1 fs-2">{{ $commande->user->address->lieu_livraison ?? 'Adresse non disponible' }}</p>
                         <h6 class="d-flex align-items-center gap-2 my-4 fw-semibold fs-4">
-                          <i class="ti ti-device-mobile fs-7"></i>9999501050
+                          <i class="ti ti-device-mobile fs-7"></i>{{ $commande->user->address->phone01 ?? '' }}
                         </h6>
                         {{-- <a href="javascript:void(0)" class="btn btn-outline-primary  billing-address">Deliver To
                           this address</a> --}}

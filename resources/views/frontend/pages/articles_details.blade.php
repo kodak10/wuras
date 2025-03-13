@@ -225,10 +225,7 @@
                                 <div class="social-links">
                                     <div class="social-icons social-no-color border-thin">
                                         <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank" class="social-icon social-facebook w-icon-facebook"></a>
-                                        <a href="https://twitter.com/intent/tweet?url={{ url()->current() }}" target="_blank" class="social-icon social-twitter w-icon-twitter"></a>
-                                        <a href="https://www.pinterest.com/pin/create/button/?url={{ url()->current() }}" target="_blank" class="social-icon social-pinterest fab fa-pinterest-p"></a>
                                         <a href="https://wa.me/?text={{ urlencode(url()->current()) }}" target="_blank" class="social-icon social-whatsapp fab fa-whatsapp"></a>
-                                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ url()->current() }}" target="_blank" class="social-icon social-youtube fab fa-linkedin-in"></a>
                                     </div>
                                     
                                 </div>
@@ -711,7 +708,7 @@
                                 <h4 class="title title-link font-weight-bold">Voir plus</h4>
                             </div>
 
-                            <div class="swiper nav-top">
+                            {{-- <div class="swiper nav-top">
                                 <div class="swiper-container swiper-theme nav-top" data-swiper-options = "{
                                     'slidesPerView': 1,
                                     'spaceBetween': 20,
@@ -849,7 +846,7 @@
                                     <button class="swiper-button-next"></button>
                                     <button class="swiper-button-prev"></button>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

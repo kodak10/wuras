@@ -31,7 +31,7 @@
                 <div class="d-flex align-items-start position-relative">
                     <div>
                         <h4 class="fw-bolder fs-5">Gains</h4>
-                        <h2 class="text-primary fs-7">63,438.78 FCFA</h2>
+                        <h2 class="text-primary fs-7">0 FCFA</h2>
                     </div>
                     <div class="ms-auto">
                         <span class="btn round-48 fs-7 rounded-circle btn-primary d-flex align-items-center justify-content-center">
@@ -39,7 +39,7 @@
                         </span>
                     </div>
                 </div>
-                <a href="javascript:void(0)" class="btn btn-primary position-relative mt-2">Telecharger</a>
+                <a href="javascript:void(0)" class="btn btn-primary position-relative mt-2">Télécharger</a>
             </div>
         </div>
     </div>
@@ -53,7 +53,7 @@
                       <i class="ti ti-users"></i>
                   </span>
                   <h3 class="mt-3 pt-1 mb-0 fs-6">
-                      39,354
+                      0
                   </h3>
                   <h6 class="text-muted mb-0 fw-normal">{{ $magasin->name }}</h6>
               </div>
@@ -72,8 +72,8 @@
         <div class="card-body">
           <div class="d-flex align-items-start position-relative">
             <div>
-              <h4 class="fw-bolder fs-5">Earnings</h4>
-              <h2 class="text-primary fs-7">$63,438.78</h2>
+              <h4 class="fw-bolder fs-5">Gains</h4>
+              <h2 class="text-primary fs-7">0</h2>
             </div>
             <div class="ms-auto">
               <span class="btn round-48 fs-7 rounded-circle btn-primary d-flex align-items-center justify-content-center">
@@ -81,59 +81,25 @@
               </span>
             </div>
           </div>
-          <a href="javascript:void(0)" class="btn btn-primary position-relative mt-2">Download</a>
+          <a href="javascript:void(0)" class="btn btn-primary position-relative mt-2">Télécharger</a>
         </div>
       </div>
     </div>
     <div class="col-lg-8">
       <div class="card-group">
-        <div class="card">
-          <div class="card-body">
-            <span class="btn round-50 fs-6 text-info rounded-circle bg-info-subtle d-flex align-items-center justify-content-center">
-              <i class="ti ti-users"></i>
-            </span>
-            <h3 class="mt-3 pt-1 mb-0 fs-6">
-              39,354
-            </h3>
-            <h6 class="text-muted mb-0 fw-normal">Customers</h6>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <span class="btn round-50 fs-6 text-warning rounded-circle bg-warning-subtle d-flex align-items-center justify-content-center">
-              <i class="ti ti-package"></i>
-            </span>
-            <h3 class="mt-3 pt-1 mb-0 fs-6">
-              4396
-              <span class="fs-2 ms-1 text-success fw-medium">+23%</span>
-            </h3>
-            <h6 class="text-muted mb-0 fw-normal">Products</h6>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <span class="btn round-50 fs-6 text-danger rounded-circle bg-danger-subtle d-flex align-items-center justify-content-center">
-              <i class="ti ti-chart-bar"></i>
-            </span>
-            <h3 class="mt-3 pt-1 mb-0 fs-6 d-flex align-items-center">
-              423,39
-              <span class="fs-2 ms-1 text-success fw-medium">+38%</span>
-            </h3>
-            <h6 class="text-muted mb-0 fw-normal">Sales</h6>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <span class="btn round-50 fs-6 text-success rounded-circle bg-success-subtle d-flex align-items-center justify-content-center">
-              <i class="ti ti-refresh"></i>
-            </span>
-            <h3 class="mt-3 pt-1 mb-0 fs-6">
-              835
-              <span class="fs-2 ms-1 text-danger fw-medium">-12%</span>
-            </h3>
-            <h6 class="text-muted mb-0 fw-normal">Refunds</h6>
-          </div>
-        </div>
+        @foreach ($magasins as $magasin)
+            <div class="card">
+              <div class="card-body">
+                  <span class="btn round-50 fs-6 text-info rounded-circle bg-info-subtle d-flex align-items-center justify-content-center">
+                      <i class="ti ti-users"></i>
+                  </span>
+                  <h3 class="mt-3 pt-1 mb-0 fs-6">
+                      0
+                  </h3>
+                  <h6 class="text-muted mb-0 fw-normal">{{ $magasin->name }}</h6>
+              </div>
+            </div>
+          @endforeach
       </div>
     </div>
   @endif
@@ -144,53 +110,19 @@
   @if (auth()->user()->role === 'employe')
     <div class="col-lg-12 mb-3">
         <div class="card-group">
-            <div class="card">
-                <div class="card-body">
-                    <span class="btn round-50 fs-6 text-info rounded-circle bg-info-subtle d-flex align-items-center justify-content-center">
-                        <i class="ti ti-users"></i>
-                    </span>
-                    <h3 class="mt-3 pt-1 mb-0 fs-6">
-                        39,354
-                    </h3>
-                    <h6 class="text-muted mb-0 fw-normal">Customers</h6>
-                </div>
+          @foreach ($magasins as $magasin)
+          <div class="card">
+            <div class="card-body">
+                <span class="btn round-50 fs-6 text-info rounded-circle bg-info-subtle d-flex align-items-center justify-content-center">
+                    <i class="ti ti-users"></i>
+                </span>
+                <h3 class="mt-3 pt-1 mb-0 fs-6">
+                    0
+                </h3>
+                <h6 class="text-muted mb-0 fw-normal">{{ $magasin->name }}</h6>
             </div>
-            <div class="card">
-                <div class="card-body">
-                    <span class="btn round-50 fs-6 text-warning rounded-circle bg-warning-subtle d-flex align-items-center justify-content-center">
-                        <i class="ti ti-package"></i>
-                    </span>
-                    <h3 class="mt-3 pt-1 mb-0 fs-6">
-                        4396
-                        <span class="fs-2 ms-1 text-success fw-medium">+23%</span>
-                    </h3>
-                    <h6 class="text-muted mb-0 fw-normal">Products</h6>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <span class="btn round-50 fs-6 text-danger rounded-circle bg-danger-subtle d-flex align-items-center justify-content-center">
-                        <i class="ti ti-chart-bar"></i>
-                    </span>
-                    <h3 class="mt-3 pt-1 mb-0 fs-6 d-flex align-items-center">
-                        423,39
-                        <span class="fs-2 ms-1 text-success fw-medium">+38%</span>
-                    </h3>
-                    <h6 class="text-muted mb-0 fw-normal">Sales</h6>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <span class="btn round-50 fs-6 text-success rounded-circle bg-success-subtle d-flex align-items-center justify-content-center">
-                        <i class="ti ti-refresh"></i>
-                    </span>
-                    <h3 class="mt-3 pt-1 mb-0 fs-6">
-                        835
-                        <span class="fs-2 ms-1 text-danger fw-medium">-12%</span>
-                    </h3>
-                    <h6 class="text-muted mb-0 fw-normal">Refunds</h6>
-                </div>
-            </div>
+          </div>
+        @endforeach
         </div>
     </div>
   @endif

@@ -140,7 +140,7 @@
                         @endforelse
                     </div>
                     <div class="py-6 px-7 mb-1">
-                        <a href="#" class="btn btn-outline-primary w-100">Voir tous les produits</a>
+                        <a href="{{ route('admin.stock.index') }}" class="btn btn-outline-primary w-100">Voir tous les produits</a>
                     </div>
                 </div>
             </li>
@@ -189,15 +189,20 @@
                           <span class="fs-3 d-block text-body-secondary">Paramètres du compte</span>
                         </div>
                       </a>
-                      <a href="#" class="py-8 px-7 d-flex align-items-center">
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                    
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
+                       class="py-8 px-7 d-flex align-items-center">
                         <span class="d-flex align-items-center justify-content-center text-bg-light rounded-1 p-6">
-                          <img src="{{asset('assets/backend/images/svgs/icon-inbox.svg')}}" alt="flexy-img" width="24" height="24" />
+                            <img src="{{ asset('assets/backend/images/svgs/icon-inbox.svg') }}" alt="flexy-img" width="24" height="24" />
                         </span>
                         <div class="w-100 ps-3">
-                          <h6 class="mb-0 fs-4 lh-base">Ma boîte de réception</h6>
-                          <span class="fs-3 d-block text-body-secondary">Messages & Emails</span>
+                            <h6 class="mb-0 fs-4 lh-base">Se Déconnecter</h6>
                         </div>
-                      </a>
+                    </a>
+                    
                       
                     </div>
                     
@@ -223,7 +228,7 @@
             </a>
           </li>
           <li class="nav-item d-none d-xl-block">
-            <a href="main/index.html" class="text-nowrap nav-link">
+            <a href="/" class="text-nowrap nav-link">
               <img src="assets/backend/images/logos/dark-logo.svg" class="dark-logo" alt="flexy-img" />
               <img src="assets/backend/images/logos/light-logo.svg" class="light-logo" alt="flexy-img" />
             </a>
@@ -244,7 +249,7 @@
          
         </ul>
         <div class="d-block d-xl-none">
-          <a href="main/index.html" class="text-nowrap nav-link">
+          <a href="/" class="text-nowrap nav-link">
             <img src="assets/backend/images/logos/dark-logo.svg" width="180" alt="flexy-img" />
           </a>
         </div>

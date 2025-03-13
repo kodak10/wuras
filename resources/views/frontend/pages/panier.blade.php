@@ -99,8 +99,8 @@
                                         <td class="product-quantity">
                                             <div class="input-group">
                                                 <input class="quantite form-control" type="text" name="cart[{{ $product_id }}]"  value="{{ $details['quantite'] ? : 1 }}" data-product-id="{{ $product_id }}">
-                                                <button class="quantity-plus w-icon-plus"></button>
-                                                <button class="quantity-minus w-icon-minus"></button>
+                                                {{-- <button class="quantity-plus w-icon-plus"></button>
+                                                <button class="quantity-minus w-icon-minus"></button> --}}
                                             </div>
                                         </td>
                                         <td class="product-subtotal">
